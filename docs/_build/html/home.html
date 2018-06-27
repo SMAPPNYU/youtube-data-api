@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>py package &mdash; YouTube Data API  documentation</title>
+  <title>YouTube Data API Client’s documentation &mdash; YouTube Data API Client  documentation</title>
   
 
   
@@ -46,7 +46,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> YouTube Data API
+            <a href="#" class="icon icon-home"> YouTube Data API Client
           
 
           
@@ -78,14 +78,15 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">py package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-parsers">py.parsers module</a></li>
-<li><a class="reference internal" href="#module-youtube_api">py.youtube_api module</a></li>
-<li><a class="reference internal" href="#module-youtube_api_utils">py.youtube_api_utils module</a></li>
-<li><a class="reference internal" href="#module-py">Module contents</a></li>
+<li><a class="reference internal" href="#">YouTube Data API Client’s documentation</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#youtube-data-api-package">YouTube Data API package</a><ul>
+<li><a class="reference internal" href="#modules">Modules</a></li>
+<li><a class="reference internal" href="#module-youtube_api">youtube_api module</a></li>
+<li><a class="reference internal" href="#module-youtube_api_utils">youtube_api_utils module</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 </div>
             
@@ -100,7 +101,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">YouTube Data API</a>
+          <a href="#">YouTube Data API Client</a>
         
       </nav>
 
@@ -129,15 +130,15 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>py package</li>
+      <li>YouTube Data API Client’s documentation</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/py.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/home.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -150,73 +151,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="py-package">
-<h1>py package<a class="headerlink" href="#py-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="youtube-data-api-client-s-documentation">
+<h1>YouTube Data API Client’s documentation<a class="headerlink" href="#youtube-data-api-client-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
 </div>
-<div class="section" id="module-parsers">
-<span id="py-parsers-module"></span><h2>py.parsers module<a class="headerlink" href="#module-parsers" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="parsers.default">
-<code class="descclassname">parsers.</code><code class="descname">default</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.default" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the input</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="parsers.parse_caption_track">
-<code class="descclassname">parsers.</code><code class="descname">parse_caption_track</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.parse_caption_track" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="parsers.parse_channel_metadata">
-<code class="descclassname">parsers.</code><code class="descname">parse_channel_metadata</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.parse_channel_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parses a JSON object for relevant fields</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="parsers.parse_comment_metadata">
-<code class="descclassname">parsers.</code><code class="descname">parse_comment_metadata</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.parse_comment_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parses JSON object for comment metadata</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="parsers.parse_featured_channels">
-<code class="descclassname">parsers.</code><code class="descname">parse_featured_channels</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.parse_featured_channels" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="parsers.parse_playlist_metadata">
-<code class="descclassname">parsers.</code><code class="descname">parse_playlist_metadata</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.parse_playlist_metadata" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="parsers.parse_rec_video_metadata">
-<code class="descclassname">parsers.</code><code class="descname">parse_rec_video_metadata</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.parse_rec_video_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parses a JSON object for relevant fields</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="parsers.parse_subscription_descriptive">
-<code class="descclassname">parsers.</code><code class="descname">parse_subscription_descriptive</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.parse_subscription_descriptive" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="parsers.parse_video_metadata">
-<code class="descclassname">parsers.</code><code class="descname">parse_video_metadata</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.parse_video_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parses a JSON object for relevant fields</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="parsers.parse_video_url">
-<code class="descclassname">parsers.</code><code class="descname">parse_video_url</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#parsers.parse_video_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a <cite>video_id</cite> and a <cite>publish_date</cite>
-from a json object from <cite>get_video_urls_from_playlist_id</cite></p>
-</dd></dl>
-
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>pip install &lt;package name tbd&gt; and formatting tbd because this godforsaken docs generator has no instructions anywhere</p>
+</div>
+<div class="section" id="youtube-data-api-package">
+<h1>YouTube Data API package<a class="headerlink" href="#youtube-data-api-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-youtube_api">
-<span id="py-youtube-api-module"></span><h2>py.youtube_api module<a class="headerlink" href="#module-youtube_api" title="Permalink to this headline">¶</a></h2>
+<span id="youtube-api-module"></span><h2>youtube_api module<a class="headerlink" href="#module-youtube_api" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="youtube_api.YoutubeDataApi">
 <em class="property">class </em><code class="descclassname">youtube_api.</code><code class="descname">YoutubeDataApi</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.YoutubeDataApi" title="Permalink to this definition">¶</a></dt>
@@ -225,7 +175,24 @@ from a json object from <cite>get_video_urls_from_playlist_id</cite></p>
 <dl class="method">
 <dt id="youtube_api.YoutubeDataApi.get_captions">
 <code class="descname">get_captions</code><span class="sig-paren">(</span><em>video_id</em>, <em>lang_code='en'</em>, <em>verbose=1</em>, <em>parser=&lt;function parse_caption_track&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.YoutubeDataApi.get_captions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Grabs captions given a video id using the PyTube and BeautifulSoup Packages.s</p>
+<dd><p>Grabs captions given a video id using the PyTube and BeautifulSoup Packages</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>video_id</strong> – (str) a vide_id IE: eqwPlwHSL_M</li>
+<li><strong>lang_code</strong> – (str) language to get captions in</li>
+<li><strong>verbose</strong> – (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</li>
+<li><strong>parser</strong> – (func) the function to parse the json document</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the captions from a given video_id</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -255,17 +222,46 @@ This can be done using <cite>get_upload_playlist()</cite> for <cite>get_channel_
 <dt id="youtube_api.YoutubeDataApi.get_channel_metadata">
 <code class="descname">get_channel_metadata</code><span class="sig-paren">(</span><em>channel_id</em>, <em>verbose=1</em>, <em>parser=&lt;function parse_channel_metadata&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.YoutubeDataApi.get_channel_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.</p>
-<p>input
-channel_id (str or list of str) the channel id(s)
-key (str) the API key to the Youtube Data API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>channel_id</strong> – (str or list of str) the channel id(s)</li>
+<li><strong>verbose</strong> – (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</li>
+<li><strong>parser</strong> – (func) the function to parse the json document</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dictionary of metadata from the channel</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="youtube_api.YoutubeDataApi.get_featured_channels">
 <code class="descname">get_featured_channels</code><span class="sig-paren">(</span><em>channel_id</em>, <em>verbose=1</em>, <em>parser=&lt;function parse_featured_channels&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.YoutubeDataApi.get_featured_channels" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a <cite>channel_id</cite> (str) returns a dictionary {channel_id : [list, of, channel_ids]}
+<dd><p>Given a <cite>channel_id</cite> returns a dictionary {channel_id : [list, of, channel_ids]}
 of featured channels.</p>
 <p>Optionally, can take a list of channel IDS, and returns a list of dictionaries.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>channel_id</strong> – (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw</li>
+<li><strong>verbose</strong> – (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</li>
+<li><strong>parser</strong> – (func) the function to parse the json document</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionary of featured channels</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -273,60 +269,117 @@ of featured channels.</p>
 <code class="descname">get_playlists</code><span class="sig-paren">(</span><em>channel_id</em>, <em>next_page_token=False</em>, <em>verbose=1</em>, <em>parser=&lt;function parse_playlist_metadata&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.YoutubeDataApi.get_playlists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of playlist IDs that <cite>channel_id</cite> created.
 Note that playlists can contains videos from any users.</p>
-<p>inputs
-channel_id (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
-next_page_token (str) a token to continue from a preciously stopped query IE:CDIQAA
-verbose (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</p>
-<p>return
-playlists (list of dicts) of playlist IDs that <cite>channel_id</cite> is subscribed to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>channel_id</strong> – (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw</li>
+<li><strong>next_page_token</strong> – (str) a token to continue from a preciously stopped query IE:CDIQAA</li>
+<li><strong>verbose</strong> – (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">playlists (list of dicts) of playlist IDs that <cite>channel_id</cite> is subscribed to.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="youtube_api.YoutubeDataApi.get_recommended_videos">
 <code class="descname">get_recommended_videos</code><span class="sig-paren">(</span><em>video_id</em>, <em>max_results=25</em>, <em>parser=&lt;function parse_rec_video_metadata&gt;</em>, <em>verbose=1</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.YoutubeDataApi.get_recommended_videos" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO: WRITE DOCs</p>
+<dd><p>Grabs captions given a video id using the PyTube and BeautifulSoup Packages</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>video_id</strong> – (str) a vide_id IE: eqwPlwHSL_M</li>
+<li><strong>max_results</strong> – (int) max number of recommended vids</li>
+<li><strong>verbose</strong> – (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</li>
+<li><strong>parser</strong> – (func) the function to parse the json document</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a list of videos and video metadata for recommended videos</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="youtube_api.YoutubeDataApi.get_subscriptions">
 <code class="descname">get_subscriptions</code><span class="sig-paren">(</span><em>channel_id</em>, <em>next_page_token=False</em>, <em>parser=&lt;function parse_subscription_descriptive&gt;</em>, <em>verbose=1</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.YoutubeDataApi.get_subscriptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of channel IDs that <cite>channel_id</cite> is subscribed to.</p>
-<p>inputs
-channel_id (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
-key (str) the API key to the Youtube Data API.
-next_page_token (str) a token to continue from a preciously stopped query IE:CDIQAA
-descriptive (bool) if set to True will return additional metadata about a subscription
-stop_after_n_iteration (int) stops the API calls after N API calls
-verbose (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</p>
-<p>return
-subscription_ids (list) of channel IDs that <cite>channel_id</cite> is subscrbed to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>channel_id</strong> – (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw</li>
+<li><strong>next_page_token</strong> – (str) a token to continue from a preciously stopped query IE:CDIQAA</li>
+<li><strong>stop_after_n_iteration</strong> – (int) stops the API calls after N API calls</li>
+<li><strong>verbose</strong> – (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</li>
+<li><strong>parser</strong> – (func) the function to parse the json document</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">subscription_ids (list) of channel IDs that <cite>channel_id</cite> is subscrbed to.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="youtube_api.YoutubeDataApi.get_video_comments">
 <code class="descname">get_video_comments</code><span class="sig-paren">(</span><em>video_id</em>, <em>get_replies=True</em>, <em>cutoff_date=datetime.datetime(1990</em>, <em>1</em>, <em>1</em>, <em>0</em>, <em>0)</em>, <em>verbose=1</em>, <em>parser=&lt;function parse_comment_metadata&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.YoutubeDataApi.get_video_comments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of comments on a given video</p>
-<p>inputs
-video_id (str) a vide_id IE: eqwPlwHSL_M
-get_replies (bool) whether or not to get replies to comments
-key (str) the API key to the Youtube Data API.
-stop_after_n_iteration (int) stops the API calls after N API calls
-cutoff_date (datetime) a date for the minimum publish date for comments from a video_id.
-verbose (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</p>
-<p>return
-comments (list of dicts) of comments from the comments section on a given video_id</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>video_id</strong> – (str) a vide_id IE: eqwPlwHSL_M</li>
+<li><strong>get_replies</strong> – (bool) whether or not to get replies to comments</li>
+<li><strong>stop_after_n_iteration</strong> – (int) stops the API calls after N API calls</li>
+<li><strong>cutoff_date</strong> – (datetime) a date for the minimum publish date for comments from a video_id.</li>
+<li><strong>verbose</strong> – (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</li>
+<li><strong>parser</strong> – (func) the function to parse the json document</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">comments (list of dicts) of comments from the comments section on a given video_id</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="youtube_api.YoutubeDataApi.get_video_metadata">
 <code class="descname">get_video_metadata</code><span class="sig-paren">(</span><em>video_id</em>, <em>verbose=1</em>, <em>parser=&lt;function parse_video_metadata&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.YoutubeDataApi.get_video_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a <cite>video_id</cite> returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.</p>
-<p>inputs
-video_id (str or list of str) the ID of a video IE:kNbhUWLH_yY, this can be found at the end of Youtube urls and by parsing links using <cite>get_youtube_id()</cite>
-key (str) the API key to the Youtube Data API.
-verbose (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</p>
-<p>returns
-video_ids (str or list of str) a list of dictionaries containing metadata.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>video_id</strong> – (str or list of str) the ID of a video IE:kNbhUWLH_yY, this can be found at the end of Youtube urls and by parsing links using <cite>get_youtube_id()</cite></li>
+<li><strong>key</strong> – (str) the API key to the Youtube Data API.</li>
+<li><strong>verbose</strong> – (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</li>
+<li><strong>parser</strong> – (func) the function to parse the json document</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">video_ids (str or list of str) a list of dictionaries containing metadata.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -337,30 +390,31 @@ Note that to user uploads are a playlist from channels.
 Typically this pattern is just the channel ID with UU subbed as the first two letters.
 You can access this using the function <cite>get_upload_playlist_id</cite>, or from the <cite>playlist_id_likes</cite>
 key returned from <cite>get_channel_metadata</cite>.</p>
-<p>inputs
-playlist_id (str) the playlist_id IE:UUaLfMkkHhSA_LaCta0BzyhQ
-key (str) the API key to the Youtube Data API.
-next_page_token (str) a token to continue from a preciously stopped query IE:CDIQAA
-stop_after_n_iteration (int) stops the API calls after N API calls
-cutoff_date (datetime) a date for the minimum publish date for videos from a playlist_id.
-return_date (bool) if set to False only return video_ids
-verbose (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</p>
-<p>returns
-video_ids (list of str) a list of video ids associated with <cite>playlist_id</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>playlist_id</strong> – (str) the playlist_id IE:UUaLfMkkHhSA_LaCta0BzyhQ</li>
+<li><strong>next_page_token</strong> – (str) a token to continue from a preciously stopped query IE:CDIQAA</li>
+<li><strong>cutoff_date</strong> – (datetime) a date for the minimum publish date for videos from a playlist_id.</li>
+<li><strong>verbose</strong> – (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.</li>
+<li><strong>parser</strong> – (func) the function to parse the json document</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">video_ids (list of str) a list of video ids associated with <cite>playlist_id</cite>.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="function">
-<dt id="youtube_api.random_function">
-<code class="descclassname">youtube_api.</code><code class="descname">random_function</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api.random_function" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a random function for doc building test
-:param arg: is meaningless</p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-youtube_api_utils">
-<span id="py-youtube-api-utils-module"></span><h2>py.youtube_api_utils module<a class="headerlink" href="#module-youtube_api_utils" title="Permalink to this headline">¶</a></h2>
+<span id="youtube-api-utils-module"></span><h2>youtube_api_utils module<a class="headerlink" href="#module-youtube_api_utils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="youtube_api_utils.get_channel_id_from_custom_url">
 <code class="descclassname">youtube_api_utils.</code><code class="descname">get_channel_id_from_custom_url</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#youtube_api_utils.get_channel_id_from_custom_url" title="Permalink to this definition">¶</a></dt>
@@ -440,17 +494,14 @@ Will write to a logger if verbose = 1</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-py">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-py" title="Permalink to this headline">¶</a></h2>
-<p>pylib: rapid testing and development utils</p>
-<p>this module uses apipkg.py for lazy-loading sub modules
-and classes.  The initpkg-dictionary  below specifies
-name-&gt;value mappings where value can be another namespace
-dictionary or an import path.</p>
-<ol class="loweralpha simple" start="3">
-<li>Holger Krekel and others, 2004-2014</li>
-</ol>
 </div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
 </div>
 
 

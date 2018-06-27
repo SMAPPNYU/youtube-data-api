@@ -4,7 +4,7 @@ py package
 Submodules
 ----------
 
-py.parsers module
+parsers module
 -----------------
 
 .. automodule:: parsers
@@ -12,7 +12,7 @@ py.parsers module
     :undoc-members:
     :show-inheritance:
 
-py.youtube\_api module
+youtube\_api module
 ----------------------
 
 .. automodule:: youtube_api
@@ -20,7 +20,7 @@ py.youtube\_api module
     :undoc-members:
     :show-inheritance:
 
-py.youtube\_api\_utils module
+youtube\_api\_utils module
 -----------------------------
 
 .. automodule:: youtube_api_utils
