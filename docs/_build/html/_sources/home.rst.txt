@@ -8,7 +8,7 @@ YouTube Data API Client's documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Conent:
+   :caption: Content:
 
 Installation
 ============
