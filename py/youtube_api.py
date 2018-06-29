@@ -30,9 +30,21 @@ class YoutubeDataApi:
         This can be done using `get_upload_playlist()` for `get_channel_metadata()`.
 
         :param username: the username for a YouTube channel
+        :type username: str
         :param verbose: error handling
 
+        >>> x + 4
+
         :returns: the YouTube channel id for the given username
+
+        .. highlight:: python
+        .. code-block:: python
+
+            import sys
+            x + 3
+
+        Blue blue blue
+
         """
         http_endpoint = ("https://www.googleapis.com/youtube/v3/channels"
                          "?part=id"

@@ -25,18 +25,18 @@ def log(msg, verbose=1):
     else:
         pass
 
-    
-def load_response(response, verbose=1): 
+
+def load_response(response, verbose=1):
     '''
     Loads the response to json, and checks for errors.
     '''
-    try: 
+    try:
         response_json = json.loads(response.text)
     except Exception as e:
         log(e, verbose)
         log(response, verbose)
         return False
-    try:  
+    try:
         response.raise_for_status()
     except:
         response_json = handle_error(response_json, verbose)
@@ -51,6 +51,11 @@ def handle_error(error, verbose=1):
     reasons = []
     for e in error['error']['errors']:
         reasons.append(e['reason'])
+
+    elif 'keyInvalid' in reasons:
+        warnings.warn("Bad Key!")
+        log(error, verbose)
+        sys.exit()
     if 'dailyLimitExceeded' in reasons:
         log(error, verbose)
         raise Exception("Daily API Limit Exceeded!")
@@ -58,20 +63,22 @@ def handle_error(error, verbose=1):
     elif 'limitExceeded' in reasons:
         warnings.warn("API quota exceeded, sleeping for an hour!")
         log(error, verbose)
-        time.sleep(60 * 60)
+        sys.exit()
+        #time.sleep(60 * 60)
     elif 'quotaExceeded' in reasons:
         warnings.warn("API quota exceeded, sleeping for an hour!")
         log(error, verbose)
-        time.sleep(60 * 60)
+        sys.exit()
+        #time.sleep(60 * 60)
+    else:
+        warnings.warn("An unexpected error!")
+        log(error, verbose)
+        sys.exit()
     elif 'badRequest' in reasons:
-        warnings.warn("Bar Request!")
+        warnings.warn("Bad Request!")
         log(error, verbose)
     elif 'subscriptionForbidden' in reasons:
         warnings.warn("Viewing subscriptions are forbidden for this user!")
-    elif 'keyInvalid' in reasons:
-        warnings.warn("Bad Key!")
-        log(error, verbose)
-        sys.exit()    
     elif 'commentsDisabled' in reasons:
         warnings.warn("User has disabled comments on this video!")
         log(error, verbose)
@@ -84,10 +91,7 @@ def handle_error(error, verbose=1):
     elif 'playlistNotFound' in reasons:
         warnings.warn("This playlist does not exist!")
         log(error, verbose)
-    else:
-        warnings.warn("An unexpected error!")
-        log(error, verbose)
-        sys.exit()
+
 
 
 def handle_caption_error(error, verbose=1):
@@ -100,7 +104,7 @@ def handle_caption_error(error, verbose=1):
 def parse_yt_datetime(date_str):
     date = None
     if date_str:
-        try: 
+        try:
             date = datetime.datetime.strptime(date_str,"%Y-%m-%dT%H:%M:%S.%fZ")
         except:
             pass
@@ -108,17 +112,17 @@ def parse_yt_datetime(date_str):
 
 def strip_video_id_from_url(url):
     '''Strips a URL from youtube to a video_id'''
-    
+
     if '/watch?v=' in url.lower():
         url_ = (url.split('&v=')[-1].split('/watch?v=')[-1].split('?')[0].split('&')[0])
-        
+
     elif 'youtu.be' in url.lower():
         url_ = url[url.rindex('/') + 1:]
         if '?' in url_:
             url_ = url_[:url_.rindex('?')]
     else:
         url_ = None
-        
+
     return url_
 
 
@@ -145,7 +149,7 @@ def is_user(channel_url):
     else:
         raise Exception("Didn't recognize url {}".format(channel_url))
 
-        
+
 def strip_youtube_id(channel_url):
     '''
     From a URL returns the YT ID.
@@ -182,14 +186,14 @@ def text_from_html(html_body):
         if isinstance(element, Comment):
             return False
         return True
-    
+
     soup = BeautifulSoup(html_body, 'xml')
     raw_text = soup.findAll(text=True)
-    visible_text = filter(tag_visible, raw_text)  
+    visible_text = filter(tag_visible, raw_text)
     text = u" ".join(t.strip() for t in visible_text)
     text = re.sub(r"[\n\t]", ' ', text)
     text = re.sub(r'<.+?>', '', text)
     text = html.unescape(text)
     text = ' '.join(text.split())
-    
+
     return text

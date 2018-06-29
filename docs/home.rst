@@ -10,6 +10,10 @@ YouTube Data API Client's documentation
    :maxdepth: 2
    :caption: Content:
 
+Intro
+=====
+This is the YouTube Data API package
+
 Installation
 ============
 pip install <package name tbd> and formatting tbd because this godforsaken docs generator has no instructions anywhere
