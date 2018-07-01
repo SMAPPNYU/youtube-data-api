@@ -7,6 +7,7 @@ import datetime
 from collections import OrderedDict
 import pandas as pd
 from pytube import YouTube
+import warnings
 
 from youtube_api_utils import *
 import parsers as P
@@ -21,7 +22,12 @@ class YoutubeDataApi:
         :param key: YouTube Data API key
         Get a YouTube Data API key here: https://console.cloud.google.com/apis/dashboard
         """
-        self.key = key
+
+        if verify_key(key):
+            self.key = key
+        else:
+            warnings.warn("Your key was invalid!")
+            sys.exit()
 
     def get_channel_id_from_user(self, username, verbose=1):
         """
@@ -33,18 +39,7 @@ class YoutubeDataApi:
         :type username: str
         :param verbose: error handling
 
-        >>> x + 4
-
         :returns: the YouTube channel id for the given username
-
-        .. highlight:: python
-        .. code-block:: python
-
-            import sys
-            x + 3
-
-        Blue blue blue
-
         """
         http_endpoint = ("https://www.googleapis.com/youtube/v3/channels"
                          "?part=id"

@@ -11,6 +11,19 @@ from bs4 import BeautifulSoup, Comment
 import re
 import numpy as np
 
+def verify_key(key):
+    dummy_http = ("https://www.googleapis.com/youtube/v3/playlists"
+                     "?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&"
+                     "key={}&maxResults=2".format(key))
+    dummy_request = requests.get(dummy_http)
+
+    try:
+        dummy_request.raise_for_status()
+        return True
+    except:
+        return False
+
+
 def log(msg, verbose=1):
     '''
     Defaults to print,
@@ -52,7 +65,7 @@ def handle_error(error, verbose=1):
     for e in error['error']['errors']:
         reasons.append(e['reason'])
 
-    elif 'keyInvalid' in reasons:
+    if 'keyInvalid' in reasons:
         warnings.warn("Bad Key!")
         log(error, verbose)
         sys.exit()
@@ -70,10 +83,6 @@ def handle_error(error, verbose=1):
         log(error, verbose)
         sys.exit()
         #time.sleep(60 * 60)
-    else:
-        warnings.warn("An unexpected error!")
-        log(error, verbose)
-        sys.exit()
     elif 'badRequest' in reasons:
         warnings.warn("Bad Request!")
         log(error, verbose)
@@ -91,6 +100,10 @@ def handle_error(error, verbose=1):
     elif 'playlistNotFound' in reasons:
         warnings.warn("This playlist does not exist!")
         log(error, verbose)
+    else:
+        warnings.warn("An unexpected error!")
+        log(error, verbose)
+        sys.exit()
 
 
 
