@@ -39,7 +39,7 @@ def log(msg, verbose=1):
         pass
 
 
-def load_response(response, verbose=1):
+def load_response(response, verbose=1, handle_error=True):
     '''
     Loads the response to json, and checks for errors.
     '''
@@ -52,12 +52,15 @@ def load_response(response, verbose=1):
     try:
         response.raise_for_status()
     except:
-        response_json = handle_error(response_json, verbose)
+        if handle_error:
+            response_json = error_handler(response_json, verbose)
+        else:
+            sys.exit()
 
     return response_json
 
 
-def handle_error(error, verbose=1):
+def error_handler(error, verbose=1):
     '''
     Parses errors if the request raised a status.
     '''

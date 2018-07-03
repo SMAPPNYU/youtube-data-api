@@ -29,7 +29,7 @@ class YoutubeDataApi:
             warnings.warn("Your key was invalid!")
             sys.exit()
 
-    def get_channel_id_from_user(self, username, verbose=1):
+    def get_channel_id_from_user(self, username, verbose=1, handle_error=True):
         """
         Get a channel_id from a YouTube username.
         To get video_ids from the channel_id, you need to get the "upload playlist id".
@@ -37,7 +37,9 @@ class YoutubeDataApi:
 
         :param username: the username for a YouTube channel
         :type username: str
-        :param verbose: error handling
+        :param verbose: logging settings
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: the YouTube channel id for the given username
         """
@@ -45,7 +47,7 @@ class YoutubeDataApi:
                          "?part=id"
                          "&forUsername={}&key={}".format(username, self.key))
         response = requests.get(http_endpoint)
-        response_json = load_response(response, verbose)
+        response_json = load_response(response, verbose, handle_error)
         if response_json:
             if "items" in response_json and response_json['items']:
                 channel_id = response_json['items'][0]['id']
@@ -56,7 +58,7 @@ class YoutubeDataApi:
             return response_json
 
 
-    def get_video_metadata(self, video_id, verbose=1, parser=P.parse_video_metadata):
+    def get_video_metadata(self, video_id, verbose=1, parser=P.parse_video_metadata, handle_error=True):
         '''
         Given a `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.
 
@@ -64,6 +66,8 @@ class YoutubeDataApi:
         :param key: (str) the API key to the Youtube Data API.
         :param verbose: (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.
         :param parser: (func) the function to parse the json document
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: video_ids (str or list of str) a list of dictionaries containing metadata.
         '''
@@ -78,7 +82,7 @@ class YoutubeDataApi:
                          "?part=statistics,snippet"
                          "&id={}&key={}&maxResults=50".format(video_id, self.key))
         response = requests.get(http_endpoint)
-        response_json = load_response(response, verbose)
+        response_json = load_response(response, verbose, handle_error)
         video_meta = []
         if response_json:
             for item in response_json['items']:
@@ -92,7 +96,7 @@ class YoutubeDataApi:
 
     def get_video_urls_from_playlist_id(self, playlist_id, next_page_token=False,
                                         cutoff_date=datetime.datetime(1990,1,1),
-                                        verbose=1, parser=P.parse_video_url):
+                                        verbose=1, parser=P.parse_video_url, handle_error=True):
         '''
         Given a `playlist_id`, returns a list of `video_ids` associated with that playlist.
         Note that to user uploads are a playlist from channels.
@@ -105,6 +109,8 @@ class YoutubeDataApi:
         :param cutoff_date: (datetime) a date for the minimum publish date for videos from a playlist_id.
         :param verbose: (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.
         :param parser: (func) the function to parse the json document
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: video_ids (list of str) a list of video ids associated with `playlist_id`.
         '''
@@ -122,7 +128,7 @@ class YoutubeDataApi:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
             response = requests.get(http_endpoint)
-            response_json = load_response(response, verbose)
+            response_json = load_response(response, verbose, handle_error)
             if response_json:
                 for item in response_json['items']:
                     v_id = parser(item)
@@ -143,13 +149,15 @@ class YoutubeDataApi:
         return video_ids
 
 
-    def get_channel_metadata(self, channel_id, verbose=1, parser=P.parse_channel_metadata):
+    def get_channel_metadata(self, channel_id, verbose=1, parser=P.parse_channel_metadata, handle_error=True):
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
 
         :param channel_id: (str or list of str) the channel id(s)
         :param verbose: (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.
         :param parser: (func) the function to parse the json document
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: dictionary of metadata from the channel
         '''
@@ -163,7 +171,7 @@ class YoutubeDataApi:
                          "?part=id,snippet,contentDetails,statistics,topicDetails,brandingSettings"
                          "&id={}&key={}&maxResults=50".format(channel_id, self.key))
         response = requests.get(http_endpoint)
-        response_json = load_response(response, verbose)
+        response_json = load_response(response, verbose, handle_error)
 
         channel_meta = []
         if response_json:
@@ -180,7 +188,7 @@ class YoutubeDataApi:
 
     def get_subscriptions(self, channel_id, next_page_token=False,
                           parser = P.parse_subscription_descriptive,
-                          verbose= 1):
+                          verbose= 1, handle_error=True):
         '''
         Returns a list of channel IDs that `channel_id` is subscribed to.
 
@@ -189,6 +197,8 @@ class YoutubeDataApi:
         :param stop_after_n_iteration: (int) stops the API calls after N API calls
         :param verbose: (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.
         :param parser: (func) the function to parse the json document
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: subscription_ids (list) of channel IDs that `channel_id` is subscrbed to.
         '''
@@ -204,7 +214,7 @@ class YoutubeDataApi:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
             response = requests.get(http_endpoint)
-            response_json = load_response(response, verbose)
+            response_json = load_response(response, verbose, handle_error)
             if not response_json:
                 run = False
                 break
@@ -227,7 +237,7 @@ class YoutubeDataApi:
         return subscriptions
 
 
-    def get_featured_channels(self, channel_id, verbose=1, parser=P.parse_featured_channels):
+    def get_featured_channels(self, channel_id, verbose=1, parser=P.parse_featured_channels, handle_error=True):
         '''
         Given a `channel_id` returns a dictionary {channel_id : [list, of, channel_ids]}
         of featured channels.
@@ -237,6 +247,8 @@ class YoutubeDataApi:
         :param channel_id: (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
         :param verbose: (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.
         :param parser: (func) the function to parse the json document
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: A dictionary of featured channels
         '''
@@ -250,7 +262,7 @@ class YoutubeDataApi:
                          "?part=id,brandingSettings"
                          "&id={}&key={}".format(channel_id, self.key))
         response = requests.get(http_endpoint)
-        response_json = load_response(response, verbose)
+        response_json = load_response(response, verbose, handle_error)
 
         feat_channels = []
         if response_json:
@@ -265,7 +277,7 @@ class YoutubeDataApi:
 
 
     def get_playlists(self, channel_id, next_page_token=False,
-                      verbose=1, parser=P.parse_playlist_metadata):
+                      verbose=1, parser=P.parse_playlist_metadata, handle_error=True):
         '''
         Returns a list of playlist IDs that `channel_id` created.
         Note that playlists can contains videos from any users.
@@ -273,6 +285,8 @@ class YoutubeDataApi:
         :param channel_id: (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
         :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA
         :param verbose: (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: playlists (list of dicts) of playlist IDs that `channel_id` is subscribed to.
         '''
@@ -286,7 +300,7 @@ class YoutubeDataApi:
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
             response = requests.get(http_endpoint)
-            response_json = load_response(response, verbose)
+            response_json = load_response(response, verbose, handle_error)
             if not response_json:
                 run = False
                 break
@@ -309,7 +323,7 @@ class YoutubeDataApi:
 
     def get_video_comments(self, video_id, get_replies = True,
                            cutoff_date=datetime.datetime(1990,1,1),
-                           verbose=1, parser=P.parse_comment_metadata):
+                           verbose=1, parser=P.parse_comment_metadata, handle_error=True):
         """
         Returns a list of comments on a given video
 
@@ -319,6 +333,8 @@ class YoutubeDataApi:
         :param cutoff_date: (datetime) a date for the minimum publish date for comments from a video_id.
         :param verbose: (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.
         :param parser: (func) the function to parse the json document
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: comments (list of dicts) of comments from the comments section on a given video_id
         """
@@ -331,7 +347,7 @@ class YoutubeDataApi:
 
         response = requests.get(init_http_endpoint)
 
-        json_doc = load_response(response, verbose)
+        json_doc = load_response(response, verbose, handle_error)
 
         if not json_doc:
             return []
@@ -350,7 +366,7 @@ class YoutubeDataApi:
                              "part=snippet&textFormat=plainText&maxResults=100&"
                              "videoId={}&key={}&pageToken={}".format(video_id,self.key,token))
             response = requests.get(new_http_endpoint)
-            json_doc = load_response(response, verbose)
+            json_doc = load_response(response, verbose, handle_error)
             comments.extend([parser(comment) for comment in json_doc['items']])
 
             log(">> {} comments parsed. Next Token = {}".format(
@@ -367,7 +383,7 @@ class YoutubeDataApi:
                                      "part=snippet&textFormat=plainText&maxResults=100&"
                                      "parentId={}&key={}".format(comment['comment_id'],self.key))
                         response = requests.get(reply_http_endpoint)
-                        json_doc = load_response(response, verbose)
+                        json_doc = load_response(response, verbose, handle_error)
                         comments.extend([parser(comment) for comment in json_doc['items']])
 
                         if len(comments) > current_num:
@@ -388,6 +404,8 @@ class YoutubeDataApi:
         :param lang_code: (str) language to get captions in
         :param verbose: (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.
         :param parser: (func) the function to parse the json document
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: the captions from a given video_id
 
@@ -425,6 +443,8 @@ class YoutubeDataApi:
         :param max_results: (int) max number of recommended vids
         :param verbose: (int) determines how errors are printed to the system. 1 is print 2 is log 0 is silent.
         :param parser: (func) the function to parse the json document
+        :param handle_error: whether or not the module handles errors itself or exits the system
+        :type handle_error: bool
 
         :returns: a list of videos and video metadata for recommended videos
 
