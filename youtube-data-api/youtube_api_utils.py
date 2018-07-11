@@ -112,9 +112,9 @@ def error_handler(error, verbose=1):
 
 def handle_caption_error(error, verbose=1):
     if isinstance(error, AttributeError):
-        log("English caption track could not be found", verbose)
+        log("The attribute for your language could not be found", verbose)
     else:
-        log("English caption track could not be found", verbose)
+        log("An unexpected error!", verbose)
     return False
 
 def parse_yt_datetime(date_str):
