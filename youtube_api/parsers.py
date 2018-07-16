@@ -1,8 +1,18 @@
 import json
 import datetime
-from collections import OrderedDict
-from youtube_api_utils import parse_yt_datetime
+from collections import OrderedDict, Iterable
+from youtube_api.youtube_api_utils import parse_yt_datetime
 
+__all__ = ['default',
+           'parse_video_metadata',
+           'parse_channel_metadata',
+           'parse_rec_video_metadata',
+           'parse_video_url',
+           'parse_subscription_descriptive',
+           'parse_featured_channels',
+           'parse_comment_metadata',
+           'parse_playlist_metadata'
+           'parse_caption_track']
 
 def default(item):
     '''
@@ -16,6 +26,13 @@ def parse_video_metadata(item):
 
     :returns: parsed dictionary
     '''
+    
+    tags = item["snippet"].get('tags')
+    if isinstance(tags, Iterable):
+        video_tags =  '|'.join(tags)
+    else:
+        video_tags = ''
+    
     video_meta = OrderedDict(
         video_id = item['id'],
         channel_title = item["snippet"].get("channelTitle"),
@@ -29,7 +46,7 @@ def parse_video_metadata(item):
         video_like_count = item["statistics"].get("likeCount"),
         video_dislike_count = item["statistics"].get("dislikeCount"),
         video_thumbnail = item["snippet"]["thumbnails"]["high"]["url"],
-        video_tags =  '|'.join(item["snippet"].get('tags')),
+        video_tags =  video_tags,
         collection_date = datetime.datetime.now()
     )
 

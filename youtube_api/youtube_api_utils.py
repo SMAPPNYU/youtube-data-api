@@ -11,18 +11,7 @@ from bs4 import BeautifulSoup, Comment
 import re
 import numpy as np
 
-def verify_key(key):
-    dummy_http = ("https://www.googleapis.com/youtube/v3/playlists"
-                     "?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&"
-                     "key={}&maxResults=2".format(key))
-    dummy_request = requests.get(dummy_http)
-
-    try:
-        dummy_request.raise_for_status()
-        return True
-    except:
-        return False
-
+__all__ = ['log']
 
 def log(msg, verbose=1):
     '''
@@ -55,6 +44,7 @@ def load_response(response, verbose=1, handle_error=True):
         if handle_error:
             response_json = error_handler(response_json, verbose)
         else:
+            # print descriptive error from requests.
             sys.exit()
 
     return response_json
@@ -109,13 +99,13 @@ def error_handler(error, verbose=1):
         sys.exit()
 
 
-
 def handle_caption_error(error, verbose=1):
     if isinstance(error, AttributeError):
         log("The attribute for your language could not be found", verbose)
     else:
         log("An unexpected error!", verbose)
     return False
+
 
 def parse_yt_datetime(date_str):
     date = None
@@ -125,6 +115,7 @@ def parse_yt_datetime(date_str):
         except:
             pass
     return date
+
 
 def strip_video_id_from_url(url):
     '''Strips a URL from youtube to a video_id'''
