@@ -11,6 +11,22 @@ from bs4 import BeautifulSoup, Comment
 import re
 import numpy as np
 
+__all__ = [
+    'verify_key',
+    '_load_response',
+    '_error_message',
+    '_caption_error_message',
+    '_text_from_html',
+    'parse_yt_datetime',
+    'strip_video_id_from_url',
+    'get_upload_playlist_id',
+    'get_liked_playlist_id',
+    'is_user',
+    'strip_youtube_id',
+    'get_channel_id_from_custom_url',
+    'get_url_from_video_id'
+]
+
 def verify_key(key):
     dummy_http = ("https://www.googleapis.com/youtube/v3/playlists"
                      "?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&"
@@ -23,99 +39,60 @@ def verify_key(key):
     except:
         return False
 
-
-def log(msg, verbose=1):
-    '''
-    Defaults to print,
-    Will be silent it verbose = 0,
-    Will write to a logger if verbose = 1
-    '''
-    if verbose == 1:
-        print(msg)
-    elif verbose == 2:
-        logger = logging.getLogger(__name__)
-        logger.info(msg)
-    else:
-        pass
-
-
-def load_response(response, verbose=1, handle_error=True):
+def _load_response(response):
     '''
     Loads the response to json, and checks for errors.
     '''
-    try:
-        response_json = json.loads(response.text)
-    except Exception as e:
-        log(e, verbose)
-        log(response, verbose)
-        return False
-    try:
-        response.raise_for_status()
-    except:
-        if handle_error:
-            response_json = error_handler(response_json, verbose)
-        else:
-            sys.exit()
+    response.raise_for_status()
+    response_json = json.loads(response.text)
 
     return response_json
 
-
-def error_handler(error, verbose=1):
-    '''
-    Parses errors if the request raised a status.
-    '''
-    reasons = []
-    for e in error['error']['errors']:
-        reasons.append(e['reason'])
-
-    if 'keyInvalid' in reasons:
-        warnings.warn("Bad Key!")
-        log(error, verbose)
-        sys.exit()
-    if 'dailyLimitExceeded' in reasons:
-        log(error, verbose)
-        raise Exception("Daily API Limit Exceeded!")
-        sys.exit()
-    elif 'limitExceeded' in reasons:
-        warnings.warn("API quota exceeded, sleeping for an hour!")
-        log(error, verbose)
-        sys.exit()
-        #time.sleep(60 * 60)
-    elif 'quotaExceeded' in reasons:
-        warnings.warn("API quota exceeded, sleeping for an hour!")
-        log(error, verbose)
-        sys.exit()
-        #time.sleep(60 * 60)
-    elif 'badRequest' in reasons:
-        warnings.warn("Bad Request!")
-        log(error, verbose)
-    elif 'subscriptionForbidden' in reasons:
-        warnings.warn("Viewing subscriptions are forbidden for this user!")
-    elif 'commentsDisabled' in reasons:
-        warnings.warn("User has disabled comments on this video!")
-        log(error, verbose)
-    elif 'videoNotFound' in reasons:
-        warnings.warn("The video was not found!")
-        log(error, verbose)
-    elif 'processingFailure' in reasons:
-        warnings.warn("There was a processing failure!")
-        log(error, verbose)
-    elif 'playlistNotFound' in reasons:
-        warnings.warn("This playlist does not exist!")
-        log(error, verbose)
+def _error_message(response, api_key, api_doc):
+    if verify_key(api_key):
+        key_status = 'Verified'
     else:
-        warnings.warn("An unexpected error!")
-        log(error, verbose)
-        sys.exit()
+        key_status = 'Unverifiable'
 
 
+    return {
+        'key_status':key_status,
+        'http_endpoint':response.url,
+        'status_code':response.status_code,
+        'api_doc':api_doc,
+        'response_json':_load_response(response),
+        'items':_load_response(response).get('items')
+    }
 
-def handle_caption_error(error, verbose=1):
-    if isinstance(error, AttributeError):
-        log("The attribute for your language could not be found", verbose)
-    else:
-        log("An unexpected error!", verbose)
-    return False
+def _caption_error_message(captions):
+    return {
+        'items':captions,
+        'api_doc':'http://python-pytube.readthedocs.io/en/latest/_modules/pytube/captions.html'
+    }
+
+def _text_from_html(html_body):
+    '''
+    Gets clean text from html.
+    '''
+    def _tag_visible(element):
+        '''Gets the text elements we're interested in'''
+        if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
+            return False
+        if isinstance(element, Comment):
+            return False
+        return True
+
+    soup = BeautifulSoup(html_body, 'xml')
+    raw_text = soup.findAll(text=True)
+    visible_text = filter(_tag_visible, raw_text)
+    text = u" ".join(t.strip() for t in visible_text)
+    text = re.sub(r"[\n\t]", ' ', text)
+    text = re.sub(r'<.+?>', '', text)
+    text = html.unescape(text)
+    text = ' '.join(text.split())
+
+    return text
+
 
 def parse_yt_datetime(date_str):
     date = None
@@ -191,25 +168,65 @@ def get_url_from_video_id(video_id):
     url = "https://youtube.com/watch?v={}".format(video_id)
     return url
 
-def text_from_html(html_body):
-    '''
-    Gets clean text from html.
-    '''
-    def tag_visible(element):
-        '''Gets the text elements we're interested in'''
-        if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
-            return False
-        if isinstance(element, Comment):
-            return False
-        return True
 
-    soup = BeautifulSoup(html_body, 'xml')
-    raw_text = soup.findAll(text=True)
-    visible_text = filter(tag_visible, raw_text)
-    text = u" ".join(t.strip() for t in visible_text)
-    text = re.sub(r"[\n\t]", ' ', text)
-    text = re.sub(r'<.+?>', '', text)
-    text = html.unescape(text)
-    text = ' '.join(text.split())
 
-    return text
+"""def load_response(response, handle_error=True):
+    '''
+    Loads the response to json, and checks for errors.
+    '''
+    try:
+        response.raise_for_status()
+        response_json = json.loads(response.text)
+        print(response_json)
+
+        return response_json, True
+
+    except Exception as e:
+
+        return response, False"""
+
+
+'''def error_handler(error, verbose=1):
+    """
+    Parses errors if the request raised a status.
+    """
+    reasons = []
+    for e in error['error']['errors']:
+        reasons.append(e['reason'])
+    if 'keyInvalid' in reasons:
+        warnings.warn("Bad Key!")
+        sys.exit()
+    if 'dailyLimitExceeded' in reasons:
+        raise Exception("Daily API Limit Exceeded!")
+        sys.exit()
+    elif 'limitExceeded' in reasons:
+        warnings.warn("API quota exceeded, sleeping for an hour!")
+        sys.exit()
+    elif 'quotaExceeded' in reasons:
+        warnings.warn("API quota exceeded, sleeping for an hour!")
+        sys.exit()
+
+    elif 'badRequest' in reasons:
+        warnings.warn("Bad Request!")
+    elif 'subscriptionForbidden' in reasons:
+        warnings.warn("Viewing subscriptions are forbidden for this user!")
+    elif 'commentsDisabled' in reasons:
+        warnings.warn("User has disabled comments on this video!")
+    elif 'videoNotFound' in reasons:
+        warnings.warn("The video was not found!")
+    elif 'processingFailure' in reasons:
+        warnings.warn("There was a processing failure!")
+    elif 'playlistNotFound' in reasons:
+        warnings.warn("This playlist does not exist!")
+    else:
+        warnings.warn("An unexpected error!")
+        sys.exit()
+'''
+
+
+'''def _handle_caption_error(error, verbose=1):
+    if isinstance(error, AttributeError):
+        log("The attribute for your language could not be found", verbose)
+    else:
+        log("An unexpected error!", verbose)
+    return False'''
