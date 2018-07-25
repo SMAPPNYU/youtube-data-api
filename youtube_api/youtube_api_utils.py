@@ -11,7 +11,6 @@ from bs4 import BeautifulSoup, Comment
 import re
 import numpy as np
 
-<<<<<<< HEAD:youtube-data-api/youtube_api_utils.py
 __all__ = [
     'verify_key',
     '_load_response',
@@ -46,43 +45,6 @@ def _load_response(response):
     '''
     response.raise_for_status()
     response_json = json.loads(response.text)
-=======
-__all__ = ['log']
-
-def log(msg, verbose=1):
-    '''
-    Defaults to print,
-    Will be silent it verbose = 0,
-    Will write to a logger if verbose = 1
-    '''
-    if verbose == 1:
-        print(msg)
-    elif verbose == 2:
-        logger = logging.getLogger(__name__)
-        logger.info(msg)
-    else:
-        pass
-
-
-def load_response(response, verbose=1, handle_error=True):
-    '''
-    Loads the response to json, and checks for errors.
-    '''
-    try:
-        response_json = json.loads(response.text)
-    except Exception as e:
-        log(e, verbose)
-        log(response, verbose)
-        return False
-    try:
-        response.raise_for_status()
-    except:
-        if handle_error:
-            response_json = error_handler(response_json, verbose)
-        else:
-            # print descriptive error from requests.
-            sys.exit()
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api_utils.py
 
     return response_json
 
@@ -129,17 +91,7 @@ def _text_from_html(html_body):
     text = html.unescape(text)
     text = ' '.join(text.split())
 
-<<<<<<< HEAD:youtube-data-api/youtube_api_utils.py
     return text
-
-=======
-def handle_caption_error(error, verbose=1):
-    if isinstance(error, AttributeError):
-        log("The attribute for your language could not be found", verbose)
-    else:
-        log("An unexpected error!", verbose)
-    return False
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api_utils.py
 
 
 def parse_yt_datetime(date_str):
@@ -150,7 +102,6 @@ def parse_yt_datetime(date_str):
         except:
             pass
     return date
-
 
 def strip_video_id_from_url(url):
     '''Strips a URL from youtube to a video_id'''

@@ -12,6 +12,7 @@ import warnings
 from youtube_api_utils import *
 import parsers as P
 
+__all__ = ['YoutubeDataApi']
 class YoutubeDataApi:
     """
     The Youtube Data API handles the keys and methods to access data from the YouTube Data API

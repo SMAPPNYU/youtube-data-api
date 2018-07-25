@@ -7,58 +7,28 @@ import datetime
 from collections import OrderedDict
 import pandas as pd
 from pytube import YouTube
-from tqdm import trange
-
 import warnings
 
 from youtube_api.youtube_api_utils import *
 import youtube_api.parsers as P
 
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
-=======
 __all__ = ['YoutubeDataApi']
 
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
 class YoutubeDataApi:
     """
     The Youtube Data API handles the keys and methods to access data from the YouTube Data API
     """
-    def __init__(self, key, api_version='3'):
+    def __init__(self, key):
         """
         :param key: YouTube Data API key
         Get a YouTube Data API key here: https://console.cloud.google.com/apis/dashboard
         """
-        self.key = key
-        self.api_version = api_version
-        
-        if not self.key:
-            raise ValueError('No API key used to initate the class.')
-        if self.verify_key():
-            pass
+
+        if verify_key(key):
+            self.key = key
         else:
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
             raise Exception("Your key was invalid!")
             sys.exit()
-=======
-            raise ValueError('A API Key is invalid')
-            
-    def verify_key(self):
-        '''
-        Checks it the API key is valid.
-        '''
-        http_endpoint = ("https://www.googleapis.com/youtube/v3/playlists"
-                         "?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&"
-                         "key={}&maxResults=2".format(self.key))
-        
-        response = requests.get(http_endpoint)
-
-        try:
-            response.raise_for_status()
-            return True
-        except:
-            return False
-        
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
 
     def get_channel_id_from_user(self, username):
         """
@@ -125,7 +95,7 @@ class YoutubeDataApi:
         return video_meta
 
 
-    def get_videos_from_playlist_id_gen(self, playlist_id, next_page_token=False,
+    def get_video_urls_from_playlist_id(self, playlist_id, next_page_token=False,
                                         cutoff_date=datetime.datetime(1990,1,1),
                                         parser=P.parse_video_url, handle_error=True):
         '''
@@ -141,16 +111,9 @@ class YoutubeDataApi:
         :param parser: (func) the function to parse the json document
 
         :returns: video_ids (list of str) a list of video ids associated with `playlist_id`.
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
         '''
         api_doc_point = 'https://developers.google.com/youtube/v3/docs/playlistItems/list'
         video_ids = []
-=======
-        '''                
-        if verbose:
-            t = trange(1, desc='', leave=True)
-        videos_parsed = 0
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
         run = True
 
         while run:
@@ -167,11 +130,10 @@ class YoutubeDataApi:
 
             if response_json.get('items'):
                 for item in response_json['items']:
-                    publish_date = parse_yt_datetime(item['snippet'].get('publishedAt'))
-                    if  publish_date <= cutoff_date:
+                    v_id = parser(item)
+                    if v_id['publish_date'] <= cutoff_date:
                         run = False
                         break
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
                     video_ids.append(v_id)
 
                 if response_json.get('nextPageToken'):
@@ -186,37 +148,6 @@ class YoutubeDataApi:
 
 
     def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata):
-=======
-                        
-                    v_id = parser(item)
-                    videos_parsed += 1
-                    yield v_id
-
-                if response_json.get('nextPageToken'):
-                    next_page_token = response_json['nextPageToken']  
-                    
-                else:
-                    run = False
-                
-                if verbose:
-                    t.set_description("Playlist ID {}. {} Videos parsed. Next Token = {}".format(
-                            playlist_id, videos_parsed, next_page_token),)
-                    t.refresh()
-                    
-            time.sleep(.1)
-        
-        if verbose:
-            t.update(1)
-    
-    def get_videos_from_playlist_id(self, playlist_id, **kwargs):
-        output = []
-        for playlist_id in self.get_videos_from_playlist_id_gen(playlist_id, **kwargs):
-            output.append(playlist_id)
-        return output
-    
-    
-    def get_channel_metadata(self, channel_id, verbose=1, parser=P.parse_channel_metadata, handle_error=True):
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
 
@@ -253,15 +184,8 @@ class YoutubeDataApi:
 
         return channel_meta
 
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
     def get_subscriptions(self, channel_id, next_page_token=False,
                           parser = P.parse_subscription_descriptive):
-=======
-
-    def get_subscriptions_gen(self, channel_id, next_page_token=False,
-                             parser = P.parse_subscription_descriptive,
-                             verbose= 1, handle_error=True):
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
         '''
         Returns a list of channel IDs that `channel_id` is subscribed to.
 
@@ -270,16 +194,10 @@ class YoutubeDataApi:
         :param stop_after_n_iteration: (int) stops the API calls after N API calls
         :param parser: (func) the function to parse the json document
 
-        :returns: subscription_ids (list) of channel IDs that `channel_id` is subscirbed to.
+        :returns: subscription_ids (list) of channel IDs that `channel_id` is subscrbed to.
         '''
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
         api_doc_point = 'https://developers.google.com/youtube/v3/docs/subscriptions/list'
         subscriptions = []
-=======
-        if verbose:
-            t = trange(1, desc='', leave=True)
-        subscriptions = 0
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
         run = True
 
         while run:
@@ -294,7 +212,6 @@ class YoutubeDataApi:
             response = requests.get(http_endpoint)
             response_json = _load_response(response)
 
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
             if response_json.get('items'):
                 for item in response_json['items']:
                     sub_meta = parser(item)
@@ -307,34 +224,9 @@ class YoutubeDataApi:
             else:
                 run = False
 
-=======
-            for item in response_json['items']:
-                sub_meta = parser(item)
-                subscriptions += 1
-                yield sub_meta
-
-            if response_json.get('nextPagetoken'):
-                next_page_token = response_json['nextPageToken']
-                if verbose:
-                    t.set_description("{} subscriptions parsed. Next Token = {}".format(
-                        subscriptions, next_page_token))
-                    t.refresh()
-            else:
-                run = False
-
-            time.sleep(.1)
-        
-        if verbose:
-            t.update(1)
-            
-    def get_subscriptions(self, channel_id, **kwargs):
-        subscriptions = []
-        for sub in self.get_subscriptions_gen(channel_id, **kwargs):
-            subscriptions.append(sub)
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
         return subscriptions
-                                
-                          
+
+
     def get_featured_channels(self, channel_id, verbose=1, parser=P.parse_featured_channels, handle_error=True):
         '''
         Given a `channel_id` returns a dictionary {channel_id : [list, of, channel_ids]}
@@ -377,13 +269,8 @@ class YoutubeDataApi:
         return feat_channels
 
 
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
     def get_playlists(self, channel_id, next_page_token=False,
                       parser=P.parse_playlist_metadata):
-=======
-    def get_playlists_gen(self, channel_id, next_page_token=False,
-                      verbose=1, parser=P.parse_playlist_metadata, handle_error=True):
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
         '''
         Returns a list of playlist IDs that `channel_id` created.
         Note that playlists can contains videos from any users.
@@ -393,16 +280,9 @@ class YoutubeDataApi:
         :param parser: (func) a function to parse the json response
 
         :returns: playlists (list of dicts) of playlist IDs that `channel_id` is subscribed to.
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
         '''
         api_doc_point = 'https://developers.google.com/youtube/v3/docs/playlists/list'
         playlists = []
-=======
-        ''' 
-        if verbose:
-            t = trange(1, desc='', leave=True)
-        playlists = 0
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
         run = True
         while run:
             time.sleep(0.1)
@@ -411,15 +291,10 @@ class YoutubeDataApi:
                              "&channelId={}&key={}&maxResults=50".format(channel_id, self.key))
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
 
-=======
-            
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
             response = requests.get(http_endpoint)
             response_json = _load_response(response)
 
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
             if response_json.get('items'):
                 for item in response_json.get('items'):
                     playlist_meta = parser(item)
@@ -430,29 +305,9 @@ class YoutubeDataApi:
 
             if response.get('nextPageToken'):
                 next_page_token = response_json['nextPageToken']
-=======
-            for item in response_json['items']:
-                playlist_meta = parser(item)
-                playlists += 1
-                yield playlist_meta
-
-            if response_json.get('nextPageToken'):
-                next_page_token = response_json['nextPageToken']
-                if verbose:
-                    t.set_description("{} playlists parsed. Next Token = {}".format(
-                        playlists, next_page_token))
-                    t.refresh()
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
             else:
                 run = False
 
-        if verbose:
-            t.update(1)
-            
-    def get_playlists(self, channel_id, **kwargs):
-        playlists = []
-        for playlist in self.get_playlists_gen(channel_id, **kwargs):
-            playlists.append(playlist)
         return playlists
 
 
@@ -538,15 +393,8 @@ class YoutubeDataApi:
         captions = vid.captions.get_by_language_code(lang_code)
 
         resp = {}
-<<<<<<< HEAD:youtube-data-api/youtube_api.py
         if captions:
             clean_cap = _text_from_html(captions.xml_captions)
-=======
-        if not captions:
-            resp['caption'] = None
-        else:
-            clean_cap = text_from_html(captions.xml_captions)
->>>>>>> b7e85474bc4d0779b2d3ffe3d7d383fe481430d3:youtube_api/youtube_api.py
             resp['caption'] = clean_cap
             resp['video_id'] = video_id
             resp['collection_date'] = datetime.datetime.now()
@@ -555,17 +403,12 @@ class YoutubeDataApi:
             raise Exception(_caption_error_message(captions))
 
         return resp
-    
-    def get_captions_from_list_generator(self, video_ids, **kwargs):
-        for video_id in tqdm(video_ids):
-            caps = self.get_captions(video_id, **kwargs)
-            yield caps
-            
+
 
     def get_recommended_videos(self, video_id, max_results=25,
                                parser=P.parse_rec_video_metadata):
         """
-        Gets reccommended videos given a video_id
+        Grabs captions given a video id using the PyTube and BeautifulSoup Packages
 
         :param video_id: (str) a vide_id IE: eqwPlwHSL_M
         :param max_results: (int) max number of recommended vids
