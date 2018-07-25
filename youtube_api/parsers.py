@@ -26,13 +26,13 @@ def parse_video_metadata(item):
 
     :returns: parsed dictionary
     '''
-    
+
     tags = item["snippet"].get('tags')
     if isinstance(tags, Iterable):
         video_tags =  '|'.join(tags)
     else:
         video_tags = ''
-    
+
     video_meta = OrderedDict(
         video_id = item['id'],
         channel_title = item["snippet"].get("channelTitle"),
