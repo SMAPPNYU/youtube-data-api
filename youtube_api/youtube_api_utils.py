@@ -1,15 +1,10 @@
-import os
 import sys
 import json
-import time
-import logging
-import warnings
 import datetime
 import requests
 import html
 from bs4 import BeautifulSoup, Comment
 import re
-import numpy as np
 
 __all__ = [
     'verify_key',
@@ -52,8 +47,7 @@ def _error_message(response, api_key, api_doc):
     if verify_key(api_key):
         key_status = 'Verified'
     else:
-        key_status = 'Unverifiable'
-
+        key_status = 'Unable to verify key.'
 
     return {
         'key_status':key_status,

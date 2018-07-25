@@ -1,13 +1,8 @@
-import os
 import time
-import sys
-import json
 import requests
 import datetime
 from collections import OrderedDict
-import pandas as pd
 from pytube import YouTube
-import warnings
 
 from youtube_api.youtube_api_utils import *
 import youtube_api.parsers as P
@@ -18,17 +13,37 @@ class YoutubeDataApi:
     """
     The Youtube Data API handles the keys and methods to access data from the YouTube Data API
     """
-    def __init__(self, key):
+    def __init__(self, key, api_version='3'):
         """
         :param key: YouTube Data API key
         Get a YouTube Data API key here: https://console.cloud.google.com/apis/dashboard
         """
+        self.key = key
+        self.api_version = api_version
 
-        if verify_key(key):
-            self.key = key
+        if not self.key:
+            raise ValueError('No API key used to initate the class.')
+        if self.verify_key():
+            pass
         else:
-            raise Exception("Your key was invalid!")
-            sys.exit()
+            raise ValueError('The API Key is invalid')
+
+    def verify_key(self):
+        '''
+        Checks it the API key is valid.
+        '''
+        http_endpoint = ("https://www.googleapis.com/youtube/v3/playlists"
+                         "?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&"
+                         "key={}&maxResults=2".format(self.key))
+
+        response = requests.get(http_endpoint)
+
+        try:
+            response.raise_for_status()
+            return True
+        except:
+            return False
+
 
     def get_channel_id_from_user(self, username):
         """
@@ -94,8 +109,50 @@ class YoutubeDataApi:
 
         return video_meta
 
+    def get_playlists_gen(self, channel_id, next_page_token=False,
+                      parser=P.parse_playlist_metadata):
+        '''
+        Returns a list of playlist IDs that `channel_id` created.
+        Note that playlists can contains videos from any users.
 
-    def get_video_urls_from_playlist_id(self, playlist_id, next_page_token=False,
+        :param channel_id: (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
+        :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA
+
+        :returns: playlists (list of dicts) of playlist IDs that `channel_id` is subscribed to.
+        '''
+        api_doc_point = 'https://developers.google.com/youtube/v3/docs/playlistItems/list'
+        run = True
+        while run:
+            http_endpoint = ("https://www.googleapis.com/youtube/v3/playlists"
+                             "?part=id,snippet,contentDetails"
+                             "&channelId={}&key={}&maxResults=50".format(channel_id, self.key))
+            if next_page_token:
+                http_endpoint += "&pageToken={}".format(next_page_token)
+
+            response = requests.get(http_endpoint)
+            response_json = load_response(response)
+
+            if response_json.get('items'):
+                for item in response_json.get('items'):
+                    playlist_meta = parser(item)
+                    yield playlist_meta
+
+                if response_json.get('nextPageToken'):
+                    next_page_token = response_json.get('nextPageToken')
+                else:
+                    run = False
+            else:
+                raise Exception(_error_message(response, self.key, api_doc_point))
+
+
+
+    def get_playlists(self, channel_id, **kwargs):
+        playlists = []
+        for playlist in self.get_playlists_gen(channel_id, **kwargs):
+            playlists.append(playlist)
+        return playlists
+
+    def get_video_data_from_playlist_id(self, playlist_id, next_page_token=False,
                                         cutoff_date=datetime.datetime(1990,1,1),
                                         parser=P.parse_video_url, handle_error=True):
         '''
@@ -146,6 +203,59 @@ class YoutubeDataApi:
 
         return video_ids
 
+    def get_videos_from_playlist_id_gen(self, playlist_id, next_page_token=False,
+                                        cutoff_date=datetime.datetime(1990,1,1),
+                                        parser=P.parse_video_url):
+        '''
+        Given a `playlist_id`, returns a list of `video_ids` associated with that playlist.
+        Note that to user uploads are a playlist from channels.
+        Typically this pattern is just the channel ID with UU subbed as the first two letters.
+        You can access this using the function `get_upload_playlist_id`, or from the `playlist_id_likes`
+        key returned from `get_channel_metadata`.
+
+        :param playlist_id: (str) the playlist_id IE:UUaLfMkkHhSA_LaCta0BzyhQ
+        :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA
+        :param cutoff_date: (datetime) a date for the minimum publish date for videos from a playlist_id.
+        :param parser: (func) the function to parse the json document
+
+        :returns: video_ids (list of str) a list of video ids associated with `playlist_id`.
+        '''
+        api_doc_point = 'https://developers.google.com/youtube/v3/docs/playlistItems/list'
+        run = True
+        while run:
+            time.sleep(.1)
+            http_endpoint = ("https://www.googleapis.com/youtube/v3/playlistItems"
+                             "?part=snippet&playlistId={}"
+                             "&maxResults=50&key={}".format(playlist_id, self.key))
+
+            if next_page_token:
+                http_endpoint += "&pageToken={}".format(next_page_token)
+
+            response = requests.get(http_endpoint)
+            response_json = load_response(response)
+
+            if response_json.get('items'):
+                for item in response_json.get('items'):
+                    publish_date = parse_yt_datetime(item['snippet'].get('publishedAt'))
+                    if publish_date <= cutoff_date:
+                        run = False
+                        break
+
+                    v_id = parser(item)
+                    yield v_id
+
+                if response_json.get('nextPageToken'):
+                    next_page_token = response_json.get('nextPageToken'])
+                else:
+                    run = False
+            else:
+                raise Exception(_error_message(response, self.key, api_doc_point))
+
+    def get_videos_from_playlist_id(self, playlist_id, **kwargs):
+        output = []
+        for playlist_id in self.get_videos_from_playlist_id_gen(playlist_id, **kwargs):
+            output.append(playlist_id)
+        return output
 
     def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata):
         '''
@@ -184,6 +294,49 @@ class YoutubeDataApi:
 
         return channel_meta
 
+    def get_subscriptions_gen(self, channel_id, next_page_token=False,
+                             parser = P.parse_subscription_descriptive):
+        '''
+        Returns a list of channel IDs that `channel_id` is subscribed to.
+
+        :param channel_id: (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
+        :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA
+        :param parser: (func) the function to parse the json document
+
+        :returns: subscription_ids (list) of channel IDs that `channel_id` is subscirbed to.
+        '''
+        api_doc_point = 'https://developers.google.com/youtube/v3/docs/subscriptions/list'
+        run = True
+        while run:
+            http_endpoint = ("https://www.googleapis.com/youtube/v3/subscriptions"
+                             "?channelId={}&part=id,snippet"
+                             "&maxResults=50&key={}".format(channel_id, self.key))
+
+            if next_page_token:
+                http_endpoint += "&pageToken={}".format(next_page_token)
+
+            response = requests.get(http_endpoint)
+            response_json = load_response(response, verbose, handle_error)
+
+            if response_json.get('items'):
+                for item in response_json.get('items'):
+                    sub_meta = parser(item)
+                    yield sub_meta
+
+                if response_json.get('nextPageToken'):
+                    next_page_token = response_json.get('nextPageToken')
+                else:
+                    run = False
+            else:
+                raise Exception(_error_message(response, self.key, api_doc_point))
+
+
+    def get_subscriptions_w_gen(self, channel_id, **kwargs):
+        subscriptions = []
+        for sub in self.get_subscriptions_gen(channel_id, **kwargs):
+            subscriptions.append(sub)
+        return subscriptions
+
     def get_subscriptions(self, channel_id, next_page_token=False,
                           parser = P.parse_subscription_descriptive):
         '''
@@ -216,13 +369,13 @@ class YoutubeDataApi:
                 for item in response_json['items']:
                     sub_meta = parser(item)
                     subscriptions.append(submeta)
+
+                if response_json.get('nextPageToken'):
+                    next_page_token = response_json.get('nextPageToken')
+                else:
+                    run = False
             else:
                 raise Exception(_error_message(response, self.key, api_doc_point))
-
-            if response_json.get('nextPageToken'):
-                next_page_token = response_json.get('nextPageToken')
-            else:
-                run = False
 
         return subscriptions
 
@@ -404,6 +557,11 @@ class YoutubeDataApi:
 
         return resp
 
+    def get_captions_from_list_generator(self, video_ids, **kwargs):
+        for video_id in tqdm(video_ids):
+            caps = self.get_captions(video_id, **kwargs)
+            yield caps
+
 
     def get_recommended_videos(self, video_id, max_results=25,
                                parser=P.parse_rec_video_metadata):
@@ -419,6 +577,7 @@ class YoutubeDataApi:
 
         """
         api_doc_point = 'https://developers.google.com/youtube/v3/docs/search/list'
+
         if not isinstance(video_id, str):
             raise Exception("Only string values permitted")
 
