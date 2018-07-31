@@ -1,3 +1,4 @@
 pandas
 bs4
 pytube
+pytest

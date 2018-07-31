@@ -4,3 +4,7 @@ python:
   - 3.6
 
 sudo: false
+
+script: make test
+
+install: pip install -r requirements.txt
