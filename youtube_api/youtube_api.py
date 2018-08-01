@@ -4,8 +4,12 @@ import datetime
 from collections import OrderedDict
 from pytube import YouTube
 
-from youtube_api.youtube_api_utils import *
-import youtube_api.parsers as P
+try:
+    from youtube_api.youtube_api_utils import *
+    import youtube_api.parsers as P
+except:
+    from youtube_api_utils import *
+    import parsers as P
 
 __all__ = ['YoutubeDataApi']
 
@@ -98,8 +102,8 @@ class YoutubeDataApi:
 
         video_meta = []
         if response_json.get('items'):
-            if len(response.get('items')) == 1 and get_one:
-                video_meta = parser(response.get('items')[0])
+            if len(response_json.get('items')) == 1 and get_one:
+                video_meta = parser(response_json.get('items')[0])
             else:
                 for item in response_json['items']:
                     video_meta_ = parser(item)
@@ -245,7 +249,7 @@ class YoutubeDataApi:
                     yield v_id
 
                 if response_json.get('nextPageToken'):
-                    next_page_token = response_json.get('nextPageToken'])
+                    next_page_token = response_json.get('nextPageToken')
                 else:
                     run = False
             else:
