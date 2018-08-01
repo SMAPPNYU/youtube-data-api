@@ -1,4 +1,4 @@
 pandas
 bs4
 pytube
-pytest
+pytest >= 3.7

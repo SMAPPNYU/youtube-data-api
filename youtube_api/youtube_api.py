@@ -245,7 +245,7 @@ class YoutubeDataApi:
                     yield v_id
 
                 if response_json.get('nextPageToken'):
-                    next_page_token = response_json.get('nextPageToken'])
+                    next_page_token = response_json.get('nextPageToken')
                 else:
                     run = False
             else:
