@@ -1,3 +1,5 @@
 pandas
 bs4
 pytube
+pytest >= 3.7
+requests
