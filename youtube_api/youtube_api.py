@@ -284,6 +284,7 @@ class YoutubeDataApi:
 
         if response_json.get('items'):
             if get_one and len(response_json.get('items')) == 1:
+                print(response_json.get('items'))
                 channel_meta = parser(response_json.get('items'))
             else:
                 for item in response_json.get('items'):
