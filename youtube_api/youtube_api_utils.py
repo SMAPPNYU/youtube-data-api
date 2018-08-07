@@ -22,17 +22,22 @@ __all__ = [
     'get_url_from_video_id'
 ]
 
-def verify_key(key):
-    dummy_http = ("https://www.googleapis.com/youtube/v3/playlists"
-                     "?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&"
-                     "key={}&maxResults=2".format(key))
-    dummy_request = requests.get(dummy_http)
+# def verify_key(key):
+#     dummy_http = ("https://www.googleapis.com/youtube/v3/playlists"
+#                      "?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&"
+#                      "key={}&maxResults=2".format(key))
+#     dummy_request = requests.get(dummy_http)
 
-    try:
-        dummy_request.raise_for_status()
-        return True
-    except:
-        return False
+#     try:
+#         dummy_request.raise_for_status()
+#         return True
+#     except:
+#         return False
+
+def _chunker(l, chunksize):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), chunksize):
+        yield l[i:i + chunksize]
 
 def _load_response(response):
     '''
@@ -99,7 +104,6 @@ def parse_yt_datetime(date_str):
 
 def strip_video_id_from_url(url):
     '''Strips a URL from youtube to a video_id'''
-
     if '/watch?v=' in url.lower():
         url_ = (url.split('&v=')[-1].split('/watch?v=')[-1].split('?')[0].split('&')[0])
 

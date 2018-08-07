@@ -2,10 +2,7 @@ import json
 import datetime
 from collections import OrderedDict, Iterable
 
-try:
-    from youtube_api.youtube_api_utils import parse_yt_datetime
-except:
-    from youtube_api_utils import parse_yt_datetime
+from youtube_api.youtube_api_utils import parse_yt_datetime
 
 __all__ = ['default',
            'parse_video_metadata',
@@ -85,7 +82,8 @@ def parse_channel_metadata(item):
 
     topic = item.get('topicDetails')
     if topic:
-        topic =  item.get('topicIds')
+        topic = item.get('topicIds')
+
     channel_meta = OrderedDict(
         id = item['id'],
         title = item["snippet"].get("title"),
@@ -149,7 +147,6 @@ def parse_playlist_metadata(item):
         channel_id = item['snippet'].get('channelId'),
         channel_name = item['snippet'].get('channelTitle'),
         collection_date = datetime.datetime.now()
-
     )
 
     return playlist_meta
@@ -213,6 +210,8 @@ def parse_caption_track(item):
 
     :returns: parsed dictionary
     '''
+
+    #TODO: convert known errors into an error message.
 
     caption_meta = OrderedDict(
         video_id = item['video_id'],
