@@ -47,27 +47,6 @@ def _load_response(response):
 
     return response_json
 
-def _error_message(response, api_key, api_doc):
-    if verify_key(api_key):
-        key_status = 'Verified'
-    else:
-        key_status = 'Unable to verify key.'
-
-    return {
-        'key_status':key_status,
-        'http_endpoint':response.url,
-        'status_code':response.status_code,
-        'api_doc':api_doc,
-        'response_json':_load_response(response),
-        'items':_load_response(response).get('items')
-    }
-
-def _caption_error_message(captions):
-    return {
-        'items':captions,
-        'api_doc':'http://python-pytube.readthedocs.io/en/latest/_modules/pytube/captions.html'
-    }
-
 def _text_from_html(html_body):
     '''
     Gets clean text from html.

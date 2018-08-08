@@ -4,7 +4,6 @@ sys.path.append('youtube-data-api/youtube_api')
 from youtube_api import YoutubeDataApi
 from youtube_api_utils import *
 
-yt = YoutubeDataApi('AIzaSyBWBOSvQz49OeesQ3LW5kID07Hwzb9T7pQ')
 
 class TestDataMethods(unittest.TestCase):
     def test_upload_playlist_id(self):

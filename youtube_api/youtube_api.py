@@ -73,10 +73,13 @@ class YoutubeDataApi:
             if response_json.get('items'):
                 channel_id = response_json['items'][0]['id']
                 return channel_id
+            else:
+                return ''
             # end
 
 
-        if isinstance(username, list):
+        #Howdy this does not work if you use a dataframe column but it should!
+        if isinstance(username, list) or isinstance(username, pd.Series):
             channel_ids = []
             for username_ in username:
                 channel_ids_ = _get_channel_id_from_user(username_)
@@ -85,9 +88,7 @@ class YoutubeDataApi:
         elif isinstance(username, str):
             channel_ids = _get_channel_id_from_user(username)
 
-        # TODO: catch error for not founded username
-        else:
-            raise Exception(_error_message(response, self.key, api_doc_point))
+
 
         return channel_ids
 
