@@ -73,21 +73,27 @@ class YoutubeDataApi:
             if response_json.get('items'):
                 channel_id = response_json['items'][0]['id']
                 return channel_id
+            else:
+                return ''
             # end
 
 
+        #Howdy this does not work if you use a dataframe column but it should!
         if isinstance(username, list):
             channel_ids = []
             for username_ in username:
                 channel_ids_ = _get_channel_id_from_user(username_)
                 channel_ids.append(channel_ids_)
-
+        elif isinstance(username, pd.Series):
+            for username_ in username.tolist():
+                channel_ids_ = _get_channel_id_from_user(username_)
+                channel_ids.append(channel_ids_)
         elif isinstance(username, str):
             channel_ids = _get_channel_id_from_user(username)
 
-        # TODO: catch error for not founded username
         else:
-            raise Exception(_error_message(response, self.key, api_doc_point))
+            raise TypeError("Could not process the type entered!")
+
 
         return channel_ids
 
@@ -117,6 +123,8 @@ class YoutubeDataApi:
                     for item in response_json['items']:
                         video_meta = parser(item)
                         yield video_meta_
+                else:
+                    yield OrderedDict()
         else:
             raise Expection('This function only takes iterables!')
 
@@ -144,11 +152,16 @@ class YoutubeDataApi:
             if response_json.get('items'):
                 video_metadata = parser(response_json['items'][0])
 
-        else: # iterable
+        elif isinstance(video_id, list): # iterable
             video_metadata = []
             for video_meta in self.get_video_metadata_gen(video_id):
                 video_metadata.append(video_meta)
-
+        elif isinstance(video_id, pd.Series):
+            video_metadata = []
+            for video_meta in self.get_video_metadata_gen(video_id.tolist()):
+                video_metadata.append(video_meta)
+        else:
+            raise TypeError("Could not process the type entered!")
         return video_metadata
 
 
@@ -185,7 +198,7 @@ class YoutubeDataApi:
                 else:
                     run = False
             else:
-                raise Exception(_error_message(response, self.key, api_doc_point))
+                yield OrderedDict()
 
 
     def get_playlists(self, channel_id, **kwargs):
@@ -250,7 +263,7 @@ class YoutubeDataApi:
                 time.sleep(.1)
 
             else:
-                raise Exception(_error_message(response, self.key, api_doc_point))
+                yield OrderedDict()
 
 
     def get_videos_from_playlist_id(self, playlist_id, **kwargs):
@@ -308,7 +321,8 @@ class YoutubeDataApi:
                 else:
                     run = False
             else:
-                raise Exception(_error_message(response, self.key, api_doc_point))
+                yield OrderedDict()
+
             time.sleep(.1)
 
 
@@ -363,7 +377,7 @@ class YoutubeDataApi:
                         yield feat_channel_
 
                 else:
-                    raise Exception(_error_message(response, self.key, api_doc_point))
+                    yield OrderedDict()
 
         else:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
@@ -437,7 +451,7 @@ class YoutubeDataApi:
                     comment_ = parser(item)
                     yield comment_
             else:
-                raise Exception(_error_message(response, self.key, api_doc_point))
+                yield OrderedDict()
 
             if response.get('nextPageToken'):
                 next_page_token = response_json['nextPageToken']
@@ -463,7 +477,7 @@ class YoutubeDataApi:
                             comment_ = parser(comment)
                             yield comment_
                     else:
-                        raise Exception(_error_message(response, self.key, api_doc_point))
+                        yield OrderedDict()
                     time.sleep(0.1)
 
 
@@ -505,11 +519,10 @@ class YoutubeDataApi:
         if captions:
             clean_cap = _text_from_html(captions.xml_captions)
             resp['caption'] = clean_cap
-            resp['video_id'] = video_id
-            resp['collection_date'] = datetime.datetime.now()
-
         else:
-            raise Exception(_caption_error_message(captions))
+            resp['caption'] = None
+        resp['video_id'] = video_id
+        resp['collection_date'] = datetime.datetime.now()
 
         return resp
 
@@ -563,6 +576,6 @@ class YoutubeDataApi:
                 item_ = parser(item)
                 recommended_vids.append(item_)
         else:
-            raise Exception(_error_message(response, self.key, api_doc_point))
+            return []
 
         return recommended_vids
