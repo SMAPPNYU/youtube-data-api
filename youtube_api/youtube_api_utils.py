@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup, Comment
 import re
 
 __all__ = [
-    'verify_key',
     '_load_response',
     '_error_message',
     '_caption_error_message',
