@@ -5,8 +5,12 @@ from collections import OrderedDict
 from pytube import YouTube
 
 # fix importing errors
-from youtube_api.youtube_api_utils import *
-import youtube_api.parsers as P
+try:
+    from youtube_api.youtube_api_utils import *
+    import youtube_api.parsers as P
+except:
+    from youtube_api_utils import *
+    import parsers as P
 
 __all__ = ['YoutubeDataApi']
 
@@ -60,7 +64,7 @@ class YoutubeDataApi:
         """
         api_doc_point = 'https://developers.google.com/youtube/v{}/docs/channels/list'.format(self.api_version)
 
-        def _get_channel_id_from_user(self, username):
+        def _get_channel_id_from_user(username):
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                              "?part=id"
                              "&forUsername={}&key={}".format(self.api_version, username, self.key))
