@@ -69,6 +69,7 @@ class YoutubeDataApi:
             if response_json.get('items'):
                 channel_id = response_json['items'][0]['id']
                 return channel_id
+            # end
 
 
         if isinstance(username, list):
@@ -76,15 +77,15 @@ class YoutubeDataApi:
             for username_ in username:
                 channel_ids_ = _get_channel_id_from_user(username_)
                 channel_ids.append(channel_ids_)
-        
+
         elif isinstance(username, str):
             channel_ids = _get_channel_id_from_user(username)
-
-        return channel_ids
 
         # TODO: catch error for not founded username
         else:
             raise Exception(_error_message(response, self.key, api_doc_point))
+
+        return channel_ids
 
 
     def get_video_metadata_gen(self, video_id, parser=P.parse_video_metadata):
@@ -111,7 +112,7 @@ class YoutubeDataApi:
                 if response_json.get('items'):
                     for item in response_json['items']:
                         video_meta = parser(item)
-                        yield video_meta_ 
+                        yield video_meta_
         else:
             raise Expection('This function only takes iterables!')
 
@@ -143,7 +144,7 @@ class YoutubeDataApi:
             video_metadata = []
             for video_meta in self.get_video_metadata_gen(video_id):
                 video_metadata.append(video_meta)
-        
+
         return video_metadata
 
 
@@ -268,7 +269,7 @@ class YoutubeDataApi:
             output.append(playlist_id)
         return output
 
-  
+
     def get_subscriptions_gen(self, channel_id, next_page_token=False,
                              parser = P.parse_subscription_descriptive):
         '''
@@ -347,7 +348,7 @@ class YoutubeDataApi:
                 http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                                  "?part=id,brandingSettings"
                                  "&id={}&key={}".format(self.api_version, id_input, self.key))
-                
+
                 response = requests.get(http_endpoint)
                 response_json = _load_response(response)
 
@@ -364,7 +365,7 @@ class YoutubeDataApi:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                              "?part=id,brandingSettings"
                              "&id={}&key={}".format(self.api_version, channel_id, self.key))
-            
+
             response = requests.get(http_endpoint)
             response_json = _load_response(response)
 
@@ -461,7 +462,7 @@ class YoutubeDataApi:
                         raise Exception(_error_message(response, self.key, api_doc_point))
                     time.sleep(0.1)
 
-    
+
 
     def get_video_comments(self, video_id, get_replies=True,
                            cutoff_date=datetime.datetime(1990,1,1),
@@ -546,7 +547,7 @@ class YoutubeDataApi:
 
         http_endpoint = ("https://www.googleapis.com/youtube/v{}/search?"
                          "part=snippet&type=video&maxResults={}&"
-                         "relatedToVideoId={}&key={}".format(self.api_version, 
+                         "relatedToVideoId={}&key={}".format(self.api_version,
                             max_results, video_id, self.key))
 
         recommended_vids = []
