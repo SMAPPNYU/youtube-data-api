@@ -8,8 +8,6 @@ import re
 
 __all__ = [
     '_load_response',
-    '_error_message',
-    '_caption_error_message',
     '_text_from_html',
     'parse_yt_datetime',
     'strip_video_id_from_url',
