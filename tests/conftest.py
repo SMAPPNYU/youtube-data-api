@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import pytest
 import os
+from .config import key
 from youtube_api import YoutubeDataApi
 
 # instantiate a YoutubeDataApi instance once per module
 @pytest.fixture(scope="package")
 def youtube_api():
-    key = os.environ['YT_KEY']
-    
+    print('Calling conftest')
+
     wrong_key = key[:-1]
 
     with pytest.raises(ValueError) as err_msg:

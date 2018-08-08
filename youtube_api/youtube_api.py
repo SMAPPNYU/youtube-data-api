@@ -60,7 +60,7 @@ class YoutubeDataApi:
         """
         api_doc_point = 'https://developers.google.com/youtube/v{}/docs/channels/list'.format(self.api_version)
 
-        def _get_channel_id_from_user(self, username):
+        def _get_channel_id_from_user(username):
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                              "?part=id"
                              "&forUsername={}&key={}".format(self.api_version, username, self.key))

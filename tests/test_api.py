@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from youtube_api import YoutubeDataApi
+from youtube_api import parsers as P
 import pytest
 import requests
 from unittest import mock
 
 @mock.patch('requests.get')
 def test_verify(mock_request, youtube_api):
+    print('first test')
     mock_resp = requests.models.Response()
     mock_resp.status_code = 404
     mock_request.return_value = mock_resp
@@ -21,9 +23,10 @@ def test_channel_id(youtube_api):
     assert id == "UCi7GJNg51C3jgmYTUwqoUXA"
 
 def test_video_metadata(youtube_api):
-    api_call = youtube_api.get_video_metadata('a7KDbZ5VQ0E')
+    api_call = youtube_api.get_video_metadata('a7KDbZ5VQ0E', parser=P.default)
     metadata = [{ "kind": "youtube#video",
     "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/KELXwMtT5O2GQeutrYy8ToTHAv4\"",
     "id": "a7KDbZ5VQ0E"}]
+    print(api_call)
 
     assert metadata == api_call
