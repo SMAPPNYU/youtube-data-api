@@ -5,8 +5,12 @@ from collections import OrderedDict
 from pytube import YouTube
 
 # fix importing errors
-from youtube_api.youtube_api_utils import *
-import youtube_api.parsers as P
+try:
+    from youtube_api.youtube_api_utils import *
+    import youtube_api.parsers as P
+except:
+    from youtube_api_utils import *
+    import parsers as P
 
 __all__ = ['YoutubeDataApi']
 
