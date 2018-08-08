@@ -3,6 +3,10 @@ import requests
 import datetime
 from collections import OrderedDict
 from pytube import YouTube
+import warnings
+warnings.filterwarnings("ignore", message="numpy.dtype size changed")
+warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
+import pandas as pd
 
 # fix importing errors
 from youtube_api.youtube_api_utils import *
