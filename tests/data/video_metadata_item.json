@@ -1,0 +1,51 @@
+{
+  "kind": "youtube#video",
+  "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/XMFMtPGlxinP0fCUPo6UA5eks6Q\"",
+  "id": "kNbhUWLH_yY",
+  "snippet": {
+    "publishedAt": "2018-03-14T20:53:14.000Z",
+    "channelId": "UCJvIPpWSsW-EGuQjNIZbBTQ",
+    "title": "Thank you Senator Crapo for your support on Regulatory Relief",
+    "description": "",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/kNbhUWLH_yY/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/kNbhUWLH_yY/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/kNbhUWLH_yY/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      },
+      "standard": {
+        "url": "https://i.ytimg.com/vi/kNbhUWLH_yY/sddefault.jpg",
+        "width": 640,
+        "height": 480
+      },
+      "maxres": {
+        "url": "https://i.ytimg.com/vi/kNbhUWLH_yY/maxresdefault.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    },
+    "channelTitle": "CUNAAdvocacy",
+    "categoryId": "29",
+    "liveBroadcastContent": "none",
+    "localized": {
+      "title": "Thank you Senator Crapo for your support on Regulatory Relief",
+      "description": ""
+    }
+  },
+  "statistics": {
+    "viewCount": "10",
+    "likeCount": "0",
+    "dislikeCount": "0",
+    "favoriteCount": "0"
+  }
+}
