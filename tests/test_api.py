@@ -7,7 +7,6 @@ from unittest import mock
 
 @mock.patch('requests.get')
 def test_verify(mock_request, youtube_api):
-    print('first test')
     mock_resp = requests.models.Response()
     mock_resp.status_code = 404
     mock_request.return_value = mock_resp
