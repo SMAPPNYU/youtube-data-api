@@ -1,10 +1,9 @@
 language: python
-
 python:
-  - 3.6
-
+- 3.6
 sudo: false
-
 script: make test
-
 install: pip install -r requirements.txt
+env:
+  global:
+    secure: qUMerRdhohg6kOaybSbYudRLCw0efqH/CF1wRrq5W2xcLlzTcOLMX4hPYKdE7OIoqf8YaJla+FSCMwrViJ9doHWTdu+2geHdU351y4VcQV2eD7URYNRAiFJLX8NACtKiuC8VQP28iKK312IXIT0XOKOEXSLmEtiYb+dlMeS66j+GgpvIWZmmtC+Hjlyo7S0mcW4PjkLrGEhdru14gCZxd8FXsjKMKWabs7gi8D/ztPGLwyZocaGwtQea/vjwpzk+kibMgIV9YyfTLNyEjIct3IHj0Cmdv6fkCI5LBzGJmzz5BV1uaH2XVs30+WzpXmsoQbW38NCyOR/YNgQtEumxQbEVy2HYfWs5LE6xucPk6xZWkMv+IXWulzloxG8k+iroTIJTIJSp7kMAnAz0U92/WabmNqmULmsdlsvFT8dDZv36ivz0J5XBxs0UpqhlYhYqeUsphHLMcPhZ4VmoEWpv/QLD3pJKR+IiPaEyBV45SUMf0lYYWRsmFbST/jwwYfMHtrLrUk5i42Xtuq1bjGd/uOvOijZcaCr5mlrw+WwdeIf8/dKJCUgRI9NoeIEzT9TwTvgn+ZikgwGsCqNWC0Nc3ETxBUT7e1S7UQi6AT7fYqImRpf+x268LBPljBsOMSKTqctgi92JYEfGqo2ruOWUBugdJ1YLGqaj+VFAEANy6d4=
