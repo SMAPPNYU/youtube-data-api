@@ -1,0 +1,1131 @@
+{
+  "kind": "youtube#playlistListResponse",
+  "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/hQ5MQ9WtoVytuYDbfVxggBB1FmU\"",
+  "nextPageToken": "CBkQAA",
+  "pageInfo": {
+    "totalResults": 389,
+    "resultsPerPage": 25
+  },
+  "items": [
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/N_1YmWBqJP54EiaTxN50zHUMHmU\"",
+      "id": "PLOU2XLYxmsILhFpQQzS8zo8mc86IRNqMa",
+      "snippet": {
+        "publishedAt": "2018-06-29T21:24:09.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "PAIR UX Symposium 2018",
+        "description": "Welcome to our People + AI Research Initiative UX Symposium at Google, a forum to discuss pressing topics in human + AI interaction. We've brought together academics, researchers and artists to discuss model interpretability, augmented intelligence, inclusivity and human–AI collaboration. Watch all the talks here in this playlist.\n\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/CsA1TQVcVB4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/CsA1TQVcVB4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/CsA1TQVcVB4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/CsA1TQVcVB4/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/CsA1TQVcVB4/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "PAIR UX Symposium 2018",
+          "description": "Welcome to our People + AI Research Initiative UX Symposium at Google, a forum to discuss pressing topics in human + AI interaction. We've brought together academics, researchers and artists to discuss model interpretability, augmented intelligence, inclusivity and human–AI collaboration. Watch all the talks here in this playlist.\n\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 10
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/BD0schqudkr7cOnGboAoF-j5GxY\"",
+      "id": "PLOU2XLYxmsILPF0GRDMbsfrfH-r5At6zo",
+      "snippet": {
+        "publishedAt": "2018-06-22T20:50:35.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "GDG",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "GDG",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 0
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/Ru5vwAx2Aq-EGUc-Vnsnd-m8IKQ\"",
+      "id": "PLOU2XLYxmsIK0r_D-zWcmJ1plIcDNnRkK",
+      "snippet": {
+        "publishedAt": "2018-06-14T23:25:28.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "The Boring Flutter Development Show",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/yr8F2S3Amas/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/yr8F2S3Amas/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/yr8F2S3Amas/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/yr8F2S3Amas/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/yr8F2S3Amas/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "The Boring Flutter Development Show",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 5
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/NNqnsxk4oOuph3yf_hCDb6Y2e1E\"",
+      "id": "PLOU2XLYxmsIL-iJMv7w0Gj1rLXMcv-f95",
+      "snippet": {
+        "publishedAt": "2018-06-11T23:16:38.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Build rich conversational experiences with Dialogflow",
+        "description": "Learn about Dialogflow and how you can use the NLU tool to build ML-powered conversational experiences, such as voice apps and chatbots, to interact with users in new ways.\n\nSubscribe to the Dialogflow channel for more content like this → https://goo.gl/gN2sz8",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/yT58gTXdQb8/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/yT58gTXdQb8/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/yT58gTXdQb8/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/yT58gTXdQb8/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/yT58gTXdQb8/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Build rich conversational experiences with Dialogflow",
+          "description": "Learn about Dialogflow and how you can use the NLU tool to build ML-powered conversational experiences, such as voice apps and chatbots, to interact with users in new ways.\n\nSubscribe to the Dialogflow channel for more content like this → https://goo.gl/gN2sz8"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 4
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/bJp9thb1rV98NCtkEQWjEMH8h6M\"",
+      "id": "PLOU2XLYxmsIJ7dsVN4iRuA7BT8XHzGtCr",
+      "snippet": {
+        "publishedAt": "2018-05-22T17:23:45.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Flutter by Google",
+        "description": "Get started at https://flutter.io today.\n\nFlutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/fq4N0hgOWzU/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/fq4N0hgOWzU/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/fq4N0hgOWzU/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/fq4N0hgOWzU/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/fq4N0hgOWzU/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Flutter by Google",
+          "description": "Get started at https://flutter.io today.\n\nFlutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 20
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/m2FYqZD74Xme5sKiRv_lOW3w0cU\"",
+      "id": "PLOU2XLYxmsIKiu-I6EQL-as514X1q62zX",
+      "snippet": {
+        "publishedAt": "2018-05-14T20:57:48.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Inspirational Keynotes from Google I/O 2018",
+        "description": "This playlist contains inspirational keynote sessions from Google I/O 2018. Learn about designing with everyone in mind, the future of computing, and how AI & ML are supercharging innovation across many different industries. \n\nGoogle I/O 2018 all sessions playlist: https://goo.gl/Dn7tra",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Azt8Nc-mtKM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Azt8Nc-mtKM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Azt8Nc-mtKM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Azt8Nc-mtKM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Azt8Nc-mtKM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Inspirational Keynotes from Google I/O 2018",
+          "description": "This playlist contains inspirational keynote sessions from Google I/O 2018. Learn about designing with everyone in mind, the future of computing, and how AI & ML are supercharging innovation across many different industries. \n\nGoogle I/O 2018 all sessions playlist: https://goo.gl/Dn7tra"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 8
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/uZzuKeiaZGoA4U_hOsLxdi5cOGM\"",
+      "id": "PLOU2XLYxmsIKhkDJlVZfhYvEVR3Odt1y0",
+      "snippet": {
+        "publishedAt": "2018-05-11T01:28:12.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Recaps from Google I/O 2018",
+        "description": "This playlist contains recaps of key sessions and topics presented at Google I/O 2018.\n\nSee all the sessions from Google I/O '18 here → https://goo.gl/q1Tr8x\n\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/NeF0zpT4gNE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/NeF0zpT4gNE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/NeF0zpT4gNE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/NeF0zpT4gNE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/NeF0zpT4gNE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Recaps from Google I/O 2018",
+          "description": "This playlist contains recaps of key sessions and topics presented at Google I/O 2018.\n\nSee all the sessions from Google I/O '18 here → https://goo.gl/q1Tr8x\n\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 7
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/7gV7PJD8smndU_8xSjv76EtTzxk\"",
+      "id": "PLOU2XLYxmsIJQgQfgYDuH8V31HZTtWUBp",
+      "snippet": {
+        "publishedAt": "2018-05-09T18:27:03.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "IoT at Google I/O 2018",
+        "description": "This playlist contains all the I/O 2018 sessions related to the Internet of Things.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ  \n\nSee all the sessions from Google I/O '18 here → https://g.co/io/videos\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/e_PI_Npb3-U/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/e_PI_Npb3-U/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/e_PI_Npb3-U/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/e_PI_Npb3-U/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/e_PI_Npb3-U/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "IoT at Google I/O 2018",
+          "description": "This playlist contains all the I/O 2018 sessions related to the Internet of Things.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ  \n\nSee all the sessions from Google I/O '18 here → https://g.co/io/videos\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 12
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/V08CeCfKQsECwCWODaCNO161D0s\"",
+      "id": "PLOU2XLYxmsIIjoHFYLtwS-_dKrtLhhk_D",
+      "snippet": {
+        "publishedAt": "2018-05-08T15:22:57.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Google I/O 2018 Livestreams",
+        "description": "This playlist contains all Google I/O 2018 livestreams. Each livestream description details a session schedule. \n\nAlso, you can find the full event schedule here (all times are PDT) → https://goo.gl/ZQce6g\n\nGoogle I/O 2018 All Sessions playlist → https://goo.gl/q1Tr8x\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/CGMOG_5tbxY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/CGMOG_5tbxY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/CGMOG_5tbxY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Google I/O 2018 Livestreams",
+          "description": "This playlist contains all Google I/O 2018 livestreams. Each livestream description details a session schedule. \n\nAlso, you can find the full event schedule here (all times are PDT) → https://goo.gl/ZQce6g\n\nGoogle I/O 2018 All Sessions playlist → https://goo.gl/q1Tr8x\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 21
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/dD96QORssgWBw5YU97CFJmdpn9Q\"",
+      "id": "PLOU2XLYxmsIKzJveaJfgBm6ifuV4N2PPM",
+      "snippet": {
+        "publishedAt": "2018-05-07T18:37:37.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Design at Google I/O 2018",
+        "description": "This playlist contains all the I/O 2018 sessions related to Design.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ  \n\nSee all the sessions from Google I/O '18 here → https://g.co/io/videos\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/3VUMl_l-_fI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/3VUMl_l-_fI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/3VUMl_l-_fI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/3VUMl_l-_fI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/3VUMl_l-_fI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Design at Google I/O 2018",
+          "description": "This playlist contains all the I/O 2018 sessions related to Design.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ  \n\nSee all the sessions from Google I/O '18 here → https://g.co/io/videos\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 14
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/MRjsgo-lmufdTlTrzq76zuqjJtM\"",
+      "id": "PLOU2XLYxmsIKRvTz5vtO2xKAgOoC-xw3Y",
+      "snippet": {
+        "publishedAt": "2018-05-02T16:50:11.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Get excited for Google I/O 2018! 🎈 May 8-10th",
+        "description": "Join us as we countdown to Google I/O 2018\nLearn everything about #io18 here → https://goo.gl/pZyd23\n\nThe Keynotes and most of the sessions will be livestreamed on the Google Developers channel → https://goo.gl/hy5Dt\n\nFollow the #io18journey of 5 attendees here → https://goo.gl/Kpqheg\n\nThis year’s developer festival will be held May 8-10 at the Shoreline Amphitheatre in Mountain View, CA. All the livestreams from I/O 2018 will be held on the Google Developers channel & all the sessions will be made available. Stay tuned for more information.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BEtPCT7ZcE0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BEtPCT7ZcE0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BEtPCT7ZcE0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/BEtPCT7ZcE0/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/BEtPCT7ZcE0/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Get excited for Google I/O 2018! 🎈 May 8-10th",
+          "description": "Join us as we countdown to Google I/O 2018\nLearn everything about #io18 here → https://goo.gl/pZyd23\n\nThe Keynotes and most of the sessions will be livestreamed on the Google Developers channel → https://goo.gl/hy5Dt\n\nFollow the #io18journey of 5 attendees here → https://goo.gl/Kpqheg\n\nThis year’s developer festival will be held May 8-10 at the Shoreline Amphitheatre in Mountain View, CA. All the livestreams from I/O 2018 will be held on the Google Developers channel & all the sessions will be made available. Stay tuned for more information."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 38
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/Rl-w_atBn3hErvATb3DmN5989xs\"",
+      "id": "PLOU2XLYxmsIKgHNoVIE3irXBy-pCCKbAS",
+      "snippet": {
+        "publishedAt": "2018-04-26T19:18:31.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "#io18journey - Google I/O 2018",
+        "description": "In this series, we follow 5 attendees of Google I/O 2018. They’ll be vlogging from the start of their journey in their home country through to their arrival at the Shoreline Amphitheatre in California. \n\nTune in here as Ann, Ire, Kseniia, Siraj, and Technical Guruji #ShareTheJourney with you!\n\n\nFor more information, check them out below!\n\nAnn Makosinski - is an inventor and former Google Science Fair winner\ngoo.gl/B9TF6f\n\nIre Aderinokun - is Nigeria's first ever female Google Developer Expert \nhttps://twitter.com/ireaderinokun\n\nKseniia Shumelchyk - lead organiser for Women Techmakers and Google Developer Group in Dnipro, Ukraine\nhttps://twitter.com/kseniias\n\nSiraj Raval - bringing AI education to the Youtube generation\nhttps://www.youtube.com/c/SirajRaval\n\nTechnical Guruji - Youtube tech expert specializing in Hindi-first content\ngoo.gl/6TUotD\n\n\nSubscribe to the Google Developers Channel → http://goo.gl/mQyv5L",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/c5QjFjwV_SM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/c5QjFjwV_SM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/c5QjFjwV_SM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/c5QjFjwV_SM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/c5QjFjwV_SM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "#io18journey - Google I/O 2018",
+          "description": "In this series, we follow 5 attendees of Google I/O 2018. They’ll be vlogging from the start of their journey in their home country through to their arrival at the Shoreline Amphitheatre in California. \n\nTune in here as Ann, Ire, Kseniia, Siraj, and Technical Guruji #ShareTheJourney with you!\n\n\nFor more information, check them out below!\n\nAnn Makosinski - is an inventor and former Google Science Fair winner\ngoo.gl/B9TF6f\n\nIre Aderinokun - is Nigeria's first ever female Google Developer Expert \nhttps://twitter.com/ireaderinokun\n\nKseniia Shumelchyk - lead organiser for Women Techmakers and Google Developer Group in Dnipro, Ukraine\nhttps://twitter.com/kseniias\n\nSiraj Raval - bringing AI education to the Youtube generation\nhttps://www.youtube.com/c/SirajRaval\n\nTechnical Guruji - Youtube tech expert specializing in Hindi-first content\ngoo.gl/6TUotD\n\n\nSubscribe to the Google Developers Channel → http://goo.gl/mQyv5L"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 7
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/I0oVZLpe0eFd61VM4dXGfJo3jhU\"",
+      "id": "PLOU2XLYxmsILzpybwAE_RVDdvaohfOXm2",
+      "snippet": {
+        "publishedAt": "2018-04-24T22:46:43.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "The Google Assistant and Actions on Google at Google I/O 2018",
+        "description": "This playlist contains all the I/O 2018 sessions related to the Google Assistant and Actions on Google.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ  \n\nSee all the sessions from Google I/O '18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/1MhYTvHSv8U/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/1MhYTvHSv8U/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/1MhYTvHSv8U/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/1MhYTvHSv8U/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/1MhYTvHSv8U/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "The Google Assistant and Actions on Google at Google I/O 2018",
+          "description": "This playlist contains all the I/O 2018 sessions related to the Google Assistant and Actions on Google.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ  \n\nSee all the sessions from Google I/O '18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 17
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/FrGaTRG4MqtpjEYPAV5ZSbeO7oI\"",
+      "id": "PLOU2XLYxmsIKqvy4t_7y2U0kTYrq9GO-I",
+      "snippet": {
+        "publishedAt": "2018-04-24T22:43:42.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Accessibility at Google I/O 2018",
+        "description": "This playlist contains all the I/O 2018 sessions related to Accessibility.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ \n\nSee all the sessions from Google I/O '18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Lcoc4aCLfqI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Lcoc4aCLfqI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Lcoc4aCLfqI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Lcoc4aCLfqI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Lcoc4aCLfqI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Accessibility at Google I/O 2018",
+          "description": "This playlist contains all the I/O 2018 sessions related to Accessibility.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ \n\nSee all the sessions from Google I/O '18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 4
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/M3WgzzTMEP071Ji4cadh0F_i4J0\"",
+      "id": "PLOU2XLYxmsIItw48fvNSbLvHBqV1E1CkF",
+      "snippet": {
+        "publishedAt": "2018-04-24T22:39:21.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Machine Learning and AI at Google I/O 2018",
+        "description": "This playlist contains all the I/O 2018 sessions related to Machine Learning and AI.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ \nAlso, check out the TensorFlow I/O playlist → https://goo.gl/GaAnBR \n\nSee all the sessions from Google I/O '18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/WWT0ltBf3MU/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/WWT0ltBf3MU/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/WWT0ltBf3MU/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/WWT0ltBf3MU/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/WWT0ltBf3MU/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Machine Learning and AI at Google I/O 2018",
+          "description": "This playlist contains all the I/O 2018 sessions related to Machine Learning and AI.\nLearn more on the I/O Website → https://goo.gl/1TjXUJ \nAlso, check out the TensorFlow I/O playlist → https://goo.gl/GaAnBR \n\nSee all the sessions from Google I/O '18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 15
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/S1vs4miZQpfvYmRc-JV0k9J-Jjs\"",
+      "id": "PLOU2XLYxmsIKOxMqa2anzaWnJkd-erqE3",
+      "snippet": {
+        "publishedAt": "2018-04-24T22:32:17.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "AR & VR at Google I/O 2018",
+        "description": "This playlist contains all the I/O 2018 sessions related to AR and VR. \nLearn more on the I/O Website → https://goo.gl/1TjXUJ \n\nSee all the sessions from Google I/O '18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/pW2oWy-ePS8/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/pW2oWy-ePS8/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/pW2oWy-ePS8/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/pW2oWy-ePS8/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/pW2oWy-ePS8/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "AR & VR at Google I/O 2018",
+          "description": "This playlist contains all the I/O 2018 sessions related to AR and VR. \nLearn more on the I/O Website → https://goo.gl/1TjXUJ \n\nSee all the sessions from Google I/O '18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18 #GoogleIO #GoogleIO2018"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 10
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/Qx70cNHk7v6orzqKDQVFctMgCbw\"",
+      "id": "PLOU2XLYxmsIJV0ZXb0SOU8kzO3S8k7csr",
+      "snippet": {
+        "publishedAt": "2018-04-24T21:49:27.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Google I/O 2018 - Guides",
+        "description": "Our I/O Guides get you the inside scoop and take you behind the scenes to see all the action at Google I/O 2018, held at Shoreline Amphitheatre in Mountain View, CA.\nLearn more on the I/O Website → https://google.com/io\n\nSee all the Sessions from Google I/O'18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wUzAavB-QZo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wUzAavB-QZo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wUzAavB-QZo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/wUzAavB-QZo/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/wUzAavB-QZo/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Google I/O 2018 - Guides",
+          "description": "Our I/O Guides get you the inside scoop and take you behind the scenes to see all the action at Google I/O 2018, held at Shoreline Amphitheatre in Mountain View, CA.\nLearn more on the I/O Website → https://google.com/io\n\nSee all the Sessions from Google I/O'18 here → https://goo.gl/WdYG2e\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 32
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/3QMDUoidtS6eVVs50H2TmVUHIp0\"",
+      "id": "PLOU2XLYxmsIInFRc3M44HUTQc3b_YJ4-Y",
+      "snippet": {
+        "publishedAt": "2018-04-24T21:42:30.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Google I/O 2018 - All Sessions",
+        "description": "This playlist contains every session from Google I/O 2018.\nLearn more on the I/O Website → https://google.com/io\n\nSee all the I/O'18 Guides videos here → https://goo.gl/axp9bX\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ogfYd705cRs/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ogfYd705cRs/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ogfYd705cRs/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ogfYd705cRs/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ogfYd705cRs/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Google I/O 2018 - All Sessions",
+          "description": "This playlist contains every session from Google I/O 2018.\nLearn more on the I/O Website → https://google.com/io\n\nSee all the I/O'18 Guides videos here → https://goo.gl/axp9bX\nSubscribe to the Google Developers channel → http://goo.gl/mQyv5L\n\n#io18"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 201
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/Nb_p8Y-EaOb54HmSYqxq2jhwW4I\"",
+      "id": "PLOU2XLYxmsIJPZV5KiyP4wm32VhKYMWCV",
+      "snippet": {
+        "publishedAt": "2018-03-29T00:11:56.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "The latest from the TensorFlow channel",
+        "description": "TensorFlow Dev Summit 2018 - March 30, 2018\nThe Computer History Museum, Mountain View, CA \nJoin us for the livestream (Keynote starts on March 30th 2018 at 9:30 AM PDT) ➔ https://goo.gl/EakyW1\n\n\nLearn more here: https://www.tensorflow.org/dev-summit/\nFollow TensorFlow on Twitter: https://twitter.com/tensorflow\n\nTensorFlow Dev Summit brings together a diverse mix of machine learning users from around the world for a full day of highly technical talks, demos, and conversation with the TensorFlow team and community. At this point, we are unable to accept new applications, but welcome you to join our waiting list, in case a spot opens up for the in-person event. Please note that we will be livestreaming and recording all talks. They will be available on the TensorFlow Youtube channel & you can check the TensorFlow website and @tensorflow for updates.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/JnhW5tQ_7Vo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/JnhW5tQ_7Vo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/JnhW5tQ_7Vo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/JnhW5tQ_7Vo/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/JnhW5tQ_7Vo/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "The latest from the TensorFlow channel",
+          "description": "TensorFlow Dev Summit 2018 - March 30, 2018\nThe Computer History Museum, Mountain View, CA \nJoin us for the livestream (Keynote starts on March 30th 2018 at 9:30 AM PDT) ➔ https://goo.gl/EakyW1\n\n\nLearn more here: https://www.tensorflow.org/dev-summit/\nFollow TensorFlow on Twitter: https://twitter.com/tensorflow\n\nTensorFlow Dev Summit brings together a diverse mix of machine learning users from around the world for a full day of highly technical talks, demos, and conversation with the TensorFlow team and community. At this point, we are unable to accept new applications, but welcome you to join our waiting list, in case a spot opens up for the in-person event. Please note that we will be livestreaming and recording all talks. They will be available on the TensorFlow Youtube channel & you can check the TensorFlow website and @tensorflow for updates."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 15
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/cRqjEMN2DgDuPCoJGqd1IajBQQQ\"",
+      "id": "PLOU2XLYxmsIIxxDKHWd_aId_oV9hqPi7q",
+      "snippet": {
+        "publishedAt": "2018-03-21T00:31:27.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Google Developer Day at GDC 2018",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/5wtlj_q3DjE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/5wtlj_q3DjE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/5wtlj_q3DjE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Google Developer Day at GDC 2018",
+          "description": ""
+        }
+      },
+      "contentDetails": {
+        "itemCount": 5
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/WcNnnwz1fEJm9C0xONsfjddq_5A\"",
+      "id": "PLOU2XLYxmsII2RP6toM5qAHkT2FisU2Fm",
+      "snippet": {
+        "publishedAt": "2018-03-13T16:21:22.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "All things TensorFlow",
+        "description": "TensorFlow - An open source machine learning framework for everyone.\n\nLearn more at https://www.tensorflow.org/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/mWl45NkFBOc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/mWl45NkFBOc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/mWl45NkFBOc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/mWl45NkFBOc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/mWl45NkFBOc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "All things TensorFlow",
+          "description": "TensorFlow - An open source machine learning framework for everyone.\n\nLearn more at https://www.tensorflow.org/"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 25
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/HzkFkfnnaCtLZRUhm2Xi49gBbxg\"",
+      "id": "PLOU2XLYxmsIKNoP4CHz0m8oY8doW5fRSa",
+      "snippet": {
+        "publishedAt": "2018-02-07T15:52:47.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Integrating the Google Assistant with Embedded Devices",
+        "description": "Learn more about integrating your own hardware devices with the Google Assistant. This video series covers how to embed the Google Assistant SDK into custom hardware projects, and using the Smart Home API to control your own devices.\n\nWhen you are done, join our Google+ community to keep up to date and share information with other developers at https://g.co/actionsdev\n\nLearn more from the documentation at our developer sites:\nGoogle Assistant SDK - https://goo.gl/B7tMY9 \nActions on Google - https://goo.gl/WBnW7Q",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Wsic12MXlsc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Wsic12MXlsc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Wsic12MXlsc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Wsic12MXlsc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Wsic12MXlsc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Integrating the Google Assistant with Embedded Devices",
+          "description": "Learn more about integrating your own hardware devices with the Google Assistant. This video series covers how to embed the Google Assistant SDK into custom hardware projects, and using the Smart Home API to control your own devices.\n\nWhen you are done, join our Google+ community to keep up to date and share information with other developers at https://g.co/actionsdev\n\nLearn more from the documentation at our developer sites:\nGoogle Assistant SDK - https://goo.gl/B7tMY9 \nActions on Google - https://goo.gl/WBnW7Q"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 3
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/oaTxs-ryjaN9nWF-M5Dn6euE2bk\"",
+      "id": "PLOU2XLYxmsILJQ3hp1K7bF3ib96oWaf9h",
+      "snippet": {
+        "publishedAt": "2018-02-02T19:38:08.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "The Developer Show - Events Spotlight",
+        "description": "In these event spotlight videos, the developer show interviews speakers, attendees, and product experts to gain further information and insights about these events.\n\nThe Developer Show is where you can stay up to date on all the latest Google Developer news, straight from the experts!\n\nHave a question? Use #AskDevShow to let us know!\n\nSubscribe to the Google Developers Channel for more DevShow! http://goo.gl/mQyv5L",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/YV4BOhYTd9k/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/YV4BOhYTd9k/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/YV4BOhYTd9k/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/YV4BOhYTd9k/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/YV4BOhYTd9k/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "The Developer Show - Events Spotlight",
+          "description": "In these event spotlight videos, the developer show interviews speakers, attendees, and product experts to gain further information and insights about these events.\n\nThe Developer Show is where you can stay up to date on all the latest Google Developer news, straight from the experts!\n\nHave a question? Use #AskDevShow to let us know!\n\nSubscribe to the Google Developers Channel for more DevShow! http://goo.gl/mQyv5L"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 28
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/yx--0Aa1nlqEbYFArRjBkmq0bsE\"",
+      "id": "PLOU2XLYxmsILkE42lSIa-exrvEjZneMRw",
+      "snippet": {
+        "publishedAt": "2018-01-26T01:05:52.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Build anything with Google",
+        "description": "The latest from Google Developers in 2018",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/mnyHcjoLhbg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/mnyHcjoLhbg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/mnyHcjoLhbg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/mnyHcjoLhbg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/mnyHcjoLhbg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Build anything with Google",
+          "description": "The latest from Google Developers in 2018"
+        }
+      },
+      "contentDetails": {
+        "itemCount": 41
+      }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/qP0tQcMVOVmChlAWtoP9Vl_y0xE\"",
+      "id": "PLOU2XLYxmsIIJr3vjxggY7yGcGO7i9BK5",
+      "snippet": {
+        "publishedAt": "2018-01-24T03:48:45.000Z",
+        "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+        "title": "Dart Conference 2018",
+        "description": "Dart Conference 2018\nIncluding Flutter and AngularDart\nJanuary 23-24, 2018\nEvent Details: https://goo.gl/kfHG57\n\nTrack the Dart project, get help, and talk with other Dart developers:  https://goo.gl/AwyaUn\n\nDart's mission is to make it possible to build next-generation user experiences — on the web, on iOS, on Android, everywhere. DartConf is the premier event that connects Flutter and AngularDart developers together, and to the Google engineers who work on these projects.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/0a0iZW4RZXg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/0a0iZW4RZXg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/0a0iZW4RZXg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/0a0iZW4RZXg/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/0a0iZW4RZXg/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Google Developers",
+        "localized": {
+          "title": "Dart Conference 2018",
+          "description": "Dart Conference 2018\nIncluding Flutter and AngularDart\nJanuary 23-24, 2018\nEvent Details: https://goo.gl/kfHG57\n\nTrack the Dart project, get help, and talk with other Dart developers:  https://goo.gl/AwyaUn\n\nDart's mission is to make it possible to build next-generation user experiences — on the web, on iOS, on Android, everywhere. DartConf is the premier event that connects Flutter and AngularDart developers together, and to the Google engineers who work on these projects."
+        }
+      },
+      "contentDetails": {
+        "itemCount": 33
+      }
+    }
+  ]
+}

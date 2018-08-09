@@ -1,0 +1,113 @@
+{
+  "kind": "youtube#channelListResponse",
+  "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/jw59E7rS-GqifleEcr2WvbgLKIg\"",
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  },
+  "items": [
+    {
+      "kind": "youtube#channel",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/i2TRcM64BOv_zrub63giE87KAyI\"",
+      "id": "UC_x5XG1OV2P6uZZ5FSM9Ttw",
+      "snippet": {
+        "title": "Google Developers",
+        "description": "The Google Developers channel features talks from events, educational series, best practices, tips, and the latest updates across our products and platforms.",
+        "customUrl": "googledevelopers",
+        "publishedAt": "2007-08-23T00:34:43.000Z",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/a-/ACSszfEtef_BbD3pT3IKMBPy_kxLobdfhjxxqZOg9Q=s88-mo-c-c0xffffffff-rj-k-no",
+            "width": 88,
+            "height": 88
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/a-/ACSszfEtef_BbD3pT3IKMBPy_kxLobdfhjxxqZOg9Q=s240-mo-c-c0xffffffff-rj-k-no",
+            "width": 240,
+            "height": 240
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/a-/ACSszfEtef_BbD3pT3IKMBPy_kxLobdfhjxxqZOg9Q=s800-mo-c-c0xffffffff-rj-k-no",
+            "width": 800,
+            "height": 800
+          }
+        },
+        "localized": {
+          "title": "Google Developers",
+          "description": "The Google Developers channel features talks from events, educational series, best practices, tips, and the latest updates across our products and platforms."
+        }
+      },
+      "contentDetails": {
+        "relatedPlaylists": {
+          "uploads": "UU_x5XG1OV2P6uZZ5FSM9Ttw",
+          "watchHistory": "HL",
+          "watchLater": "WL"
+        }
+      },
+      "statistics": {
+        "viewCount": "142708710",
+        "commentCount": "0",
+        "subscriberCount": "1613009",
+        "hiddenSubscriberCount": false,
+        "videoCount": "4785"
+      },
+      "brandingSettings": {
+        "channel": {
+          "title": "Google Developers",
+          "description": "The Google Developers channel features talks from events, educational series, best practices, tips, and the latest updates across our products and platforms.",
+          "defaultTab": "Featured",
+          "trackingAnalyticsAccountId": "YT-9170156-1",
+          "moderateComments": true,
+          "showRelatedChannels": true,
+          "showBrowseView": true,
+          "featuredChannelsTitle": "Featured Channels",
+          "featuredChannelsUrls": [
+            "UCP4bf6IHJJQehibu6ai__cg",
+            "UCVHFbqXqoYvEWM1Ddxl0QDg",
+            "UCnUYZLuoy1rq1aVMwx4aTzw",
+            "UClKO7be7O9cUGL94PHnAeOA",
+            "UCdIiCSqXuybzwGwJwrpHPqw",
+            "UCJS9pqu9BzkAMNTmzNMNhvg",
+            "UCorTyjVGM-PV5CCKbosONow",
+            "UCTspylBf8iNobZHgwUD4PXA",
+            "UCeo-MamuQVFRcfQmS2N7fhw",
+            "UCQqa5UIHtrnpiADC3eHFupw",
+            "UCXPBsjgKKG2HqsKBhWA4uQw"
+          ],
+          "unsubscribedTrailer": "NeF0zpT4gNE",
+          "profileColor": "#000000"
+        },
+        "image": {
+          "bannerImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w1060-fcrop64=1,00005a57ffffa5a8-nd-c0xffffffff-rj-k-no",
+          "bannerMobileImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w640-fcrop64=1,32b75a57cd48a5a8-nd-c0xffffffff-rj-k-no",
+          "bannerTabletLowImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w1138-fcrop64=1,00005a57ffffa5a8-nd-c0xffffffff-rj-k-no",
+          "bannerTabletImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w1707-fcrop64=1,00005a57ffffa5a8-nd-c0xffffffff-rj-k-no",
+          "bannerTabletHdImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w2276-fcrop64=1,00005a57ffffa5a8-nd-c0xffffffff-rj-k-no",
+          "bannerTabletExtraHdImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w2560-fcrop64=1,00005a57ffffa5a8-nd-c0xffffffff-rj-k-no",
+          "bannerMobileLowImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w320-fcrop64=1,32b75a57cd48a5a8-nd-c0xffffffff-rj-k-no",
+          "bannerMobileMediumHdImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w960-fcrop64=1,32b75a57cd48a5a8-nd-c0xffffffff-rj-k-no",
+          "bannerMobileHdImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w1280-fcrop64=1,32b75a57cd48a5a8-nd-c0xffffffff-rj-k-no",
+          "bannerMobileExtraHdImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w1440-fcrop64=1,32b75a57cd48a5a8-nd-c0xffffffff-rj-k-no",
+          "bannerTvImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w2120-fcrop64=1,00000000ffffffff-nd-c0xffffffff-rj-k-no",
+          "bannerTvLowImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w854-fcrop64=1,00000000ffffffff-nd-c0xffffffff-rj-k-no",
+          "bannerTvMediumImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w1280-fcrop64=1,00000000ffffffff-nd-c0xffffffff-rj-k-no",
+          "bannerTvHighImageUrl": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w1920-fcrop64=1,00000000ffffffff-nd-c0xffffffff-rj-k-no"
+        },
+        "hints": [
+          {
+            "property": "channel.banner.mobile.medium.image.url",
+            "value": "https://yt3.ggpht.com/z8f9KErbtzLHFvmzvhYY3DU2Ffwm1NuDLdv9Fg258VR5T_8pxbpviM_9_Jd6DfcflVEy8S4_rw=w640-fcrop64=1,32b75a57cd48a5a8-nd-c0xffffffff-rj-k-no"
+          },
+          {
+            "property": "channel.modules.show_comments.bool",
+            "value": "True"
+          },
+          {
+            "property": "channel.featured_tab.template.string",
+            "value": "Everything"
+          }
+        ]
+      }
+    }
+  ]
+}

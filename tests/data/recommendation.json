@@ -1,0 +1,176 @@
+{
+ "kind": "youtube#searchListResponse",
+ "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/PPg9D6lHXzw9iTsvDgrlNZm78GY\"",
+ "regionCode": "US",
+ "pageInfo": {
+  "totalResults": 22,
+  "resultsPerPage": 25
+ },
+ "items": [
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/9ChCpAO0ZqWV8flrZdx9VmGXWFA\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "BIg10mzhiZs"
+   },
+   "snippet": {
+    "publishedAt": "2018-06-30T11:50:48.000Z",
+    "channelId": "UCJvIPpWSsW-EGuQjNIZbBTQ",
+    "title": "Jim Nussle’s Opening Speech at CUNA’s 2018 ACUC",
+    "description": "CUNA President/CEO Jim Nussle presented ideas meant to move the credit union system into the future of financial services at CUNA’s 2018 America’s Credit Union Conference in Boston. CUNA is on a mission, as the champion for credit unions, to harness cooperatives superpowers in order to determine the future for credit unions and our credit union members. As outlined in Nussle’s speech, CUNA’s mission includes delivering fierce, bold 360-degree advocacy offense to revolutionize the operating environment for credit unions by expanding powers and removing barriers to serving consumers and businesses; best-in-class credit union solutions to foster growth, improve operations, manage compliance and enrich member service; and awareness building consumer engagement to create and enhance consumer awareness of credit unions as their best financial partner.",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/BIg10mzhiZs/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/BIg10mzhiZs/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/BIg10mzhiZs/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "CUNAAdvocacy",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/jej5ICZhHkfhW6awUtxolpxLqao\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "4UXK8mBevqo"
+   },
+   "snippet": {
+    "publishedAt": "2018-03-14T23:05:31.000Z",
+    "channelId": "UCD2m7astD-ztL6xostl2GIQ",
+    "title": "Crapo on Senate Passage of the Economic Growth, Regulatory Relief and Consumer Protection Act",
+    "description": "Idaho Senator Mike Crapo, Chairman of the Senate Banking Committee, delivers remarks on the Senate Floor before final passage of the Economic Growth, Regulatory Relief and Consumer Protection Act.",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/4UXK8mBevqo/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/4UXK8mBevqo/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/4UXK8mBevqo/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "Banking GOP",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/TbBT2SiyiWeSsI97DlqMJI3WUCA\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "JUVTEDg_UJI"
+   },
+   "snippet": {
+    "publishedAt": "2018-08-09T16:09:05.000Z",
+    "channelId": "UCr1a3tkb3Q1HnOG_Af-UlGw",
+    "title": "DID EVERTON WIN THE TRANSFER WINDOW? | LIVE TRANSFER DEADLINE DAY REVIEW",
+    "description": "WHO WON THE TRANSFER WINDOW? | TRANSFER DEADLINE DAY LIVE REVIEW. Flav and James discuss all the major Premier League transfers, including the business of Chelsea, Arsenal, Tottenham, Man United, West Ham, Everton and Fulham.\n\n\n\n► SUBSCRIBE to Ball Street: http://bit.ly/BallStreetSubscribe\n\nLike us on Facebook 👉 http://www.facebook.com/BALLSTREET\nFollow us on Twitter 👉 https://twitter.com/BallStreet\n\n\nSubscribe to the other members of the Ball Street Network:\n\n► SUBSCRIBE TalkNorwichCity - https://www.youtube.com/user/TalkNorwichCity\n► SUBSCRIBE ToffeeTV - https://www.youtube.com/user/EFCTV1\n► SUBSCRIBE West Ham FanTV - https://www.youtube.com/channel/UC_tt4cYHIHNQAFQj2V2Wi-w\n► SUBSCRIBE UnitedPeoplesTV - https://www.youtube.com/channel/UCEfEaGKGSxy8ZYIV1RWLbCQ\n► SUBSCRIBE 100% Chelsea - https://www.youtube.com/channel/UCb51e53V1Cq3jx8_EFYflWA\n► SUBSCRIBE ArsenalFanTV - https://www.youtube.com/user/arsenalfanstv\n► SUBSCRIBE RedmenTV - https://www.youtube.com/user/WeAreTheRedmen\n► SUBSCRIBE The BearPit TV - https://www.youtube.com/channel/UC5T-3t_oYvpIvuf3CyTeuzQ\n► SUBSCRIBE 442oons - https://www.youtube.com/user/442oons\n► SUBSCRIBE Beesotted - https://www.youtube.com/user/beesotted1992\n► SUBSCRIBE Ball Street - https://www.youtube.com/user/Ballstreetchannel\n\nFollow the Ball Street network on Twitter:\n\nThe Redmen TV http://www.twitter.com/theredmentv\nToffee TV http://www.twitter.com/toffeetv1\nUnited Peoples TV http://www.twitter.com/unitedpeoplestv\nWest Ham Fan TV http://twitter.com/westhamfantv\nTalk Norwich City http://twitter.com/TalkNorwichCity\nThe Bearpit TV http://twitter.com/TheBearPitTV",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/JUVTEDg_UJI/default_live.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/JUVTEDg_UJI/mqdefault_live.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/JUVTEDg_UJI/hqdefault_live.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "Ball Street",
+    "liveBroadcastContent": "live"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/tqi0tbe5WtKNOM3QKnW0wumzA3Y\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "4ftbMbSLNeQ"
+   },
+   "snippet": {
+    "publishedAt": "2018-07-28T06:18:05.000Z",
+    "channelId": "UCxeY-wRrb65Jt37QHa5xMog",
+    "title": "Portland ICE Protesters Shut Down Non-Profit Food Cart | Fake Charity Destroys Real Charity",
+    "description": "Tweet me @MLChristiansen http://www.twitter.com/MLChristiansen\nEmail me: matthewlchristiansen@gmail.com\nFind me on Minds: http://www.minds.com/MLChristiansen\nNew to Minds? Join via my referral link: https://www.minds.com/register;referrer=MLChristiansen  \nFind me on Gab: http://www.gab.ai/MLChristiansen\n\nSupport my work on Patreon: http://www.patreon.com/MattConYT\nSupport my work with a one-time contribution: http://www.paypal.me/MConYT\nSupport my work via Bitcoin: 1Agu6SAvUACzCVLT4Gbhyw7xEWDzZhzmmU\n\nMy podcast LIVE Sundays and Wednesdays at 9 PM ET http://bit.ly/1WC1TBI\nMy gaming stream http://www.twitch.tv/skagg_3\n\nMy podcast on demand: http://bit.ly/1TUcepj\nListen on iTunes: http://apple.co/23YM9rM\nListen on Google Play: http://bit.ly/2iFWOqD\nListen on Soundcloud: http://bit.ly/1TUce8E\nListen on Stitcher: http://bit.ly/1TlubhE\nListen on Podbean: http://bit.ly/1TUcnJ8\n\nOutro music written and performed by A.E.N.E.A.S. - http://on.fb.me/13PvTip\n\nDownload or stream A.E.N.E.A.S. tracks for free: http://www.iamaeneas.bandcamp.com\n\nITEMS REFERENCED \nNYC ICE protest: http://bit.ly/2mOXKgZ\nSeattle ICE protest: https://kng5.tv/2AdiVD1\nChicago ICE protest: http://bit.ly/2OlKfSv \nDenver ICE protest: http://bit.ly/2mKjryK\nPhiladelphia ICE protest results in arrests: https://youtu.be/1zraO5LrhcI\nWoman climbs Statue of Liberty to protest ICE: https://youtu.be/sSg9_aJeMZE\nStatue of Liberty vacationers evacuated and angered: https://nbcnews.to/2AhDuOG\nPortland Occupy ICE arrested for blocking driveway: http://bit.ly/2Aca4kI \nVideo of the driveway blocking arrests: https://youtu.be/btaTsO6iEQ4\nPortland Occupy ICE's Periscope livestream of the arrest incident: https://www.pscp.tv/w/1yNGaXMAraRKj \nPortland Occupy ICE protesters set up permanent encampment: http://bit.ly/2Aflwfz\nThe city evacuates the camp, which is a \"disgusting biohazard\": https://fxn.ws/2Ag52Ul  \nNon-profit food cart closes because of alleged threats from Occupy ICE protesters: http://bit.ly/2AfhMuv \nOccupy ICE shuts down Portland non-profit food cart: http://bit.ly/2mMIQYD \nPortland Mayor told police not to intervene in the camp: http://bit.ly/2Aci19E\nPortland Mayor calls for camp to disperse, but thanks them for their activism: https://youtu.be/cFw3tTm3Ivg\nNonprofit food cart near ICE facility still planning to sell: http://bit.ly/2AcfFaO",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/4ftbMbSLNeQ/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/4ftbMbSLNeQ/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/4ftbMbSLNeQ/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "Matt Christiansen",
+    "liveBroadcastContent": "none"
+   }
+  },
+  {
+   "kind": "youtube#searchResult",
+   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/1Z2m-QWA19aJPuGU_CFU8gux7bM\"",
+   "id": {
+    "kind": "youtube#video",
+    "videoId": "bg6PpNmj7ew"
+   },
+   "snippet": {
+    "publishedAt": "2018-03-20T20:58:27.000Z",
+    "channelId": "UCJvIPpWSsW-EGuQjNIZbBTQ",
+    "title": "Campaign for Common Sense Regulation",
+    "description": "The U.S. Senate recently passed the Economic Growth, Regulatory Relief, and Consumer Protection Act. This bill will provide regulatory relief to Main Street financial institutions including credit unions and community banks while maintaining regulations for Wall Street. Tell your U.S. Representative to support S. 2155!",
+    "thumbnails": {
+     "default": {
+      "url": "https://i.ytimg.com/vi/bg6PpNmj7ew/default.jpg",
+      "width": 120,
+      "height": 90
+     },
+     "medium": {
+      "url": "https://i.ytimg.com/vi/bg6PpNmj7ew/mqdefault.jpg",
+      "width": 320,
+      "height": 180
+     },
+     "high": {
+      "url": "https://i.ytimg.com/vi/bg6PpNmj7ew/hqdefault.jpg",
+      "width": 480,
+      "height": 360
+     }
+    },
+    "channelTitle": "CUNAAdvocacy",
+    "liveBroadcastContent": "none"
+   }
+  }
+ ]
+}
