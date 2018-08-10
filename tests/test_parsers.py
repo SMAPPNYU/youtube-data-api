@@ -131,9 +131,6 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['commenter_rating'], "none")
         self.assertEqual(metadata['comment_parent_id'], "Ugi7hPbxcLYF3HgCoAEC")
 
-    def test_caption_track(self):
-        pass
-
     def test_rec_video(self):
         item = self.rec.get('items')[0]
         metadata = P.parse_rec_video_metadata(item)
