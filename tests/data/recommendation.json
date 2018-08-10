@@ -1,176 +1,177 @@
 {
- "kind": "youtube#searchListResponse",
- "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/PPg9D6lHXzw9iTsvDgrlNZm78GY\"",
- "regionCode": "US",
- "pageInfo": {
-  "totalResults": 22,
-  "resultsPerPage": 25
- },
- "items": [
-  {
-   "kind": "youtube#searchResult",
-   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/9ChCpAO0ZqWV8flrZdx9VmGXWFA\"",
-   "id": {
-    "kind": "youtube#video",
-    "videoId": "BIg10mzhiZs"
-   },
-   "snippet": {
-    "publishedAt": "2018-06-30T11:50:48.000Z",
-    "channelId": "UCJvIPpWSsW-EGuQjNIZbBTQ",
-    "title": "Jim Nussle’s Opening Speech at CUNA’s 2018 ACUC",
-    "description": "CUNA President/CEO Jim Nussle presented ideas meant to move the credit union system into the future of financial services at CUNA’s 2018 America’s Credit Union Conference in Boston. CUNA is on a mission, as the champion for credit unions, to harness cooperatives superpowers in order to determine the future for credit unions and our credit union members. As outlined in Nussle’s speech, CUNA’s mission includes delivering fierce, bold 360-degree advocacy offense to revolutionize the operating environment for credit unions by expanding powers and removing barriers to serving consumers and businesses; best-in-class credit union solutions to foster growth, improve operations, manage compliance and enrich member service; and awareness building consumer engagement to create and enhance consumer awareness of credit unions as their best financial partner.",
-    "thumbnails": {
-     "default": {
-      "url": "https://i.ytimg.com/vi/BIg10mzhiZs/default.jpg",
-      "width": 120,
-      "height": 90
-     },
-     "medium": {
-      "url": "https://i.ytimg.com/vi/BIg10mzhiZs/mqdefault.jpg",
-      "width": 320,
-      "height": 180
-     },
-     "high": {
-      "url": "https://i.ytimg.com/vi/BIg10mzhiZs/hqdefault.jpg",
-      "width": 480,
-      "height": 360
-     }
-    },
-    "channelTitle": "CUNAAdvocacy",
-    "liveBroadcastContent": "none"
-   }
+  "kind": "youtube#searchListResponse",
+  "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/2zZwGlCm2NUQqJ1XNX6GNp1gzZE\"",
+  "nextPageToken": "CAUQAA",
+  "regionCode": "US",
+  "pageInfo": {
+    "totalResults": 512,
+    "resultsPerPage": 5
   },
-  {
-   "kind": "youtube#searchResult",
-   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/jej5ICZhHkfhW6awUtxolpxLqao\"",
-   "id": {
-    "kind": "youtube#video",
-    "videoId": "4UXK8mBevqo"
-   },
-   "snippet": {
-    "publishedAt": "2018-03-14T23:05:31.000Z",
-    "channelId": "UCD2m7astD-ztL6xostl2GIQ",
-    "title": "Crapo on Senate Passage of the Economic Growth, Regulatory Relief and Consumer Protection Act",
-    "description": "Idaho Senator Mike Crapo, Chairman of the Senate Banking Committee, delivers remarks on the Senate Floor before final passage of the Economic Growth, Regulatory Relief and Consumer Protection Act.",
-    "thumbnails": {
-     "default": {
-      "url": "https://i.ytimg.com/vi/4UXK8mBevqo/default.jpg",
-      "width": 120,
-      "height": 90
-     },
-     "medium": {
-      "url": "https://i.ytimg.com/vi/4UXK8mBevqo/mqdefault.jpg",
-      "width": 320,
-      "height": 180
-     },
-     "high": {
-      "url": "https://i.ytimg.com/vi/4UXK8mBevqo/hqdefault.jpg",
-      "width": 480,
-      "height": 360
-     }
+  "items": [
+    {
+      "kind": "youtube#searchResult",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/mc8kHUq-N_Kl2cu_uUv9brlcpjk\"",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "w-HYZv6HzAs"
+      },
+      "snippet": {
+        "publishedAt": "2012-01-13T19:42:36.000Z",
+        "channelId": "UCsT0YIqwnpJCM-mx7-gSA4Q",
+        "title": "The skill of self confidence | Dr. Ivan Joseph | TEDxRyersonU",
+        "description": "Never miss a talk! SUBSCRIBE to the TEDx channel: http://bit.ly/1FAg8hB\n\nAs the Athletic Director and head coach of the Varsity Soccer team at Ryerson University, Dr. Joseph is often asked what skills he is searching for as a recruiter: is it speed? Strength? Agility? In Dr. Joseph's TEDx Talk, he explores self confidence and how it is not just the most important skill in athletics, but in our lives.\n \nIn the spirit of ideas worth spreading, TEDx is a program of local, self-organized events that bring people together to share a TED-like experience. At a TEDx event, TEDTalks video and live speakers combine to spark deep discussion and connection in a small group. These local, self-organized events are branded TEDx, where x = independently organized TED event. The TED Conference provides general guidance for the TEDx program, but individual TEDx events are self-organized.* (*Subject to certain rules and regulations)",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/w-HYZv6HzAs/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/w-HYZv6HzAs/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/w-HYZv6HzAs/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "TEDx Talks",
+        "liveBroadcastContent": "none"
+      }
     },
-    "channelTitle": "Banking GOP",
-    "liveBroadcastContent": "none"
-   }
-  },
-  {
-   "kind": "youtube#searchResult",
-   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/TbBT2SiyiWeSsI97DlqMJI3WUCA\"",
-   "id": {
-    "kind": "youtube#video",
-    "videoId": "JUVTEDg_UJI"
-   },
-   "snippet": {
-    "publishedAt": "2018-08-09T16:09:05.000Z",
-    "channelId": "UCr1a3tkb3Q1HnOG_Af-UlGw",
-    "title": "DID EVERTON WIN THE TRANSFER WINDOW? | LIVE TRANSFER DEADLINE DAY REVIEW",
-    "description": "WHO WON THE TRANSFER WINDOW? | TRANSFER DEADLINE DAY LIVE REVIEW. Flav and James discuss all the major Premier League transfers, including the business of Chelsea, Arsenal, Tottenham, Man United, West Ham, Everton and Fulham.\n\n\n\n► SUBSCRIBE to Ball Street: http://bit.ly/BallStreetSubscribe\n\nLike us on Facebook 👉 http://www.facebook.com/BALLSTREET\nFollow us on Twitter 👉 https://twitter.com/BallStreet\n\n\nSubscribe to the other members of the Ball Street Network:\n\n► SUBSCRIBE TalkNorwichCity - https://www.youtube.com/user/TalkNorwichCity\n► SUBSCRIBE ToffeeTV - https://www.youtube.com/user/EFCTV1\n► SUBSCRIBE West Ham FanTV - https://www.youtube.com/channel/UC_tt4cYHIHNQAFQj2V2Wi-w\n► SUBSCRIBE UnitedPeoplesTV - https://www.youtube.com/channel/UCEfEaGKGSxy8ZYIV1RWLbCQ\n► SUBSCRIBE 100% Chelsea - https://www.youtube.com/channel/UCb51e53V1Cq3jx8_EFYflWA\n► SUBSCRIBE ArsenalFanTV - https://www.youtube.com/user/arsenalfanstv\n► SUBSCRIBE RedmenTV - https://www.youtube.com/user/WeAreTheRedmen\n► SUBSCRIBE The BearPit TV - https://www.youtube.com/channel/UC5T-3t_oYvpIvuf3CyTeuzQ\n► SUBSCRIBE 442oons - https://www.youtube.com/user/442oons\n► SUBSCRIBE Beesotted - https://www.youtube.com/user/beesotted1992\n► SUBSCRIBE Ball Street - https://www.youtube.com/user/Ballstreetchannel\n\nFollow the Ball Street network on Twitter:\n\nThe Redmen TV http://www.twitter.com/theredmentv\nToffee TV http://www.twitter.com/toffeetv1\nUnited Peoples TV http://www.twitter.com/unitedpeoplestv\nWest Ham Fan TV http://twitter.com/westhamfantv\nTalk Norwich City http://twitter.com/TalkNorwichCity\nThe Bearpit TV http://twitter.com/TheBearPitTV",
-    "thumbnails": {
-     "default": {
-      "url": "https://i.ytimg.com/vi/JUVTEDg_UJI/default_live.jpg",
-      "width": 120,
-      "height": 90
-     },
-     "medium": {
-      "url": "https://i.ytimg.com/vi/JUVTEDg_UJI/mqdefault_live.jpg",
-      "width": 320,
-      "height": 180
-     },
-     "high": {
-      "url": "https://i.ytimg.com/vi/JUVTEDg_UJI/hqdefault_live.jpg",
-      "width": 480,
-      "height": 360
-     }
+    {
+      "kind": "youtube#searchResult",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/6-NkZyItLnc3RUZiz2XLakQJwyk\"",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "H6n3iNh4XLI"
+      },
+      "snippet": {
+        "publishedAt": "2015-05-07T14:17:32.000Z",
+        "channelId": "UCsT0YIqwnpJCM-mx7-gSA4Q",
+        "title": "How to Have a Good Conversation | Celeste Headlee | TEDxCreativeCoast",
+        "description": "When your job hinges on how well you talk to people, you learn a lot about how to have great conversations – and most of us don’t converse very well. A great conversation requires a balance between talking and listening. This balance is important because bad communication leads to bad relationships, at home, at work, everywhere.\n\nCeleste Headlee has worked in public radio since 1999, as a reporter, host, and correspondent. She was the Midwest Correspondent for NPR before becoming the co-host of the PRI show The Takeaway. She also guest hosted a number of NPR shows including Tell Me More, Talk of the Nation, Weekend All Things Considered, and Weekend Edition. \r\n \r\nCeleste holds multiple degrees in music and still performs as a professional opera singer. She's the granddaughter of composer William Grant Still, the Dean of African American Composers. Celeste is an avid hiker, biker, paddler and dog walker.\n\nThis talk was given at a TEDx event using the TED conference format but independently organized by a local community. Learn more at http://ted.com/tedx",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/H6n3iNh4XLI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/H6n3iNh4XLI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/H6n3iNh4XLI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "TEDx Talks",
+        "liveBroadcastContent": "none"
+      }
     },
-    "channelTitle": "Ball Street",
-    "liveBroadcastContent": "live"
-   }
-  },
-  {
-   "kind": "youtube#searchResult",
-   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/tqi0tbe5WtKNOM3QKnW0wumzA3Y\"",
-   "id": {
-    "kind": "youtube#video",
-    "videoId": "4ftbMbSLNeQ"
-   },
-   "snippet": {
-    "publishedAt": "2018-07-28T06:18:05.000Z",
-    "channelId": "UCxeY-wRrb65Jt37QHa5xMog",
-    "title": "Portland ICE Protesters Shut Down Non-Profit Food Cart | Fake Charity Destroys Real Charity",
-    "description": "Tweet me @MLChristiansen http://www.twitter.com/MLChristiansen\nEmail me: matthewlchristiansen@gmail.com\nFind me on Minds: http://www.minds.com/MLChristiansen\nNew to Minds? Join via my referral link: https://www.minds.com/register;referrer=MLChristiansen  \nFind me on Gab: http://www.gab.ai/MLChristiansen\n\nSupport my work on Patreon: http://www.patreon.com/MattConYT\nSupport my work with a one-time contribution: http://www.paypal.me/MConYT\nSupport my work via Bitcoin: 1Agu6SAvUACzCVLT4Gbhyw7xEWDzZhzmmU\n\nMy podcast LIVE Sundays and Wednesdays at 9 PM ET http://bit.ly/1WC1TBI\nMy gaming stream http://www.twitch.tv/skagg_3\n\nMy podcast on demand: http://bit.ly/1TUcepj\nListen on iTunes: http://apple.co/23YM9rM\nListen on Google Play: http://bit.ly/2iFWOqD\nListen on Soundcloud: http://bit.ly/1TUce8E\nListen on Stitcher: http://bit.ly/1TlubhE\nListen on Podbean: http://bit.ly/1TUcnJ8\n\nOutro music written and performed by A.E.N.E.A.S. - http://on.fb.me/13PvTip\n\nDownload or stream A.E.N.E.A.S. tracks for free: http://www.iamaeneas.bandcamp.com\n\nITEMS REFERENCED \nNYC ICE protest: http://bit.ly/2mOXKgZ\nSeattle ICE protest: https://kng5.tv/2AdiVD1\nChicago ICE protest: http://bit.ly/2OlKfSv \nDenver ICE protest: http://bit.ly/2mKjryK\nPhiladelphia ICE protest results in arrests: https://youtu.be/1zraO5LrhcI\nWoman climbs Statue of Liberty to protest ICE: https://youtu.be/sSg9_aJeMZE\nStatue of Liberty vacationers evacuated and angered: https://nbcnews.to/2AhDuOG\nPortland Occupy ICE arrested for blocking driveway: http://bit.ly/2Aca4kI \nVideo of the driveway blocking arrests: https://youtu.be/btaTsO6iEQ4\nPortland Occupy ICE's Periscope livestream of the arrest incident: https://www.pscp.tv/w/1yNGaXMAraRKj \nPortland Occupy ICE protesters set up permanent encampment: http://bit.ly/2Aflwfz\nThe city evacuates the camp, which is a \"disgusting biohazard\": https://fxn.ws/2Ag52Ul  \nNon-profit food cart closes because of alleged threats from Occupy ICE protesters: http://bit.ly/2AfhMuv \nOccupy ICE shuts down Portland non-profit food cart: http://bit.ly/2mMIQYD \nPortland Mayor told police not to intervene in the camp: http://bit.ly/2Aci19E\nPortland Mayor calls for camp to disperse, but thanks them for their activism: https://youtu.be/cFw3tTm3Ivg\nNonprofit food cart near ICE facility still planning to sell: http://bit.ly/2AcfFaO",
-    "thumbnails": {
-     "default": {
-      "url": "https://i.ytimg.com/vi/4ftbMbSLNeQ/default.jpg",
-      "width": 120,
-      "height": 90
-     },
-     "medium": {
-      "url": "https://i.ytimg.com/vi/4ftbMbSLNeQ/mqdefault.jpg",
-      "width": 320,
-      "height": 180
-     },
-     "high": {
-      "url": "https://i.ytimg.com/vi/4ftbMbSLNeQ/hqdefault.jpg",
-      "width": 480,
-      "height": 360
-     }
+    {
+      "kind": "youtube#searchResult",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/Y2BlakYDP6ZYMtgomvM_ZSiwvdE\"",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "P_6vDLq64gE"
+      },
+      "snippet": {
+        "publishedAt": "2011-10-13T19:33:04.000Z",
+        "channelId": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "title": "How to spot a liar | Pamela Meyer",
+        "description": "http://www.ted.com On any given day we're lied to from 10 to 200 times, and the clues to detect those lie can be subtle and counter-intuitive. Pamela Meyer, author of Liespotting, shows the manners and \"hotspots\" used by those trained to recognize deception -- and she argues honesty is a value worth preserving.\n\nTEDTalks is a daily video podcast of the best talks and performances from the TED Conference, where the world's leading thinkers and doers give the talk of their lives in 18 minutes. Featured speakers have included Al Gore on climate change, Philippe Starck on design, Jill Bolte Taylor on observing her own stroke, Nicholas Negroponte on One Laptop per Child, Jane Goodall on chimpanzees, Bill Gates on malaria and mosquitoes, Pattie Maes on the \"Sixth Sense\" wearable tech, and \"Lost\" producer JJ Abrams on the allure of mystery. TED stands for Technology, Entertainment, Design, and TEDTalks cover these topics as well as science, business, development and the arts. Closed captions and translated subtitles in a variety of languages are now available on TED.com, at http://www.ted.com/translate.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/P_6vDLq64gE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/P_6vDLq64gE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/P_6vDLq64gE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "TED",
+        "liveBroadcastContent": "none"
+      }
     },
-    "channelTitle": "Matt Christiansen",
-    "liveBroadcastContent": "none"
-   }
-  },
-  {
-   "kind": "youtube#searchResult",
-   "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/1Z2m-QWA19aJPuGU_CFU8gux7bM\"",
-   "id": {
-    "kind": "youtube#video",
-    "videoId": "bg6PpNmj7ew"
-   },
-   "snippet": {
-    "publishedAt": "2018-03-20T20:58:27.000Z",
-    "channelId": "UCJvIPpWSsW-EGuQjNIZbBTQ",
-    "title": "Campaign for Common Sense Regulation",
-    "description": "The U.S. Senate recently passed the Economic Growth, Regulatory Relief, and Consumer Protection Act. This bill will provide regulatory relief to Main Street financial institutions including credit unions and community banks while maintaining regulations for Wall Street. Tell your U.S. Representative to support S. 2155!",
-    "thumbnails": {
-     "default": {
-      "url": "https://i.ytimg.com/vi/bg6PpNmj7ew/default.jpg",
-      "width": 120,
-      "height": 90
-     },
-     "medium": {
-      "url": "https://i.ytimg.com/vi/bg6PpNmj7ew/mqdefault.jpg",
-      "width": 320,
-      "height": 180
-     },
-     "high": {
-      "url": "https://i.ytimg.com/vi/bg6PpNmj7ew/hqdefault.jpg",
-      "width": 480,
-      "height": 360
-     }
+    {
+      "kind": "youtube#searchResult",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/tCkHVPT0IBqPRxTF5Ry2Q0ysVZk\"",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "JsC9ZHi79jo"
+      },
+      "snippet": {
+        "publishedAt": "2017-12-12T02:37:01.000Z",
+        "channelId": "UCsT0YIqwnpJCM-mx7-gSA4Q",
+        "title": "How to triple your memory by using this trick | Ricardo Lieuw On | TEDxHaarlem",
+        "description": "Do you recall studying for your exams? You probably do. But do you remember how you studied, how you memorized French words or the year of the American civil war? Now, that’s probably harder. As a teenager, Ricardo Lieuw On was packing groceries when he knew what he wanted to study: he wanted to learn about learning. He picked up a study in psychology and learned how to reduce his learning time from 3 hours to 1 hour on the same piece of content. He gained the same knowledge in 200% less time. And specially for TEDxHaarlem, he shares the secret of his technique. \n  This talk was given at a TEDx event using the TED conference format but independently organized by a local community. Learn more at https://www.ted.com/tedx",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/JsC9ZHi79jo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/JsC9ZHi79jo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/JsC9ZHi79jo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "TEDx Talks",
+        "liveBroadcastContent": "none"
+      }
     },
-    "channelTitle": "CUNAAdvocacy",
-    "liveBroadcastContent": "none"
-   }
-  }
- ]
+    {
+      "kind": "youtube#searchResult",
+      "etag": "\"XI7nbFXulYBIpL0ayR_gDh3eu1k/JlHUTq4Hjci4n7R5_uL8VovPozY\"",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "R1vskiVDwl4"
+      },
+      "snippet": {
+        "publishedAt": "2016-02-16T18:44:44.000Z",
+        "channelId": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "title": "10 ways to have a better conversation | Celeste Headlee",
+        "description": "When your job hinges on how well you talk to people, you learn a lot about how to have conversations — and that most of us don't converse very well. Celeste Headlee has worked as a radio host for decades, and she knows the ingredients of a great conversation: Honesty, brevity, clarity and a healthy amount of listening. In this insightful talk, she shares 10 useful rules for having better conversations. \"Go out, talk to people, listen to people,\" she says. \"And, most importantly, be prepared to be amazed.\"\n\nTEDTalks is a daily video podcast of the best talks and performances from the TED Conference, where the world's leading thinkers and doers give the talk of their lives in 18 minutes (or less). Look for talks on Technology, Entertainment and Design -- plus science, business, global issues, the arts and much more.\nFind closed captions and translated subtitles in many languages at http://www.ted.com/translate\n\nFollow TED news on Twitter: http://www.twitter.com/tednews\nLike TED on Facebook: https://www.facebook.com/TED\n\nSubscribe to our channel: http://www.youtube.com/user/TEDtalksDirector",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/R1vskiVDwl4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/R1vskiVDwl4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/R1vskiVDwl4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "TED",
+        "liveBroadcastContent": "none"
+      }
+    }
+  ]
 }
