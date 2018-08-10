@@ -19,17 +19,6 @@ __all__ = [
     'get_url_from_video_id'
 ]
 
-# def verify_key(key):
-#     dummy_http = ("https://www.googleapis.com/youtube/v3/playlists"
-#                      "?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&"
-#                      "key={}&maxResults=2".format(key))
-#     dummy_request = requests.get(dummy_http)
-
-#     try:
-#         dummy_request.raise_for_status()
-#         return True
-#     except:
-#         return False
 
 def _chunker(l, chunksize):
     """Yield successive n-sized chunks from l."""
@@ -144,63 +133,3 @@ def get_url_from_video_id(video_id):
 
 
 
-"""def load_response(response, handle_error=True):
-    '''
-    Loads the response to json, and checks for errors.
-    '''
-    try:
-        response.raise_for_status()
-        response_json = json.loads(response.text)
-        print(response_json)
-
-        return response_json, True
-
-    except Exception as e:
-
-        return response, False"""
-
-
-'''def error_handler(error, verbose=1):
-    """
-    Parses errors if the request raised a status.
-    """
-    reasons = []
-    for e in error['error']['errors']:
-        reasons.append(e['reason'])
-    if 'keyInvalid' in reasons:
-        warnings.warn("Bad Key!")
-        sys.exit()
-    if 'dailyLimitExceeded' in reasons:
-        raise Exception("Daily API Limit Exceeded!")
-        sys.exit()
-    elif 'limitExceeded' in reasons:
-        warnings.warn("API quota exceeded, sleeping for an hour!")
-        sys.exit()
-    elif 'quotaExceeded' in reasons:
-        warnings.warn("API quota exceeded, sleeping for an hour!")
-        sys.exit()
-
-    elif 'badRequest' in reasons:
-        warnings.warn("Bad Request!")
-    elif 'subscriptionForbidden' in reasons:
-        warnings.warn("Viewing subscriptions are forbidden for this user!")
-    elif 'commentsDisabled' in reasons:
-        warnings.warn("User has disabled comments on this video!")
-    elif 'videoNotFound' in reasons:
-        warnings.warn("The video was not found!")
-    elif 'processingFailure' in reasons:
-        warnings.warn("There was a processing failure!")
-    elif 'playlistNotFound' in reasons:
-        warnings.warn("This playlist does not exist!")
-    else:
-        warnings.warn("An unexpected error!")
-        sys.exit()
-'''
-
-
-'''def _handle_caption_error(error, verbose=1):
-    if isinstance(error, AttributeError):
-        log("The attribute for your language could not be found", verbose)
-    else:
-        log("An unexpected error!", verbose)
-    return False'''

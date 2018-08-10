@@ -20,3 +20,5 @@ class TestVideo(unittest.TestCase):
 
     def test_upload_playlist_id(self):
         self.assertEqual(get_upload_playlist_id(self.channel_id), 'UU3XTzVzaHQEd30rQbuvCtTQ')
+
+    

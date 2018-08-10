@@ -29,7 +29,7 @@ class TestParsers(unittest.TestCase):
         item = self.video_metadata.get('items')[0]
         self.assertEqual(item, P.raw_json(item))
 
-    def test_vidoe_metadata(self):
+    def test_video_metadata(self):
         item = self.video_metadata.get('items')[0]
         metadata = P.parse_video_metadata(self.video_metadata.get('items')[0])
 
