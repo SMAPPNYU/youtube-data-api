@@ -138,14 +138,14 @@ class TestParsers(unittest.TestCase):
         item = self.rec.get('items')[0]
         metadata = P.parse_rec_video_metadata(item)
 
-        self.assertEqual(metadata['video_id'], "BIg10mzhiZs")
-        self.assertEqual(metadata['channel_title'], "CUNAAdvocacy")
-        self.assertEqual(metadata['channel_id'], "UCJvIPpWSsW-EGuQjNIZbBTQ")
-        self.assertEqual(metadata['video_publish_date'], datetime.datetime(2018, 6, 30, 11, 50, 48))
-        self.assertEqual(metadata['video_title'], "Jim Nussle’s Opening Speech at CUNA’s 2018 ACUC")
-        self.assertEqual(metadata['video_description'], "CUNA President/CEO Jim Nussle presented ideas meant to move the credit union system into the future of financial services at CUNA’s 2018 America’s Credit Union Conference in Boston. CUNA is on a mission, as the champion for credit unions, to harness cooperatives superpowers in order to determine the future for credit unions and our credit union members. As outlined in Nussle’s speech, CUNA’s mission includes delivering fierce, bold 360-degree advocacy offense to revolutionize the operating environment for credit unions by expanding powers and removing barriers to serving consumers and businesses; best-in-class credit union solutions to foster growth, improve operations, manage compliance and enrich member service; and awareness building consumer engagement to create and enhance consumer awareness of credit unions as their best financial partner.")
+        self.assertEqual(metadata['video_id'], "w-HYZv6HzAs")
+        self.assertEqual(metadata['channel_title'], "TEDx Talks")
+        self.assertEqual(metadata['channel_id'], "UCsT0YIqwnpJCM-mx7-gSA4Q")
+        self.assertEqual(metadata['video_publish_date'], datetime.datetime(2012, 1, 13, 19, 42, 36))
+        self.assertEqual(metadata['video_title'], "The skill of self confidence | Dr. Ivan Joseph | TEDxRyersonU")
+        self.assertEqual(metadata['video_description'], "Never miss a talk! SUBSCRIBE to the TEDx channel: http://bit.ly/1FAg8hB\n\nAs the Athletic Director and head coach of the Varsity Soccer team at Ryerson University, Dr. Joseph is often asked what skills he is searching for as a recruiter: is it speed? Strength? Agility? In Dr. Joseph's TEDx Talk, he explores self confidence and how it is not just the most important skill in athletics, but in our lives.\n \nIn the spirit of ideas worth spreading, TEDx is a program of local, self-organized events that bring people together to share a TED-like experience. At a TEDx event, TEDTalks video and live speakers combine to spark deep discussion and connection in a small group. These local, self-organized events are branded TEDx, where x = independently organized TED event. The TED Conference provides general guidance for the TEDx program, but individual TEDx events are self-organized.* (*Subject to certain rules and regulations)"
         self.assertIsNone(metadata['video_category'])
-        self.assertEqual(metadata['video_thumbnail'], "https://i.ytimg.com/vi/BIg10mzhiZs/hqdefault.jpg")
+        self.assertEqual(metadata['video_thumbnail'], "https://i.ytimg.com/vi/H6n3iNh4XLI/hqdefault.jpg")
 
 if __name__ == '__main__':
     unittest.main()
