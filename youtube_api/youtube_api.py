@@ -79,9 +79,8 @@ class YoutubeDataApi:
             # end
 
 
-        #Howdy this does not work if you use a dataframe column but it should!
+        channel_ids = []
         if isinstance(username, list):
-            channel_ids = []
             for username_ in username:
                 channel_ids_ = _get_channel_id_from_user(username_)
                 channel_ids.append(channel_ids_)
