@@ -246,7 +246,7 @@ class YoutubeDataApi:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
             response = requests.get(http_endpoint)
-            response_json = load_response(response)
+            response_json = _load_response(response)
 
             if response_json.get('items'):
                 for item in response_json.get('items'):
@@ -310,7 +310,7 @@ class YoutubeDataApi:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
             response = requests.get(http_endpoint)
-            response_json = load_response(response, verbose, handle_error)
+            response_json = _load_response(response, verbose, handle_error)
 
             if response_json.get('items'):
                 for item in response_json.get('items'):
