@@ -140,7 +140,7 @@ class YoutubeDataApi:
         :returns: a list of dictionaries containing metadata.
         '''
         api_doc_point = 'https://developers.google.com/youtube/v{}/docs/videos/list'.format(self.api_version)
-        
+
         video_metadata = []
         if isinstance(video_id, str):
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/videos"
@@ -156,13 +156,13 @@ class YoutubeDataApi:
         elif isinstance(video_id, list): # iterable
             for video_meta in self.get_video_metadata_gen(video_id):
                 video_metadata.append(video_meta)
-        
+
         elif isinstance(video_id, pd.Series):
             for video_meta in self.get_video_metadata_gen(video_id.tolist()):
                 video_metadata.append(video_meta)
         else:
             raise TypeError("Could not process the type entered!")
-        
+
         return video_metadata
 
 
@@ -240,8 +240,8 @@ class YoutubeDataApi:
         while run:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/playlistItems"
                              "?part=snippet&playlistId={}"
-                             "&maxResults=50&key={}".format(self.api_version, 
-                                                            playlist_id, 
+                             "&maxResults=50&key={}".format(self.api_version,
+                                                            playlist_id,
                                                             self.key))
 
             if next_page_token:
@@ -570,6 +570,58 @@ class YoutubeDataApi:
                             max_results, video_id, self.key))
 
         recommended_vids = []
+        response = requests.get(http_endpoint)
+        response_json = _load_response(response)
+
+        if response_json.get('items'):
+            for item in response_json.get('items'):
+                item_ = parser(item)
+                recommended_vids.append(item_)
+        else:
+            return []
+
+        return recommended_vids
+
+    def get_search_videos(self, search_keywords, channel_id=None,
+                            max_results=25, order="relevance", next_page_token=None,
+                            published_after=datetime.datetime(1990,1,1),
+                            published_before=datetime.datetime(3000,1,1),
+                            parser=P.parse_rec_video_metadata, type="video"):
+        """
+        Grabs captions given a video id using the PyTube and BeautifulSoup Packages
+
+        :param search_keywords: (list or str) a list of search terms
+        :param max_results: (int) max number of recommended vids
+        :param parser: (func) the function to parse the json document
+
+
+        :returns: a list of videos and video metadata for recommended videos
+
+        """
+        api_doc_point = 'https://developers.google.com/youtube/v{}/docs/search/list'.format(self.api_version)
+
+        if isinstance(search_keywords, list):
+            search_keywords = ','.join(search_keywords)
+
+        if published_after:
+            published_after = datetime.datetime.strftime(published_after, "%Y-%m-%dT%H:%M:%SZ")
+        if published_before:
+            published_before = datetime.datetime.strftime(published_before, "%Y-%m-%dT%H:%M:%SZ")
+            
+        if type not in ["video", "channel", "video"]:
+            raise Exception("The value you have entered for `type` is not valid!")
+
+        http_endpoint = ("https://www.googleapis.com/youtube/v{}/search?"
+                         "part=snippet&type={}&maxResults={}&"
+                         "q={}&order={}&publishedAfter={}&publishedBefore={}&
+                         "&key={}".format(self.api_version, type, max_results, search_keywords,
+                         order, published_after, published_before, self.key))
+        if channel_id:
+            http_endpoint += "&channelId={}".format(channel_id)
+        if next_page_token:
+            http_endpoint += "&nextPageToken={}".format(nextPageToken)
+
+        search_vids = []
         response = requests.get(http_endpoint)
         response_json = _load_response(response)
 
