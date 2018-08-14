@@ -121,7 +121,7 @@ class YoutubeDataApi:
 
                 if response_json.get('items'):
                     for item in response_json['items']:
-                        video_meta = parser(item)
+                        video_meta_ = parser(item)
                         yield video_meta_
                 else:
                     yield OrderedDict()
@@ -140,7 +140,8 @@ class YoutubeDataApi:
         :returns: a list of dictionaries containing metadata.
         '''
         api_doc_point = 'https://developers.google.com/youtube/v{}/docs/videos/list'.format(self.api_version)
-
+        
+        video_metadata = []
         if isinstance(video_id, str):
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/videos"
                              "?part=statistics,snippet"
@@ -153,15 +154,15 @@ class YoutubeDataApi:
                 video_metadata = parser(response_json['items'][0])
 
         elif isinstance(video_id, list): # iterable
-            video_metadata = []
             for video_meta in self.get_video_metadata_gen(video_id):
                 video_metadata.append(video_meta)
+        
         elif isinstance(video_id, pd.Series):
-            video_metadata = []
             for video_meta in self.get_video_metadata_gen(video_id.tolist()):
                 video_metadata.append(video_meta)
         else:
             raise TypeError("Could not process the type entered!")
+        
         return video_metadata
 
 
@@ -239,7 +240,9 @@ class YoutubeDataApi:
         while run:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/playlistItems"
                              "?part=snippet&playlistId={}"
-                             "&maxResults=50&key={}".format(self.api_version, playlist_id, self.key))
+                             "&maxResults=50&key={}".format(self.api_version, 
+                                                            playlist_id, 
+                                                            self.key))
 
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
@@ -261,9 +264,8 @@ class YoutubeDataApi:
                 else:
                     run = False
                 time.sleep(.1)
-
             else:
-                yield OrderedDict()
+                return
 
 
     def get_videos_from_playlist_id(self, playlist_id, **kwargs):

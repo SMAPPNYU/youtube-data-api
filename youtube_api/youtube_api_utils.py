@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup, Comment
 import re
 
 __all__ = [
+    '_chunker',
     '_load_response',
     '_text_from_html',
     'parse_yt_datetime',
@@ -29,6 +30,7 @@ def _load_response(response):
     '''
     Loads the response to json, and checks for errors.
     '''
+    
     response.raise_for_status()
     response_json = json.loads(response.text)
 
