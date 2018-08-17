@@ -607,13 +607,13 @@ class YoutubeDataApi:
             published_after = datetime.datetime.strftime(published_after, "%Y-%m-%dT%H:%M:%SZ")
         if published_before:
             published_before = datetime.datetime.strftime(published_before, "%Y-%m-%dT%H:%M:%SZ")
-            
+
         if type not in ["video", "channel", "video"]:
             raise Exception("The value you have entered for `type` is not valid!")
 
         http_endpoint = ("https://www.googleapis.com/youtube/v{}/search?"
                          "part=snippet&type={}&maxResults={}&"
-                         "q={}&order={}&publishedAfter={}&publishedBefore={}&
+                         "q={}&order={}&publishedAfter={}&publishedBefore={}&"
                          "&key={}".format(self.api_version, type, max_results, search_keywords,
                          order, published_after, published_before, self.key))
         if channel_id:
