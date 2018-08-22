@@ -96,6 +96,39 @@ class YoutubeDataApi:
 
 
         return channel_ids
+    
+    def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata):
+        '''
+        Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
+
+        input
+        channel_id (str or list of str) the channel id(s)
+        key (str) the API key to the Youtube Data API.
+        '''
+        get_one = True
+        if isinstance(channel_id, list):
+            if len(channel_id) > 50:
+                raise Exception("Max length of list is 50!")  
+            get_one = False
+            channel_id = ','.join(channel_id)
+        http_endpoint = ("https://www.googleapis.com/youtube/v3/channels"
+                         "?part=id,snippet,contentDetails,statistics,topicDetails,brandingSettings"
+                         "&id={}&key={}&maxResults=50".format(channel_id, self.key))
+        response = requests.get(http_endpoint)
+        response_json = _load_response(response)
+
+        channel_meta = []
+        if response_json: 
+            for item in response_json['items']:
+                channel_meta_ = parser(item)
+                channel_meta.append(channel_meta_)
+        else:
+            channel_meta = [OrderedDict()]
+            
+        if len(channel_meta) == 1 and get_one:
+            channel_meta = channel_meta[0]
+
+        return channel_meta
 
 
     def get_video_metadata_gen(self, video_id, parser=P.parse_video_metadata):
