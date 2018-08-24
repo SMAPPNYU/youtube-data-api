@@ -50,6 +50,7 @@ class YoutubeDataApi:
         except:
             return False
 
+        
     def get_channel_id_from_user(self, username):
         """
         Get a channel_id from a YouTube username.
@@ -65,7 +66,8 @@ class YoutubeDataApi:
         """
         http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                          "?part=id"
-                         "&forUsername={}&key={}".format(self.api_version, username, self.key))
+                         "&forUsername={}&key={}".format(self.api_version, 
+                                                         username, self.key))
         response = requests.get(http_endpoint)
         response_json = _load_response(response)
         channel_id = None
@@ -84,13 +86,12 @@ class YoutubeDataApi:
 
         :returns: the YouTube channel metadata
         '''
-        if isinstance(channel_id, Iterable):
+        if isinstance(channel_id, list) or isinstance(channel_id, pd.Series):
             for chunk in _chunker(channel_id, 50):
-                channel_id_ = ','.join(chunk)
                 http_endpoint = ("https://www.googleapis.com/youtube/v3/channels?"
                                 "part=id,snippet,contentDetails,statistics,"
                                  "topicDetails,brandingSettings&"
-                                 "id={}&key={}&maxResults=50".format(channel_id_, 
+                                 "id={}&key={}&maxResults=50".format(','.join(chunk),
                                                                      self.key))
                 response = requests.get(http_endpoint)
                 response_json = _load_response(response)
@@ -143,7 +144,7 @@ class YoutubeDataApi:
 
         :returns: a list of dictionaries containing metadata.
         '''
-        if isinstance(video_id, list):
+        if isinstance(channel_id, list) or isinstance(channel_id, pd.Series):
             for chunk in _chunker(video_id, 50):
                 id_input = ','.join(chunk)
                 http_endpoint = ("https://www.googleapis.com/youtube/v{}/videos"
@@ -177,8 +178,7 @@ class YoutubeDataApi:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/videos"
                              "?part=statistics,snippet"
                              "&id={}&key={}&maxResults=2".format(self.api_version, 
-                                                                 video_id, 
-                                                                 self.key))
+                                                                 video_id, self.key))
             response = requests.get(http_endpoint)
             response_json  = _load_response(response)
             if response_json.get('items'):
@@ -204,13 +204,11 @@ class YoutubeDataApi:
         :returns: list of dictionaries of playlist info that `channel_id` is subscribed to.
         '''
         playlists = []
-        run = True
-        while run:
+        while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/playlists"
                              "?part=id,snippet,contentDetails"
                              "&channelId={}&key={}&maxResults=50".format(self.api_version,
-                                                                         channel_id, 
-                                                                         self.key))
+                                                                         channel_id, self.key))
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
@@ -222,12 +220,12 @@ class YoutubeDataApi:
                 if response_json.get('nextPageToken'):
                     next_page_token = response_json.get('nextPageToken')
                 else:
-                    run = False
+                    break
                     
         return playlists
 
 
-    def get_videos_from_playlist_id(self, playlist_id, **kwargs):
+    def get_videos_from_playlist_id(self, playlist_id, next_page_token, parser=P.parse_video_url):
         '''
         Given a `playlist_id`, returns a list of `video_ids` associated with that playlist.
         Note that to user uploads are a playlist from channels.
@@ -243,13 +241,11 @@ class YoutubeDataApi:
         :returns: a list dictionaries with video ids associated with `playlist_id`.
         '''
         videos = []
-        run = True
-        while run:
+        while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/playlistItems"
                              "?part=snippet&playlistId={}"
                              "&maxResults=50&key={}".format(self.api_version,
-                                                            playlist_id,
-                                                            self.key))
+                                                            playlist_id, self.key))
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
@@ -259,12 +255,12 @@ class YoutubeDataApi:
                 for item in response_json.get('items'):
                     publish_date = parse_yt_datetime(item['snippet'].get('publishedAt'))
                     if publish_date <= cutoff_date:
-                        run = False
+                        break
                     videos.append(parser(item))
                 if response_json.get('nextPageToken'):
                     next_page_token = response_json.get('nextPageToken')
                 else:
-                    run = False
+                    break
                     
         return videos
 
@@ -281,13 +277,11 @@ class YoutubeDataApi:
         :returns: subscription_ids (list) of channel IDs that `channel_id` is subscrbed to.
         '''
         subscriptions = []
-        run = True
-        while run:
+        while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/subscriptions"
                              "?channelId={}&part=id,snippet"
                              "&maxResults=50&key={}".format(self.api_version, 
-                                                            channel_id, 
-                                                            self.key))
+                                                            channel_id, self.key))
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
@@ -299,7 +293,7 @@ class YoutubeDataApi:
                 if response_json.get('nextPageToken'):
                     next_page_token = response_json.get('nextPageToken')
                 else:
-                    run = False
+                    break
         
         return subscriptions
 
@@ -323,22 +317,20 @@ class YoutubeDataApi:
                 http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                                  "?part=id,brandingSettings"
                                  "&id={}&key={}".format(self.api_version, 
-                                                        ','.join(chunk), 
-                                                        self.key))
+                                                        ','.join(chunk), self.key))
                 response = requests.get(http_endpoint)
                 response_json = _load_response(response)
-
                 if response_json.get('items'):
                     for item in response_json['items']:
                         yield parser(item)
-
                 else:
                     yield parser(None)
 
         else:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                              "?part=id,brandingSettings"
-                             "&id={}&key={}".format(self.api_version, channel_id, self.key))
+                             "&id={}&key={}".format(self.api_version, 
+                                                    channel_id, self.key))
 
             response = requests.get(http_endpoint)
             response_json = _load_response(response)
@@ -365,7 +357,7 @@ class YoutubeDataApi:
 
     
     def get_video_comments(self, video_id, get_replies=True,
-                           published_after=datetime.datetime(1990,1,1),
+                           max_results=None,
                            next_page_token=False, parser=P.parse_comment_metadata):
         """
         Returns a list of comments on a given video
@@ -378,28 +370,29 @@ class YoutubeDataApi:
         :returns: comments (list of dicts) of comments from the comments section on a given video_id
         """
         comments = []
-        run = True
-        while run:
+        while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/commentThreads?"
                              "part=snippet&textFormat=plainText&maxResults=100&"
                              "videoId={}&key={}".format(self.api_version, 
-                                                        video_id,
-                                                        self.key))
+                                                        video_id, self.key))
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
             response = requests.get(http_endpoint)
             response_json = _load_response(response)
             if response_json.get('items'):
-                for item in response_json.get('items'):
-                    publish_date = parse_yt_datetime(item['snippet'].get('publishedAt'))
-                    if publish_date <= published_after:
-                        run = False
+                items = response_json.get('items')
+                # if len(items) <= 1:
+                #     return [parser(None)]
+                for item in items:
+                    if max_results:
+                        if len(comments) >= max_results:
+                            break
                     comments.append(parser(item))
 
-            if response.get('nextPageToken'):
+            if response_json.get('nextPageToken'):
                 next_page_token = response_json['nextPageToken']
             else:
-                run = False
+                break
 
         if get_replies:
             for comment in comments:
@@ -414,7 +407,11 @@ class YoutubeDataApi:
                     response_json = _load_response(response)
                     if response_json.get('items'):
                         for item in response_json.get('items'):
+                            if max_results:
+                                if len(comments) >= max_results:
+                                    break
                             comments.append(parser(item))
+
         return comments
 
 
@@ -495,6 +492,7 @@ class YoutubeDataApi:
 
         return recommended_vids
 
+    
     def search(self, q, channel_id=None,
                max_results=5, order_by="relevance", next_page_token=None,
                published_after=datetime.datetime(1990,1,1),
@@ -531,8 +529,7 @@ class YoutubeDataApi:
             raise Exception("The value you have entered for `type` is not valid!")
         
         videos = []
-        run = True
-        while run:
+        while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/search?"
                              "part=snippet&type={}&maxResults={}&"
                              "q={}&order={}&publishedAfter={}&publishedBefore={}&"
@@ -580,10 +577,10 @@ class YoutubeDataApi:
                 for item in response_json.get('items'):
                     videos.append(parser(item))
                     if len(videos) >= max_results:
-                        run = False
+                        break
                 if response_json.get('nextPageToken'):
                     next_page_token = response_json.get('nextPageToken')
                 else:
-                    run = False
+                    break
 
         return videos
