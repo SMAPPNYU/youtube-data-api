@@ -28,6 +28,8 @@ def parse_video_metadata(item):
 
     :returns: parsed dictionary
     '''
+    if not isinstance(item, dict):
+        return OrderedDict()
 
     tags = item["snippet"].get('tags')
     if isinstance(tags, Iterable):
@@ -61,6 +63,9 @@ def parse_video_url(item):
 
     :returns: parsed dictionary
     '''
+    if not isinstance(item, dict):
+        return OrderedDict()
+    
     publish_date = item['snippet'].get('publishedAt')
     publish_date = parse_yt_datetime(publish_date)
     video_id = item['snippet']['resourceId'].get('videoId')
@@ -80,6 +85,8 @@ def parse_channel_metadata(item):
 
     :returns: parsed dictionary
     '''
+    if not isinstance(item, dict):
+        return OrderedDict()
 
     topic = item.get('topicDetails')
     if topic:
@@ -109,6 +116,8 @@ def parse_subscription_descriptive(item):
 
     :returns: parsed dictionary
     '''
+    if not isinstance(item, dict):
+        return OrderedDict()
 
     sub_meta = OrderedDict(
         subscription_title = item['snippet']['title'],
@@ -127,6 +136,8 @@ def parse_featured_channels(item):
 
     :returns: parsed dictionary
     '''
+    if not isinstance(item, dict):
+        return OrderedDict()
 
     d = {}
     d[item['id']] = item['brandingSettings']['channel'].get('featuredChannelsUrls', [])
@@ -139,6 +150,8 @@ def parse_playlist_metadata(item):
 
     :returns: parsed dictionary
     '''
+    if not isinstance(item, dict):
+        return OrderedDict()
 
     playlist_meta = OrderedDict(
         playlist_name = item['snippet'].get('title'),
@@ -159,6 +172,8 @@ def parse_comment_metadata(item):
 
     :returns: parsed dictionary
     '''
+    if not isinstance(item, dict):
+        return OrderedDict()
 
     if item['snippet'].get('topLevelComment'):
         save = item['snippet']
@@ -190,6 +205,8 @@ def parse_rec_video_metadata(item):
 
     :returns: parsed dictionary
     '''
+    if not isinstance(item, dict):
+        return OrderedDict()
 
     video_meta = OrderedDict(
         video_id = item['id'].get('videoId'),
