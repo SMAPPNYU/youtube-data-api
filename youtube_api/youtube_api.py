@@ -13,6 +13,9 @@ import pandas as pd
 from youtube_api.youtube_api_utils import *
 import youtube_api.parsers as P
 
+"""
+This script has the YouTubeDataApi class and functions for the API's endpoints.
+"""
 
 __all__ = ['YoutubeDataApi']
 
@@ -30,9 +33,7 @@ class YoutubeDataApi:
 
         if not self.key:
             raise ValueError('No API key used to initate the class.')
-        if self.verify_key():
-            pass
-        else:
+        if not self.verify_key():
             raise ValueError('The API Key is invalid')
 
 
@@ -86,6 +87,7 @@ class YoutubeDataApi:
 
         :returns: the YouTube channel metadata
         '''
+        parser=parser if parser else P.raw_json
         if isinstance(channel_id, list) or isinstance(channel_id, pd.Series):
             for chunk in _chunker(channel_id, 50):
                 http_endpoint = ("https://www.googleapis.com/youtube/v3/channels?"
@@ -112,6 +114,7 @@ class YoutubeDataApi:
 
         :returns: the YouTube channel metadata
         '''
+        parser=parser if parser else P.raw_json
         channel_meta = []
         if isinstance(channel_id, str):
             http_endpoint = ("https://www.googleapis.com/youtube/v3/channels?"
@@ -144,7 +147,8 @@ class YoutubeDataApi:
 
         :returns: a list of dictionaries containing metadata.
         '''
-        if isinstance(channel_id, list) or isinstance(channel_id, pd.Series):
+        parser=parser if parser else P.raw_json
+        if isinstance(video_id, list) or isinstance(video_id, pd.Series):
             for chunk in _chunker(video_id, 50):
                 id_input = ','.join(chunk)
                 http_endpoint = ("https://www.googleapis.com/youtube/v{}/videos"
@@ -204,6 +208,7 @@ class YoutubeDataApi:
 
         :returns: list of dictionaries of playlist info that `channel_id` is subscribed to.
         '''
+        parser=parser if parser else P.raw_json
         playlists = []
         while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/playlists"
@@ -226,7 +231,8 @@ class YoutubeDataApi:
         return playlists
 
 
-    def get_videos_from_playlist_id(self, playlist_id, next_page_token, 
+    def get_videos_from_playlist_id(self, playlist_id, next_page_token=None,
+                                    published_after=datetime.datetime(1990,1,1),
                                     parser=P.parse_video_url):
         '''
         Given a `playlist_id`, returns a list of `video_ids` associated with that playlist.
@@ -242,6 +248,7 @@ class YoutubeDataApi:
 
         :returns: a list dictionaries with video ids associated with `playlist_id`.
         '''
+        parser=parser if parser else P.raw_json
         videos = []
         run = True
         while run:
@@ -257,7 +264,7 @@ class YoutubeDataApi:
             if response_json.get('items'):
                 for item in response_json.get('items'):
                     publish_date = parse_yt_datetime(item['snippet'].get('publishedAt'))
-                    if publish_date <= cutoff_date:
+                    if publish_date <= published_after:
                         run=False
                         break
                     videos.append(parser(item))
@@ -282,6 +289,7 @@ class YoutubeDataApi:
 
         :returns: subscription_ids (list) of channel IDs that `channel_id` is subscrbed to.
         '''
+        parser=parser if parser else P.raw_json
         subscriptions = []
         while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/subscriptions"
@@ -318,6 +326,7 @@ class YoutubeDataApi:
 
         :returns: A dictionary of featured channels
         '''
+        parser=parser if parser else P.raw_json
         if isinstance(channel_id, list):
             for chunk in _chunker(channel_id, 50):
                 http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
@@ -375,6 +384,7 @@ class YoutubeDataApi:
 
         :returns: comments (list of dicts) of comments from the comments section on a given video_id
         """
+        parser=parser if parser else P.raw_json
         comments = []
         run = True
         while run:
@@ -487,6 +497,7 @@ class YoutubeDataApi:
                                                              max_results, 
                                                              video_id, 
                                                              self.key))
+        parser=parser if parser else P.raw_json
         if safe_search:
             http_endpoint += '&safeSearch={}'.format(safe_search)
         response = requests.get(http_endpoint)
@@ -521,10 +532,6 @@ class YoutubeDataApi:
         :returns: a list of videos and video metadata for recommended videos
 
         """
-        if isinstance(q, list):
-            q = ' '.join(search_keywords)
-        q = urllib.parse.quote_plus(q)
-
         if published_after:
             published_after = datetime.datetime.strftime(published_after, 
                                                          "%Y-%m-%dT%H:%M:%SZ")
@@ -533,16 +540,21 @@ class YoutubeDataApi:
                                                           "%Y-%m-%dT%H:%M:%SZ")
         if serch_type not in ["video", "channel", "playlist"]:
             raise Exception("The value you have entered for `type` is not valid!")
-        
+        parser=parser if parser else P.raw_json
         videos = []
         while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/search?"
-                             "part=snippet&type={}&maxResults={}&"
-                             "q={}&order={}&publishedAfter={}&publishedBefore={}&"
+                             "part=snippet&type={}&maxResults={}"
+                             "&order={}&publishedAfter={}&publishedBefore={}"
                              "&key={}".format(self.api_version, serch_type, 
                                               50 if max_results > 50 else max_results,
-                                              q, order_by, published_after, 
+                                              order_by, published_after, 
                                               published_before, self.key))
+            if q:
+                if isinstance(q, list):
+                    q = ' '.join(search_keywords)
+                q = urllib.parse.quote_plus(q)
+                http_endpoint += "&q={}".format(q)
             if channel_id:
                 http_endpoint += "&channelId={}".format(channel_id)
             if location:

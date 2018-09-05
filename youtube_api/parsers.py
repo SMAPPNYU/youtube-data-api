@@ -4,8 +4,12 @@ from collections import OrderedDict, Iterable
 
 from youtube_api.youtube_api_utils import parse_yt_datetime
 
+"""
+This script contains the parsers for the raw json responses
+from the API. Use `raw_json` to return the output as-is.
+"""
 
-__all__ = ['default',
+__all__ = ['raw_json',
            'parse_video_metadata',
            'parse_channel_metadata',
            'parse_rec_video_metadata',
@@ -90,12 +94,12 @@ def parse_channel_metadata(item):
 
     topic = item.get('topicDetails')
     if topic:
-        topic = item.get('topicIds')
+        topic = '|'.join(topic.get('topicCategories'))
 
     channel_meta = OrderedDict(
-        id = item['id'],
+        channel_id = item['id'],
         title = item["snippet"].get("title"),
-        publish_date = parse_yt_datetime(item["snippet"].get("publishedAt")),
+        account_creation_date = parse_yt_datetime(item["snippet"].get("publishedAt")),
         keywords = item['brandingSettings']['channel'].get('keywords'),
         description = item["snippet"].get("description"),
         view_count = item["statistics"].get("viewCount"),
@@ -103,7 +107,8 @@ def parse_channel_metadata(item):
         subscription_count = item["statistics"].get("subscriberCount"),
         playlist_id_likes = item['contentDetails']['relatedPlaylists'].get('likes'),
         playlist_id_uploads = item['contentDetails']['relatedPlaylists'].get('uploads'),
-        topic_ids = json.dumps(topic),
+        topic_ids = topic,
+        country =item['snippet'].get('country'),
         collection_date = datetime.datetime.now()
     )
 

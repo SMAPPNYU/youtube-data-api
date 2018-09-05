@@ -6,6 +6,10 @@ import html
 from bs4 import BeautifulSoup, Comment
 import re
 
+'''
+This contains utilities used by other functions in the YoutubeDataApi class, as well as a few convenience functions for data analysis.
+'''
+
 __all__ = [
     '_chunker',
     '_load_response',
@@ -130,6 +134,9 @@ def get_channel_id_from_custom_url(url):
     return channel_id
 
 def get_url_from_video_id(video_id):
+    '''
+    Given a video id, this function returns the full URL.
+    '''
     url = "https://youtube.com/watch?v={}".format(video_id)
     return url
 
