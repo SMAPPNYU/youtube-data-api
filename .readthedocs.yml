@@ -1,0 +1,9 @@
+# Source: http://docs.readthedocs.io/en/latest/yaml-config.html
+
+# Don't build any extra formats
+formats:
+    - pdf
+
+python:
+    setup_py_install: true
+    version: 3.5
