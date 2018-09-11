@@ -17,7 +17,7 @@ __all__ = ['raw_json',
            'parse_subscription_descriptive',
            'parse_featured_channels',
            'parse_comment_metadata',
-           'parse_playlist_metadata'
+           'parse_playlist_metadata',
            'parse_caption_track']
 
 def raw_json(item):
@@ -69,7 +69,7 @@ def parse_video_url(item):
     '''
     if not isinstance(item, dict):
         return OrderedDict()
-    
+
     publish_date = item['snippet'].get('publishedAt')
     publish_date = parse_yt_datetime(publish_date)
     video_id = item['snippet']['resourceId'].get('videoId')
