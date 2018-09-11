@@ -19,7 +19,10 @@
 #
 import os
 import sys
-from unittest.mock import MagicMock
+try:
+    from unittest.mock import MagicMock
+except:
+    from mock import Mock as MagicMock
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..')))
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..', 'youtube-api')))

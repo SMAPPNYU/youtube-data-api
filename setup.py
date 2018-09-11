@@ -1,15 +1,35 @@
 import sys
 from setuptools import setup
 
+if sys.version_info[0] != 3:
+    raise RuntimeError('Unsupported python version "{0}"'.format(
+        sys.version_info[0]))
+
 def _get_file_content(file_name):
     with open(file_name, 'r') as file_handler:
         return str(file_handler.read())
 def get_long_description():
     return _get_file_content('README.md')
 
+on_rtd = os.environ.get('READTHEDOCS') == 'True'
+
+if not on_rtd:
+    INSTALL_REQUIRES = [
+        'pandas',
+        'pytube',
+        'beautifulsoup4',
+        'requests',
+    ]
+else:
+    INSTALL_REQUIRES = [
+        'pytube',
+        'beautifulsoup4',
+        'requests',
+    ]
+
 setup(
     name="youtube-data-api",
-    version='0.0.0.2',
+    version='0.0.2',
     author="Leon Yin, Megan Brown",
     description="youtube-data-api is a Python wrapper for the YouTube Data API.",
     long_description=get_long_description(),
@@ -24,10 +44,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ),
-    install_requires=[
-        'pandas',
-        'pytube',
-        'beautifulsoup4',
-        'requests',
-    ]
+    install_requires=INSTALL_REQUIRES
 )
