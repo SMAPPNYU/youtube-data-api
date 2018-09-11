@@ -18,7 +18,7 @@ pip install -r requirements.txt
 ```
 
 ## Quickstart
-In order to access the API, you'll need to get a [service key](https://developers.google.com/youtube/registering_an_application#Create_API_Keys) from the [Google Developer's Console]( Google Developers Console).
+In order to access the API, you'll need to get a [service key](https://developers.google.com/youtube/registering_an_application#Create_API_Keys) from the [Google Cloud Console](https://console.cloud.google.com/).
 
 Once you have it you can use it to initiate the `YoutubeDataApi` class.
 ```
@@ -32,7 +32,7 @@ yt.search('alexandria ocasio-cortez')
 
 The `yt` object calls functions that automate the collection of data fields that are both visable and not-visable to everyday users.
 
-Please refer to the documentation for details.
+Please refer to the documentation (forthcoming!) for details.
 
 ## Testing
 Static json files used for test are stored in `./tests/data`.
