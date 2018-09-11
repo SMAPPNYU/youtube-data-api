@@ -7,8 +7,8 @@ REM Command file for Sphinx documentation
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
-set SOURCEDIR=.
-set BUILDDIR=source/_build
+set SOURCEDIR=source
+set BUILDDIR=build
 set SPHINXPROJ=youtube-data-api
 
 if "%1" == "" goto help
