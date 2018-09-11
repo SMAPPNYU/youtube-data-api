@@ -1,7 +1,7 @@
 # Youtube Data API
-This is a Python client for the Python Data API. It was written to accomodate v3 of the API.<br>
+<a href="https://badge.fury.io/py/youtube-data-api"><img src="https://badge.fury.io/py/youtube-data-api.svg" alt="PyPI version" height="18"></a>
 
-It differs from other packages because it provides a versitile way to parse raw json outputs, and it is optimized for analysis-- IE all the functions in this package are to G=
+This is a Python client for the Python Data API. It was written to accomodate v3 of the API.
 
 ## Install
 
