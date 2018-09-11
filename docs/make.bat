@@ -8,8 +8,8 @@ if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
 set SOURCEDIR=.
-set BUILDDIR=_build
-set SPHINXPROJ=YouTubeDataAPIClient
+set BUILDDIR=source/_build
+set SPHINXPROJ=youtube-data-api
 
 if "%1" == "" goto help
 

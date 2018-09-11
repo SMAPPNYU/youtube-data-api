@@ -1,7 +1,7 @@
-py
-==
+youtube_api
+===========
 
 .. toctree::
    :maxdepth: 4
 
-   py
+   youtube_api

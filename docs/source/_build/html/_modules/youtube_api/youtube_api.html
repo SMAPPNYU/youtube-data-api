@@ -1,0 +1,818 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>youtube_api.youtube_api &mdash; youtube-data-api 0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> youtube-data-api
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide / Tutorial:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html#content-analysis-of-a-channel">Content Analysis of a Channel</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../youtube_api.html">API Guide</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">youtube-data-api</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>youtube_api.youtube_api</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for youtube_api.youtube_api</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="kn">from</span> <span class="nn">pytube</span> <span class="k">import</span> <span class="n">YouTube</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;numpy.dtype size changed&quot;</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;numpy.ufunc size changed&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># fix importing errors</span>
+<span class="kn">from</span> <span class="nn">youtube_api.youtube_api_utils</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">youtube_api.parsers</span> <span class="k">as</span> <span class="nn">P</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This script has the YouTubeDataApi class and functions for the API&#39;s endpoints.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;YoutubeDataApi&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="YoutubeDataApi"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi">[docs]</a><span class="k">class</span> <span class="nc">YoutubeDataApi</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The Youtube Data API handles the keys and methods to access data from the YouTube Data API</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">api_version</span><span class="o">=</span><span class="s1">&#39;3&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param key: YouTube Data API key</span>
+<span class="sd">        Get a YouTube Data API key here: https://console.cloud.google.com/apis/dashboard</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">api_version</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No API key used to initate the class.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify_key</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The API Key is invalid&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="YoutubeDataApi.verify_key"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.verify_key">[docs]</a>    <span class="k">def</span> <span class="nf">verify_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Checks it the API key is valid.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/playlists&quot;</span>
+                         <span class="s2">&quot;?part=id&amp;id=UC_x5XG1OV2P6uZZ5FSM9Ttw&amp;&quot;</span>
+                         <span class="s2">&quot;key=</span><span class="si">{}</span><span class="s2">&amp;maxResults=2&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+        
+<div class="viewcode-block" id="YoutubeDataApi.get_channel_id_from_user"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_channel_id_from_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_channel_id_from_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a channel_id from a YouTube username.</span>
+<span class="sd">        To get video_ids from the channel_id, you need to get the &quot;upload playlist id&quot;.</span>
+<span class="sd">        This can be done using `get_upload_playlist()` for `get_channel_metadata()`.</span>
+<span class="sd">        </span>
+<span class="sd">        Read the docs: https://developers.google.com/youtube/v3/docs/channels/list</span>
+
+<span class="sd">        :param username: the username for a YouTube channel</span>
+<span class="sd">        :type username: str</span>
+
+<span class="sd">        :returns: the YouTube channel id for the given username</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/channels&quot;</span>
+                         <span class="s2">&quot;?part=id&quot;</span>
+                         <span class="s2">&quot;&amp;forUsername=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span> 
+                                                         <span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+        <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="n">channel_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+            <span class="n">channel_id</span> <span class="o">=</span> <span class="n">response_json</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">channel_id</span></div>
+    
+    
+<div class="viewcode-block" id="YoutubeDataApi.get_channel_metadata_gen"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_channel_metadata_gen">[docs]</a>    <span class="k">def</span> <span class="nf">get_channel_metadata_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_id</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_channel_metadata</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.</span>
+
+<span class="sd">        :param channel_id: (str or list of str) the channel id(s)</span>
+<span class="sd">        :type channel_id: str or list</span>
+<span class="sd">        :param parser: (func) the function to parse the json document.</span>
+
+<span class="sd">        :returns: the YouTube channel metadata</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">_chunker</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span>
+                <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v3/channels?&quot;</span>
+                                <span class="s2">&quot;part=id,snippet,contentDetails,statistics,&quot;</span>
+                                 <span class="s2">&quot;topicDetails,brandingSettings&amp;&quot;</span>
+                                 <span class="s2">&quot;id=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&amp;maxResults=50&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span><span class="p">),</span>
+                                                                     <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+                <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response_json</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]:</span>
+                        <span class="k">yield</span> <span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">parser</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+                    
+                    
+<div class="viewcode-block" id="YoutubeDataApi.get_channel_metadata"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_channel_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">get_channel_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_id</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_channel_metadata</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.</span>
+
+<span class="sd">        :param channel_id: (str or list of str) the channel id(s)</span>
+<span class="sd">        :type channel_id: str or list</span>
+<span class="sd">        :param parser: (func) the function to parse the json document.</span>
+
+<span class="sd">        :returns: the YouTube channel metadata</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="n">channel_meta</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v3/channels?&quot;</span>
+                             <span class="s2">&quot;part=id,snippet,contentDetails,statistics,&quot;</span>
+                             <span class="s2">&quot;topicDetails,brandingSettings&amp;&quot;</span>
+                             <span class="s2">&quot;id=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&amp;maxResults=50&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> 
+                                                                 <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+            <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                <span class="n">channel_meta</span> <span class="o">=</span> <span class="n">parser</span><span class="p">(</span><span class="n">response_json</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+                    
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">channel_meta_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_channel_metadata_gen</span><span class="p">(</span><span class="n">channel_id</span><span class="p">):</span>
+                <span class="n">channel_meta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">channel_meta_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Could not process the type entered!&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">channel_meta</span></div>
+    
+        
+<div class="viewcode-block" id="YoutubeDataApi.get_video_metadata_gen"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_video_metadata_gen">[docs]</a>    <span class="k">def</span> <span class="nf">get_video_metadata_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_id</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_video_metadata</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Given a `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.</span>
+<span class="sd">        </span>
+<span class="sd">        Read the docs: https://developers.google.com/youtube/v3/docs/videos/list</span>
+
+<span class="sd">        :param video_id: (str or list of str) the ID of a video IE:[&#39;kNbhUWLH_yY&#39;], this can be found at the end of Youtube urls and by parsing links using `get_youtube_id()`</span>
+<span class="sd">        :param parser: (func) the function to parse the json document</span>
+
+<span class="sd">        :returns: a list of dictionaries containing metadata.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">_chunker</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span>
+                <span class="n">id_input</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/videos&quot;</span>
+                         <span class="s2">&quot;?part=statistics,snippet&quot;</span>
+                         <span class="s2">&quot;&amp;id=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&amp;maxResults=50&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span> <span class="n">id_input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+                <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response_json</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]:</span>
+                        <span class="k">yield</span> <span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">parser</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Expection</span><span class="p">(</span><span class="s1">&#39;This function only takes iterables!&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="YoutubeDataApi.get_video_metadata"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_video_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">get_video_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_id</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_video_metadata</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Given a single or list of `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.</span>
+<span class="sd">        </span>
+<span class="sd">        Read the docs: https://developers.google.com/youtube/v3/docs/videos/list</span>
+
+<span class="sd">        :param video_id: (str or list of str) the ID of a video IE: [&#39;kNbhUWLH_yY&#39;], this can be found at the end of Youtube urls and by parsing links using `get_youtube_id()`</span>
+<span class="sd">        :param parser: (func) the function to parse the json document.</span>
+
+<span class="sd">        :returns: a list of dictionaries containing metadata.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">video_metadata</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/videos&quot;</span>
+                             <span class="s2">&quot;?part=statistics,snippet&quot;</span>
+                             <span class="s2">&quot;&amp;id=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&amp;maxResults=2&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span> 
+                                                                 <span class="n">video_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+            <span class="n">response_json</span>  <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                <span class="n">video_metadata</span> <span class="o">=</span> <span class="n">parser</span><span class="p">(</span><span class="n">response_json</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">video_meta</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_video_metadata_gen</span><span class="p">(</span><span class="n">video_id</span><span class="p">):</span>
+                <span class="n">video_metadata</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">video_meta</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Could not process the type entered!&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">video_metadata</span></div>
+
+
+<div class="viewcode-block" id="YoutubeDataApi.get_playlists"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_playlists">[docs]</a>    <span class="k">def</span> <span class="nf">get_playlists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_id</span><span class="p">,</span> <span class="n">next_page_token</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+                      <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_playlist_metadata</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns a list of playlist IDs that `channel_id` created.</span>
+<span class="sd">        Note that playlists can contains videos from any users.</span>
+
+<span class="sd">        :param channel_id: (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw</span>
+<span class="sd">        :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA</span>
+
+<span class="sd">        :returns: list of dictionaries of playlist info that `channel_id` is subscribed to.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="n">playlists</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/playlists&quot;</span>
+                             <span class="s2">&quot;?part=id,snippet,contentDetails&quot;</span>
+                             <span class="s2">&quot;&amp;channelId=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&amp;maxResults=50&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span>
+                                                                         <span class="n">channel_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">next_page_token</span><span class="p">:</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s2">&quot;&amp;pageToken=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">next_page_token</span><span class="p">)</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+            <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                    <span class="n">playlists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">):</span>
+                    <span class="n">next_page_token</span> <span class="o">=</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">break</span>
+                    
+        <span class="k">return</span> <span class="n">playlists</span></div>
+
+
+<div class="viewcode-block" id="YoutubeDataApi.get_videos_from_playlist_id"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_videos_from_playlist_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_videos_from_playlist_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">playlist_id</span><span class="p">,</span> <span class="n">next_page_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">published_after</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                                    <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_video_url</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Given a `playlist_id`, returns a list of `video_ids` associated with that playlist.</span>
+<span class="sd">        Note that to user uploads are a playlist from channels.</span>
+<span class="sd">        Typically this pattern is just the channel ID with UU subbed as the first two letters.</span>
+<span class="sd">        You can access this using the function `get_upload_playlist_id`, or from the `playlist_id_likes`</span>
+<span class="sd">        key returned from `get_channel_metadata`.</span>
+
+<span class="sd">        :param playlist_id: (str) the playlist_id IE:UUaLfMkkHhSA_LaCta0BzyhQ</span>
+<span class="sd">        :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA</span>
+<span class="sd">        :param cutoff_date: (datetime) a date for the minimum publish date for videos from a playlist_id.</span>
+<span class="sd">        :param parser: (func) the function to parse the json document</span>
+
+<span class="sd">        :returns: a list dictionaries with video ids associated with `playlist_id`.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="n">videos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">run</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">while</span> <span class="n">run</span><span class="p">:</span>
+            <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/playlistItems&quot;</span>
+                             <span class="s2">&quot;?part=snippet&amp;playlistId=</span><span class="si">{}</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;&amp;maxResults=50&amp;key=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span>
+                                                            <span class="n">playlist_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">next_page_token</span><span class="p">:</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s2">&quot;&amp;pageToken=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">next_page_token</span><span class="p">)</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+            <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                    <span class="n">publish_date</span> <span class="o">=</span> <span class="n">parse_yt_datetime</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;snippet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;publishedAt&#39;</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">publish_date</span> <span class="o">&lt;=</span> <span class="n">published_after</span><span class="p">:</span>
+                        <span class="n">run</span><span class="o">=</span><span class="kc">False</span>
+                        <span class="k">break</span>
+                    <span class="n">videos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">):</span>
+                    <span class="n">next_page_token</span> <span class="o">=</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">run</span><span class="o">=</span><span class="kc">False</span>
+                    <span class="k">break</span>
+                    
+        <span class="k">return</span> <span class="n">videos</span></div>
+
+
+<div class="viewcode-block" id="YoutubeDataApi.get_subscriptions"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_subscriptions">[docs]</a>    <span class="k">def</span> <span class="nf">get_subscriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_id</span><span class="p">,</span> <span class="n">next_page_token</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+                          <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_subscription_descriptive</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns a list of channel IDs that `channel_id` is subscribed to.</span>
+
+<span class="sd">        :param channel_id: (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw</span>
+<span class="sd">        :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA</span>
+<span class="sd">        :param stop_after_n_iteration: (int) stops the API calls after N API calls</span>
+<span class="sd">        :param parser: (func) the function to parse the json document</span>
+
+<span class="sd">        :returns: subscription_ids (list) of channel IDs that `channel_id` is subscrbed to.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="n">subscriptions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/subscriptions&quot;</span>
+                             <span class="s2">&quot;?channelId=</span><span class="si">{}</span><span class="s2">&amp;part=id,snippet&quot;</span>
+                             <span class="s2">&quot;&amp;maxResults=50&amp;key=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span> 
+                                                            <span class="n">channel_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">next_page_token</span><span class="p">:</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s2">&quot;&amp;pageToken=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">next_page_token</span><span class="p">)</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+            <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                    <span class="n">subscriptions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">):</span>
+                    <span class="n">next_page_token</span> <span class="o">=</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">subscriptions</span>
+
+        <span class="k">return</span> <span class="n">subscriptions</span></div>
+
+
+<div class="viewcode-block" id="YoutubeDataApi.get_featured_channels_gen"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_featured_channels_gen">[docs]</a>    <span class="k">def</span> <span class="nf">get_featured_channels_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_id</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_featured_channels</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Given a `channel_id` returns a dictionary {channel_id : [list, of, channel_ids]}</span>
+<span class="sd">        of featured channels.</span>
+
+<span class="sd">        Optionally, can take a list of channel IDS, and returns a list of dictionaries.</span>
+<span class="sd">        </span>
+<span class="sd">        Read the docs: https://developers.google.com/youtube/v3/docs/channels/list</span>
+
+<span class="sd">        :param channel_id: (str or list) of channel_ids IE:[&#39;UCn8zNIfYAQNdrFRrr8oibKw&#39;]</span>
+<span class="sd">        :param parser: (func) the function to parse the json document</span>
+
+<span class="sd">        :returns: A dictionary of featured channels</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">_chunker</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span>
+                <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/channels&quot;</span>
+                                 <span class="s2">&quot;?part=id,brandingSettings&quot;</span>
+                                 <span class="s2">&quot;&amp;id=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span> 
+                                                        <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chunk</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+                <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response_json</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]:</span>
+                        <span class="k">yield</span> <span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">parser</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/channels&quot;</span>
+                             <span class="s2">&quot;?part=id,brandingSettings&quot;</span>
+                             <span class="s2">&quot;&amp;id=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span> 
+                                                    <span class="n">channel_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+            <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;items&#39;</span><span class="p">]:</span>
+                <span class="k">yield</span> <span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="YoutubeDataApi.get_featured_channels"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_featured_channels">[docs]</a>    <span class="k">def</span> <span class="nf">get_featured_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Given a `channel_id` returns a dictionary {channel_id : [list, of, channel_ids]}</span>
+<span class="sd">        of featured channels.</span>
+
+<span class="sd">        Optionally, can take a list of channel IDs, and returns a list of dictionaries.</span>
+
+<span class="sd">        :param channel_id: (str or list) of channel_ids IE:[&#39;UCn8zNIfYAQNdrFRrr8oibKw&#39;]</span>
+<span class="sd">        :param parser: (func) the function to parse the json document</span>
+
+<span class="sd">        :returns: A dictionary of featured channels</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">featured_channels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_featured_channels_gen</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">featured_channels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">featured_channels</span></div>
+
+    
+<div class="viewcode-block" id="YoutubeDataApi.get_video_comments"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_video_comments">[docs]</a>    <span class="k">def</span> <span class="nf">get_video_comments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_id</span><span class="p">,</span> <span class="n">get_replies</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">max_results</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">next_page_token</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_comment_metadata</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of comments on a given video</span>
+
+<span class="sd">        :param video_id: (str) a vide_id IE: eqwPlwHSL_M</span>
+<span class="sd">        :param get_replies: (bool) whether or not to get replies to comments</span>
+<span class="sd">        :param cutoff_date: (datetime) a date for the minimum publish date for comments from a video_id.</span>
+<span class="sd">        :param parser: (func) the function to parse the json document</span>
+
+<span class="sd">        :returns: comments (list of dicts) of comments from the comments section on a given video_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="n">comments</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">run</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">while</span> <span class="n">run</span><span class="p">:</span>
+            <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/commentThreads?&quot;</span>
+                             <span class="s2">&quot;part=snippet&amp;textFormat=plainText&amp;maxResults=100&amp;&quot;</span>
+                             <span class="s2">&quot;videoId=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span> 
+                                                        <span class="n">video_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">next_page_token</span><span class="p">:</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s2">&quot;&amp;pageToken=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">next_page_token</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+            <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                <span class="n">items</span> <span class="o">=</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">max_results</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">comments</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">max_results</span><span class="p">:</span>
+                            <span class="k">return</span> <span class="n">comments</span>
+                    <span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">):</span>
+                <span class="n">next_page_token</span> <span class="o">=</span> <span class="n">response_json</span><span class="p">[</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="n">run</span><span class="o">=</span><span class="kc">False</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">get_replies</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">comments</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">comment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reply_count&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">comment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reply_count&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">comment_id</span> <span class="o">=</span> <span class="n">comment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;comment_id&#39;</span><span class="p">)</span>
+                    <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/comments?&quot;</span>
+                                 <span class="s2">&quot;part=snippet&amp;textFormat=plainText&amp;maxResults=100&amp;&quot;</span>
+                                 <span class="s2">&quot;parentId=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span>
+                                                             <span class="n">comment_id</span><span class="p">,</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+                    <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">max_results</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">comments</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">max_results</span><span class="p">:</span>
+                                    <span class="k">return</span> <span class="n">comments</span>
+                            <span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">comments</span></div>
+
+
+<div class="viewcode-block" id="YoutubeDataApi.get_captions"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_captions">[docs]</a>    <span class="k">def</span> <span class="nf">get_captions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_id</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_caption_track</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Grabs captions given a video id using the PyTube and BeautifulSoup Packages</span>
+
+<span class="sd">        :param video_id: (str) a vide_id IE: eqwPlwHSL_M</span>
+<span class="sd">        :param lang_code: (str) language to get captions in</span>
+<span class="sd">        :param parser: (func) the function to parse the json document</span>
+
+<span class="sd">        :returns: the captions from a given video_id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">_get_captions</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">lang_code</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_caption_track</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Grabs captions given a video id using the PyTube and BeautifulSoup Packages</span>
+
+<span class="sd">            :param video_id: (str) a vide_id IE: eqwPlwHSL_M</span>
+<span class="sd">            :param lang_code: (str) language to get captions in</span>
+<span class="sd">            :param parser: (func) the function to parse the json document</span>
+
+<span class="sd">            :returns: the captions from a given video_id</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">get_url_from_video_id</span><span class="p">(</span><span class="n">video_id</span><span class="p">)</span>
+            <span class="n">vid</span> <span class="o">=</span> <span class="n">YouTube</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">captions</span> <span class="o">=</span> <span class="n">vid</span><span class="o">.</span><span class="n">captions</span><span class="o">.</span><span class="n">get_by_language_code</span><span class="p">(</span><span class="n">lang_code</span><span class="p">)</span>
+
+            <span class="n">resp</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">captions</span><span class="p">:</span>
+                <span class="n">clean_cap</span> <span class="o">=</span> <span class="n">_text_from_html</span><span class="p">(</span><span class="n">captions</span><span class="o">.</span><span class="n">xml_captions</span><span class="p">)</span>
+                <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;caption&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clean_cap</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;caption&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;video_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">video_id</span>
+            <span class="n">resp</span><span class="p">[</span><span class="s1">&#39;collection_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">resp</span>
+        
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">captions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_captions</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">captions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">v_id</span> <span class="ow">in</span> <span class="n">video_id</span><span class="p">:</span>
+                <span class="n">captions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_captions</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">captions</span></div>
+
+    
+<div class="viewcode-block" id="YoutubeDataApi.get_recommended_videos"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.get_recommended_videos">[docs]</a>    <span class="k">def</span> <span class="nf">get_recommended_videos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_id</span><span class="p">,</span> <span class="n">max_results</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                               <span class="n">safe_search</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                               <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_rec_video_metadata</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get recommended videos given a video ID</span>
+<span class="sd">        </span>
+<span class="sd">        Read the docs: https://developers.google.com/youtube/v3/docs/search/list</span>
+<span class="sd">        </span>
+<span class="sd">        :param video_id: (str) a vide_id IE: eqwPlwHSL_M</span>
+<span class="sd">        :param max_results: (int) max number of recommended vids</span>
+<span class="sd">        :param parser: (func) the function to parse the json document</span>
+
+
+<span class="sd">        :returns: a list of videos and video metadata for recommended videos</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/search?&quot;</span>
+                         <span class="s2">&quot;part=snippet&amp;type=video&amp;maxResults=</span><span class="si">{}</span><span class="s2">&amp;&quot;</span>
+                         <span class="s2">&quot;relatedToVideoId=</span><span class="si">{}</span><span class="s2">&amp;key=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span>
+                                                             <span class="n">max_results</span><span class="p">,</span> 
+                                                             <span class="n">video_id</span><span class="p">,</span> 
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="k">if</span> <span class="n">safe_search</span><span class="p">:</span>
+            <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s1">&#39;&amp;safeSearch=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">safe_search</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+        <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="n">recommended_vids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                <span class="n">recommended_vids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">recommended_vids</span></div>
+
+    
+<div class="viewcode-block" id="YoutubeDataApi.search"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api.YoutubeDataApi.search">[docs]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">channel_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">max_results</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">order_by</span><span class="o">=</span><span class="s2">&quot;relevance&quot;</span><span class="p">,</span> <span class="n">next_page_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">published_after</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+               <span class="n">published_before</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+               <span class="n">location</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">location_radius</span><span class="o">=</span><span class="s1">&#39;1km&#39;</span><span class="p">,</span> 
+               <span class="n">region_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">safe_search</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+               <span class="n">relevance_language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">event_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">topic_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">video_duration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">parser</span><span class="o">=</span><span class="n">P</span><span class="o">.</span><span class="n">parse_rec_video_metadata</span><span class="p">,</span> <span class="n">serch_type</span><span class="o">=</span><span class="s2">&quot;video&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Search YouTube for either videos, channels for keywords.</span>
+<span class="sd">        </span>
+<span class="sd">        Read the docs: https://developers.google.com/youtube/v3/docs/search/list</span>
+
+<span class="sd">        :param q: (list or str) regex pattern to search using | for or, &amp;&amp; for and, and - for not.</span>
+<span class="sd">        :param max_results: (int) max number of recommended vids</span>
+<span class="sd">        :param parser: (func) the function to parse the json document</span>
+
+
+<span class="sd">        :returns: a list of videos and video metadata for recommended videos</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">published_after</span><span class="p">:</span>
+            <span class="n">published_after</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">published_after</span><span class="p">,</span> 
+                                                         <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%SZ&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">published_before</span><span class="p">:</span>
+            <span class="n">published_before</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">published_before</span><span class="p">,</span> 
+                                                          <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%SZ&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">serch_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;channel&quot;</span><span class="p">,</span> <span class="s2">&quot;playlist&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;The value you have entered for `type` is not valid!&quot;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">=</span><span class="n">parser</span> <span class="k">if</span> <span class="n">parser</span> <span class="k">else</span> <span class="n">P</span><span class="o">.</span><span class="n">raw_json</span>
+        <span class="n">videos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">http_endpoint</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.googleapis.com/youtube/v</span><span class="si">{}</span><span class="s2">/search?&quot;</span>
+                             <span class="s2">&quot;part=snippet&amp;type=</span><span class="si">{}</span><span class="s2">&amp;maxResults=</span><span class="si">{}</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;&amp;order=</span><span class="si">{}</span><span class="s2">&amp;publishedAfter=</span><span class="si">{}</span><span class="s2">&amp;publishedBefore=</span><span class="si">{}</span><span class="s2">&quot;</span>
+                             <span class="s2">&quot;&amp;key=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span> <span class="n">serch_type</span><span class="p">,</span> 
+                                              <span class="mi">50</span> <span class="k">if</span> <span class="n">max_results</span> <span class="o">&gt;</span> <span class="mi">50</span> <span class="k">else</span> <span class="n">max_results</span><span class="p">,</span>
+                                              <span class="n">order_by</span><span class="p">,</span> <span class="n">published_after</span><span class="p">,</span> 
+                                              <span class="n">published_before</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">q</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="n">q</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">search_keywords</span><span class="p">)</span>
+                <span class="n">q</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s2">&quot;&amp;q=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">channel_id</span><span class="p">:</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s2">&quot;&amp;channelId=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">channel_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">location</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                    <span class="n">location</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">location</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s2">&quot;&amp;location=</span><span class="si">{}</span><span class="s2">&amp;locationRadius=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> 
+                                                                         <span class="n">location_radius</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">region_code</span><span class="p">:</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s2">&quot;&amp;regionCode=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">region_code</span><span class="p">)</span> 
+            
+            <span class="k">if</span> <span class="n">safe_search</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">safe_search</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;moderate&#39;</span><span class="p">,</span> <span class="s1">&#39;strict&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">]:</span>
+                    <span class="k">raise</span> <span class="s2">&quot;Not proper safe_search.&quot;</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s1">&#39;&amp;safeSearch=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">safe_search</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">relevance_language</span><span class="p">:</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s1">&#39;&amp;relevanceLanguage=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">relevance_language</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">event_type</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">event_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;completed&#39;</span><span class="p">,</span> <span class="s1">&#39;live&#39;</span><span class="p">,</span> <span class="s1">&#39;upcoming&#39;</span><span class="p">]:</span>
+                    <span class="k">raise</span> <span class="s2">&quot;Not proper event_type!&quot;</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s1">&#39;&amp;eventType=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">event_type</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">topic_id</span><span class="p">:</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s1">&#39;&amp;topicId=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">topic_id</span><span class="p">)</span>
+                
+            <span class="k">if</span> <span class="n">video_duration</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">video_duration</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="s1">&#39;medium&#39;</span><span class="p">,</span> <span class="s1">&#39;any&#39;</span><span class="p">]:</span>
+                    <span class="k">raise</span> <span class="s2">&quot;Not proper video_duration&quot;</span>
+                <span class="n">http_endpoing</span> <span class="o">+=</span> <span class="s1">&#39;&amp;videoDuration=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">video_duration</span><span class="p">)</span>
+           
+            <span class="k">if</span> <span class="n">next_page_token</span><span class="p">:</span>
+                <span class="n">http_endpoint</span> <span class="o">+=</span> <span class="s2">&quot;&amp;nextPageToken=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">next_page_token</span><span class="p">)</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">http_endpoint</span><span class="p">)</span>
+            <span class="n">response_json</span> <span class="o">=</span> <span class="n">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">):</span>
+                    <span class="n">videos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parser</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">videos</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">max_results</span><span class="p">:</span>
+                    <span class="n">videos</span> <span class="o">=</span> <span class="n">videos</span><span class="p">[:</span><span class="n">max_results</span><span class="p">]</span>
+                    <span class="k">break</span>
+                <span class="k">if</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">):</span>
+                    <span class="n">next_page_token</span> <span class="o">=</span> <span class="n">response_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nextPageToken&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">videos</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Leon Yin, Megan Brown.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

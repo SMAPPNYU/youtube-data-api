@@ -1,0 +1,1131 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; youtube-data-api 0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Guide" href="../youtube_api.html" />
+    <link rel="prev" title="YouTube Data API" href="../index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> youtube-data-api
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide / Tutorial:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#content-analysis-of-a-channel">Content Analysis of a Channel</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#network-analysis">Network Analysis</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../youtube_api.html">API Guide</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">youtube-data-api</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/quickstart.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>It is recommended to <a class="reference external" href="https://pypi.org/project/youtube-data-api/">install this module by using
+pip</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">youtube</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">api</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">youtube_api</span> <span class="k">import</span> <span class="n">YoutubeDataApi</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">YT_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;YT_KEY&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span> <span class="o">=</span> <span class="n">YoutubeDataApi</span><span class="p">(</span><span class="n">YT_KEY</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span><span class="o">.</span><span class="n">api_version</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">3</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">searches</span> <span class="o">=</span> <span class="n">yt</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="s1">&#39;alexandria ocasio-cortez&#39;</span><span class="p">,</span>
+                     <span class="n">max_results</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">searches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">OrderedDict</span><span class="p">([(</span><span class="s1">&#39;video_id&#39;</span><span class="p">,</span> <span class="s1">&#39;byc_lBOY_rI&#39;</span><span class="p">),</span>
+             <span class="p">(</span><span class="s1">&#39;channel_title&#39;</span><span class="p">,</span> <span class="s1">&#39;VICE News&#39;</span><span class="p">),</span>
+             <span class="p">(</span><span class="s1">&#39;channel_id&#39;</span><span class="p">,</span> <span class="s1">&#39;UCZaT_X_mc0BI-djXOlfhqWQ&#39;</span><span class="p">),</span>
+             <span class="p">(</span><span class="s1">&#39;video_publish_date&#39;</span><span class="p">,</span>
+              <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">29</span><span class="p">)),</span>
+             <span class="p">(</span><span class="s1">&#39;video_title&#39;</span><span class="p">,</span>
+              <span class="s2">&quot;Who&#39;s Afraid Of Alexandria Ocasio-Cortez? Everyone (HBO)&quot;</span><span class="p">),</span>
+             <span class="p">(</span><span class="s1">&#39;video_description&#39;</span><span class="p">,</span>
+              <span class="s2">&quot;Alexandria Ocasio-Cortez shocked Democrats when she won a New York City primary over one of the party&#39;s entrenched leaders. Her next chapter is likely to be ...&quot;</span><span class="p">),</span>
+             <span class="p">(</span><span class="s1">&#39;video_thumbnail&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;https://i.ytimg.com/vi/byc_lBOY_rI/hqdefault.jpg&#39;</span><span class="p">),</span>
+             <span class="p">(</span><span class="s1">&#39;collection_date&#39;</span><span class="p">,</span>
+              <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">196104</span><span class="p">))])</span>
+</pre></div>
+</div>
+<p>All API requests are parsed from raw JSON into
+<a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict">orderedDictionaries</a>.
+Typically an API call returns a list of OrderedDict objects. This is
+perfect for converting into Pandas DataFrames, or saving as JSON.</p>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">df_search</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">searches</span><span class="p">)</span>
+<span class="n">df_search</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>video_id</th>
+      <th>channel_title</th>
+      <th>channel_id</th>
+      <th>video_publish_date</th>
+      <th>video_title</th>
+      <th>video_description</th>
+      <th>video_category</th>
+      <th>video_thumbnail</th>
+      <th>collection_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>r1yvfdUG5pQ</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-06-28 16:42:29</td>
+      <td>Alexandria Ocasio-Cortez: There's Room For Dem...</td>
+      <td>First-time candidate and 28-year-old Alexandri...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/r1yvfdUG5pQ/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386546</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>VjsjoaQXrhI</td>
+      <td>TMZ</td>
+      <td>UCK7IIV6Q2junGSdYK3BmZMg</td>
+      <td>2018-08-27 13:17:45</td>
+      <td>Viola Davis Endorses NY Congressional Candidat...</td>
+      <td>Viola Davis has one person in mind when it com...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/VjsjoaQXrhI/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386617</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>I3wSSShwwwo</td>
+      <td>CNN</td>
+      <td>UCupvZG-5ko_eiXAupbDfxWw</td>
+      <td>2018-08-09 09:31:43</td>
+      <td>Cuomo presses Ocasio-Cortez on healthcare</td>
+      <td>Democratic congressional candidate Alexandria ...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/I3wSSShwwwo/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386663</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>iC0l6tKbBJs</td>
+      <td>Fox News Insider</td>
+      <td>UCqlYzSgsh5jdtWYfVIBoTDw</td>
+      <td>2018-07-19 12:56:02</td>
+      <td>Joe Lieberman: If Ocasio-Cortez is a Party Mod...</td>
+      <td>As seen on Your World with Neil Cavuto Former ...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/iC0l6tKbBJs/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386708</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>lAb2QMw9h_w</td>
+      <td>Guardian News</td>
+      <td>UCIRYBXDze5krPDzAEOxFGVA</td>
+      <td>2018-06-28 09:16:39</td>
+      <td>'This is the beginning': Alexandria Ocasio-Cor...</td>
+      <td>Victorious Democratic candidate addresses supp...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/lAb2QMw9h_w/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386746</td>
+    </tr>
+  </tbody>
+</table>
+</div><p>The parsing step is a functional argument that users can customize so
+long as the only argument is dictionary.</p>
+<p>You can also get raw JSON from the API by using the <code class="docutils literal"><span class="pre">raw_json</span></code> parser,
+or setting parser to <code class="docutils literal"><span class="pre">None</span></code>.</p>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">yt</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="s1">&#39;alexandria ocasio-cortez&#39;</span><span class="p">,</span>
+          <span class="n">max_results</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+          <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="s1">&#39;youtube#searchResult&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;etag&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;XI7nbFXulYBIpL0ayR_gDh3eu1k/iwS8DlBT9x9lWSRCq4JFPMR-Z00&quot;&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="s1">&#39;youtube#video&#39;</span><span class="p">,</span> <span class="s1">&#39;videoId&#39;</span><span class="p">:</span> <span class="s1">&#39;byc_lBOY_rI&#39;</span><span class="p">},</span>
+  <span class="s1">&#39;snippet&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;publishedAt&#39;</span><span class="p">:</span> <span class="s1">&#39;2018-07-31T18:52:29.000Z&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;channelId&#39;</span><span class="p">:</span> <span class="s1">&#39;UCZaT_X_mc0BI-djXOlfhqWQ&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s2">&quot;Who&#39;s Afraid Of Alexandria Ocasio-Cortez? Everyone (HBO)&quot;</span><span class="p">,</span>
+   <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;Alexandria Ocasio-Cortez shocked Democrats when she won a New York City primary over one of the party&#39;s entrenched leaders. Her next chapter is likely to be ...&quot;</span><span class="p">,</span>
+   <span class="s1">&#39;thumbnails&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://i.ytimg.com/vi/byc_lBOY_rI/default.jpg&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+     <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">90</span><span class="p">},</span>
+    <span class="s1">&#39;medium&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://i.ytimg.com/vi/byc_lBOY_rI/mqdefault.jpg&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mi">320</span><span class="p">,</span>
+     <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">180</span><span class="p">},</span>
+    <span class="s1">&#39;high&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://i.ytimg.com/vi/byc_lBOY_rI/hqdefault.jpg&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span>
+     <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">360</span><span class="p">}},</span>
+   <span class="s1">&#39;channelTitle&#39;</span><span class="p">:</span> <span class="s1">&#39;VICE News&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;liveBroadcastContent&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">}}]</span>
+</pre></div>
+</div>
+<p>We can use these search results as a jumping off point:</p>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">df_search</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>video_id</th>
+      <th>channel_title</th>
+      <th>channel_id</th>
+      <th>video_publish_date</th>
+      <th>video_title</th>
+      <th>video_description</th>
+      <th>video_category</th>
+      <th>video_thumbnail</th>
+      <th>collection_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>r1yvfdUG5pQ</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-06-28 16:42:29</td>
+      <td>Alexandria Ocasio-Cortez: There's Room For Dem...</td>
+      <td>First-time candidate and 28-year-old Alexandri...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/r1yvfdUG5pQ/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386546</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>VjsjoaQXrhI</td>
+      <td>TMZ</td>
+      <td>UCK7IIV6Q2junGSdYK3BmZMg</td>
+      <td>2018-08-27 13:17:45</td>
+      <td>Viola Davis Endorses NY Congressional Candidat...</td>
+      <td>Viola Davis has one person in mind when it com...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/VjsjoaQXrhI/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386617</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>I3wSSShwwwo</td>
+      <td>CNN</td>
+      <td>UCupvZG-5ko_eiXAupbDfxWw</td>
+      <td>2018-08-09 09:31:43</td>
+      <td>Cuomo presses Ocasio-Cortez on healthcare</td>
+      <td>Democratic congressional candidate Alexandria ...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/I3wSSShwwwo/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386663</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>iC0l6tKbBJs</td>
+      <td>Fox News Insider</td>
+      <td>UCqlYzSgsh5jdtWYfVIBoTDw</td>
+      <td>2018-07-19 12:56:02</td>
+      <td>Joe Lieberman: If Ocasio-Cortez is a Party Mod...</td>
+      <td>As seen on Your World with Neil Cavuto Former ...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/iC0l6tKbBJs/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386708</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>lAb2QMw9h_w</td>
+      <td>Guardian News</td>
+      <td>UCIRYBXDze5krPDzAEOxFGVA</td>
+      <td>2018-06-28 09:16:39</td>
+      <td>'This is the beginning': Alexandria Ocasio-Cor...</td>
+      <td>Victorious Democratic candidate addresses supp...</td>
+      <td>None</td>
+      <td>https://i.ytimg.com/vi/lAb2QMw9h_w/hqdefault.jpg</td>
+      <td>2018-09-05 13:00:59.386746</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">channel_ids</span> <span class="o">=</span> <span class="n">df_search</span><span class="p">[</span><span class="s1">&#39;channel_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">channel_meta</span> <span class="o">=</span> <span class="n">yt</span><span class="o">.</span><span class="n">get_channel_metadata</span><span class="p">(</span><span class="n">channel_ids</span><span class="p">)</span>
+<span class="n">df_channel_meta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">channel_meta</span><span class="p">)</span>
+<span class="n">df_channel_meta</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>channel_id</th>
+      <th>title</th>
+      <th>account_creation_date</th>
+      <th>keywords</th>
+      <th>description</th>
+      <th>view_count</th>
+      <th>video_count</th>
+      <th>subscription_count</th>
+      <th>playlist_id_likes</th>
+      <th>playlist_id_uploads</th>
+      <th>topic_ids</th>
+      <th>country</th>
+      <th>collection_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>UCqlYzSgsh5jdtWYfVIBoTDw</td>
+      <td>Fox News Insider</td>
+      <td>2010-05-24 22:59:16</td>
+      <td>"Fox News Channel" "Fox News Insider" "Fox New...</td>
+      <td>Fox News Insider is the official live blog of ...</td>
+      <td>87814646</td>
+      <td>5335</td>
+      <td>88218</td>
+      <td>None</td>
+      <td>UUqlYzSgsh5jdtWYfVIBoTDw</td>
+      <td>https://en.wikipedia.org/wiki/Politics|https:/...</td>
+      <td>None</td>
+      <td>2018-09-05 13:00:59.974571</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>UCK7IIV6Q2junGSdYK3BmZMg</td>
+      <td>TMZ</td>
+      <td>2006-04-10 16:33:09</td>
+      <td>Celebrity Gossip "Entertainment News" photos h...</td>
+      <td>The LATEST in celebrity gossip and entertainme...</td>
+      <td>2938544758</td>
+      <td>28237</td>
+      <td>3234809</td>
+      <td>None</td>
+      <td>UUK7IIV6Q2junGSdYK3BmZMg</td>
+      <td>https://en.wikipedia.org/wiki/Television_progr...</td>
+      <td>None</td>
+      <td>2018-09-05 13:00:59.974646</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>VICE News</td>
+      <td>2013-11-20 15:11:51</td>
+      <td>"VICE News" news VICE "VICE Magazine" document...</td>
+      <td>VICE News Tonight airs Mon-Thurs 7:30PM on HBO...</td>
+      <td>850171581</td>
+      <td>3320</td>
+      <td>3395698</td>
+      <td>LLZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>UUZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>https://en.wikipedia.org/wiki/Society</td>
+      <td>US</td>
+      <td>2018-09-05 13:00:59.974703</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>UCupvZG-5ko_eiXAupbDfxWw</td>
+      <td>CNN</td>
+      <td>2005-10-02 16:06:36</td>
+      <td>CNN "CNN News" news "breaking news"</td>
+      <td>CNN operates as a division of Turner Broadcast...</td>
+      <td>3555952702</td>
+      <td>142391</td>
+      <td>4651470</td>
+      <td>None</td>
+      <td>UUupvZG-5ko_eiXAupbDfxWw</td>
+      <td>https://en.wikipedia.org/wiki/Politics|https:/...</td>
+      <td>None</td>
+      <td>2018-09-05 13:00:59.974755</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>UCIRYBXDze5krPDzAEOxFGVA</td>
+      <td>Guardian News</td>
+      <td>2014-10-22 09:51:00</td>
+      <td>"the guardian" guardian wires video news polit...</td>
+      <td>The latest news video, live content and news e...</td>
+      <td>226810374</td>
+      <td>2720</td>
+      <td>188842</td>
+      <td>LLIRYBXDze5krPDzAEOxFGVA</td>
+      <td>UUIRYBXDze5krPDzAEOxFGVA</td>
+      <td>https://en.wikipedia.org/wiki/Politics|https:/...</td>
+      <td>GB</td>
+      <td>2018-09-05 13:00:59.974799</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<div class="section" id="content-analysis-of-a-channel">
+<h1>Content Analysis of a Channel<a class="headerlink" href="#content-analysis-of-a-channel" title="Permalink to this headline">¶</a></h1>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">channel_playlists</span> <span class="o">=</span> <span class="n">yt</span><span class="o">.</span><span class="n">get_playlists</span><span class="p">(</span><span class="n">channel_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">df_channel_playlists</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">channel_playlists</span><span class="p">)</span>
+<span class="n">df_channel_playlists</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>playlist_name</th>
+      <th>playlist_id</th>
+      <th>playlist_publish_date</th>
+      <th>playlist_n_videos</th>
+      <th>channel_id</th>
+      <th>channel_name</th>
+      <th>collection_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Rohingya Genocide</td>
+      <td>PLw613M86o5o74xsZUsa2WGz00HGyk7AoP</td>
+      <td>2018-08-28 17:57:40</td>
+      <td>4</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>VICE News</td>
+      <td>2018-09-05 13:01:00.547527</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>The Mueller Investigation</td>
+      <td>PLw613M86o5o7S7xjaBsQ32fccvzAbo3q6</td>
+      <td>2018-08-22 18:00:52</td>
+      <td>13</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>VICE News</td>
+      <td>2018-09-05 13:01:00.547597</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Reports on Yemen: VICE News</td>
+      <td>PLw613M86o5o4fmmamuzfk5HyVzjcQlFUa</td>
+      <td>2018-08-16 16:44:21</td>
+      <td>5</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>VICE News</td>
+      <td>2018-09-05 13:01:00.547643</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Allison McCann: VICE News Tonight (HBO)</td>
+      <td>PLw613M86o5o773pWdt8Odxs_JUDOGuEXN</td>
+      <td>2018-08-01 17:51:32</td>
+      <td>15</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>VICE News</td>
+      <td>2018-09-05 13:01:00.547683</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2018 Emmy Nominated Reports | VICE News</td>
+      <td>PLw613M86o5o4cRIuFUOlzIqh5jcFoC2mU</td>
+      <td>2018-07-26 16:18:13</td>
+      <td>8</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>VICE News</td>
+      <td>2018-09-05 13:01:00.547727</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">playlist_id</span> <span class="o">=</span> <span class="n">df_channel_playlists</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">playlist_id</span>
+<span class="n">playlist_id</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s1">&#39;PLw613M86o5o7S7xjaBsQ32fccvzAbo3q6&#39;</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">videos</span> <span class="o">=</span> <span class="n">yt</span><span class="o">.</span><span class="n">get_videos_from_playlist_id</span><span class="p">(</span><span class="n">playlist_id</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">videos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<pre class="literal-block">
+{'kind': 'youtube#playlistItem',
+ 'etag': '&quot;XI7nbFXulYBIpL0ayR_gDh3eu1k/bPZRQ0F4uxzNmT_FS6J6iDY8qqQ&quot;',
+ 'id': 'UEx3NjEzTTg2bzVvN1M3eGphQnNRMzJmY2N2ekFibzNxNi41NkI0NEY2RDEwNTU3Q0M2',
+ 'snippet': {'publishedAt': '2018-08-22T18:01:54.000Z',
+  'channelId': 'UCZaT_X_mc0BI-djXOlfhqWQ',
+  'title': &quot;Devin Nunes Calls His Own Local Paper 'Fake News' (HBO)&quot;,
+  'description': 'California Republican Rep. Devin Nunes isn’t just a major Donald Trump defender — he’s also taking a page out of the Trump playbook and attacking his local newspaper as “Fake News.”nnIn June, Nunes launched an unusually long ad — running more than two minutes — against the Fresno Bee, for its coverage of a controversy surrounding a winery in which Nunes is invested.nn“Sadly, since the last election, The Fresno Bee has worked closely with radical left-wing groups to promote numerous fake news stories about me,” Nunes says in the ad, giving no proof for the claims of collusion.nnIt was a rare campaign expenditure for Nunes, who isn’t seen as particularly vulnerable in his deep-red Central Valley district. But it was heard by enough voters in the district that Fresno Bee reporters received an uptick in hate mail, angry social media posts and voicemails denouncing their reporting and the paper.nnMackenzie Mays was the Fresno Bee reporter who wrote the original story on the winery controversy. In response to Nunes’ ad, she received voicemails calling her and her colleagues “corrupt bastards” — but she said it wasn’t the first time she’s gotten hate from readers, and their attacks have only gotten more vicious recently — since Trump was elected.nnSubscribe to VICE News here: <a class="reference external" href="http://bit.ly/Subscribe-to-VICE-NewsnnCheck">http://bit.ly/Subscribe-to-VICE-NewsnnCheck</a> out VICE News for more: <a class="reference external" href="http://vicenews.comnnFollow">http://vicenews.comnnFollow</a> VICE News here:nFacebook: https://www.facebook.com/vicenewsnTwitter: https://twitter.com/vicenewsnTumblr: http://vicenews.tumblr.com/nInstagram: http://instagram.com/vicenewsnMore videos from the VICE network: https://www.fb.com/vicevideo',
+  'thumbnails': {'default': {'url': 'https://i.ytimg.com/vi/LO-X8MMTRco/default.jpg',
+    'width': 120,
+    'height': 90},
+   'medium': {'url': 'https://i.ytimg.com/vi/LO-X8MMTRco/mqdefault.jpg',
+    'width': 320,
+    'height': 180},
+   'high': {'url': 'https://i.ytimg.com/vi/LO-X8MMTRco/hqdefault.jpg',
+    'width': 480,
+    'height': 360},
+   'standard': {'url': 'https://i.ytimg.com/vi/LO-X8MMTRco/sddefault.jpg',
+    'width': 640,
+    'height': 480},
+   'maxres': {'url': 'https://i.ytimg.com/vi/LO-X8MMTRco/maxresdefault.jpg',
+    'width': 1280,
+    'height': 720}},
+  'channelTitle': 'VICE News',
+  'playlistId': 'PLw613M86o5o7S7xjaBsQ32fccvzAbo3q6',
+  'position': 0,
+  'resourceId': {'kind': 'youtube#video', 'videoId': 'LO-X8MMTRco'}}}
+</pre>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">custom_parser</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;snippet&#39;</span><span class="p">][</span><span class="s1">&#39;resourceId&#39;</span><span class="p">][</span><span class="s1">&#39;videoId&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">custom_parser</span><span class="p">(</span><span class="n">videos</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s1">&#39;LO-X8MMTRco&#39;</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">video_ids</span> <span class="o">=</span> <span class="n">yt</span><span class="o">.</span><span class="n">get_videos_from_playlist_id</span><span class="p">(</span><span class="n">playlist_id</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">custom_parser</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">df_video_metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">yt</span><span class="o">.</span><span class="n">get_video_metadata</span><span class="p">(</span><span class="n">video_ids</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">df_video_metadata</span>
+</pre></div>
+</div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>video_id</th>
+      <th>channel_title</th>
+      <th>channel_id</th>
+      <th>video_publish_date</th>
+      <th>video_title</th>
+      <th>video_description</th>
+      <th>video_category</th>
+      <th>video_view_count</th>
+      <th>video_comment_count</th>
+      <th>video_like_count</th>
+      <th>video_dislike_count</th>
+      <th>video_thumbnail</th>
+      <th>video_tags</th>
+      <th>collection_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>LO-X8MMTRco</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-08-22 12:42:39</td>
+      <td>Devin Nunes Calls His Own Local Paper 'Fake Ne...</td>
+      <td>California Republican Rep. Devin Nunes isn’t j...</td>
+      <td>25</td>
+      <td>135113</td>
+      <td>1090</td>
+      <td>2087</td>
+      <td>138</td>
+      <td>https://i.ytimg.com/vi/LO-X8MMTRco/hqdefault.jpg</td>
+      <td>VICE News|VICE News Tonight|VICE on HBO|news|v...</td>
+      <td>2018-09-05 13:01:03.969337</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>tyBUnEC_VEk</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-08-09 01:03:07</td>
+      <td>Fashion Legend André Leon Talley Critiques Pau...</td>
+      <td>Paul Manafort, the former chair of President T...</td>
+      <td>25</td>
+      <td>38723</td>
+      <td>218</td>
+      <td>1149</td>
+      <td>89</td>
+      <td>https://i.ytimg.com/vi/tyBUnEC_VEk/hqdefault.jpg</td>
+      <td>VICE News|VICE News Tonight|VICE on HBO|news|v...</td>
+      <td>2018-09-05 13:01:03.969424</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>An2XYJjfAKY</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-08-03 17:21:48</td>
+      <td>QAnon Conspiracists Believe Trump and Mueller ...</td>
+      <td>If you don't follow QAnon, the internet conspi...</td>
+      <td>25</td>
+      <td>245994</td>
+      <td>3459</td>
+      <td>1739</td>
+      <td>887</td>
+      <td>https://i.ytimg.com/vi/An2XYJjfAKY/hqdefault.jpg</td>
+      <td>QAnon believers|We Spoke To The QAnon Believer...</td>
+      <td>2018-09-05 13:01:03.969484</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>YR2FxeyXw9c</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-08-02 16:37:08</td>
+      <td>The Trump Fans Of Q-Anon (HBO)</td>
+      <td>President Trump is flying around the country t...</td>
+      <td>25</td>
+      <td>251507</td>
+      <td>3229</td>
+      <td>1920</td>
+      <td>1077</td>
+      <td>https://i.ytimg.com/vi/YR2FxeyXw9c/hqdefault.jpg</td>
+      <td>Meet the Trump fans of Q-Anon|Trump fans|QAnon...</td>
+      <td>2018-09-05 13:01:03.969539</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>SJBQikfYyKs</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-07-17 01:06:14</td>
+      <td>American Scholars Say The Real Threat To The U...</td>
+      <td>President Trump set off a roar of outrage when...</td>
+      <td>25</td>
+      <td>111565</td>
+      <td>1260</td>
+      <td>2324</td>
+      <td>411</td>
+      <td>https://i.ytimg.com/vi/SJBQikfYyKs/hqdefault.jpg</td>
+      <td>russophobia in usa|russophobia|VICE News|VICE ...</td>
+      <td>2018-09-05 13:01:03.969592</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>9zQU_jI4Mek</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-07-11 00:13:09</td>
+      <td>We Spoke To Emin Agalarov About A Conversation...</td>
+      <td>When President Donald Trump’s eldest son Don J...</td>
+      <td>25</td>
+      <td>32803</td>
+      <td>239</td>
+      <td>362</td>
+      <td>172</td>
+      <td>https://i.ytimg.com/vi/9zQU_jI4Mek/hqdefault.jpg</td>
+      <td>vice emin agalarov interview|emin agalarov|Don...</td>
+      <td>2018-09-05 13:01:03.969643</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>W5igBNtpoj0</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-05-18 17:27:33</td>
+      <td>Here's How Much Americans Bitterly Disagree Ab...</td>
+      <td>We’re officially one year into the Russia inve...</td>
+      <td>25</td>
+      <td>91913</td>
+      <td>912</td>
+      <td>958</td>
+      <td>192</td>
+      <td>https://i.ytimg.com/vi/W5igBNtpoj0/hqdefault.jpg</td>
+      <td>VICE News|donald trump|fox news|Fox and Friend...</td>
+      <td>2018-09-05 13:01:03.969700</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>9yPvRaKQikE</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-03-20 00:12:02</td>
+      <td>Christopher Wylie: The Whistleblower Who Expos...</td>
+      <td>LONDON — Christopher Wylie played a big role i...</td>
+      <td>25</td>
+      <td>100021</td>
+      <td>520</td>
+      <td>1426</td>
+      <td>298</td>
+      <td>https://i.ytimg.com/vi/9yPvRaKQikE/hqdefault.jpg</td>
+      <td>Christopher Wylie|Whisteblower|whistleblower|n...</td>
+      <td>2018-09-05 13:01:03.969752</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>WKve2MdljW4</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-02-06 01:05:11</td>
+      <td>Devin Nunes' Democratic Opponent Is Raising Mo...</td>
+      <td>Within 72 hours of Devin Nunes’ memo dropping,...</td>
+      <td>25</td>
+      <td>25632</td>
+      <td>262</td>
+      <td>347</td>
+      <td>181</td>
+      <td>https://i.ytimg.com/vi/WKve2MdljW4/hqdefault.jpg</td>
+      <td>VICE News|VICE News Tonight|VNT|HBO|Vice|Russi...</td>
+      <td>2018-09-05 13:01:03.969803</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>m-6ECS4kYJE</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2018-02-02 20:04:02</td>
+      <td>How The Nunes Memo Is A Danger To Democracy (HBO)</td>
+      <td>There seems to be some real parallels between ...</td>
+      <td>25</td>
+      <td>122176</td>
+      <td>1278</td>
+      <td>2027</td>
+      <td>2179</td>
+      <td>https://i.ytimg.com/vi/m-6ECS4kYJE/hqdefault.jpg</td>
+      <td>VICE News Tonight|VICE on HBO|Shawna Thomas|Ri...</td>
+      <td>2018-09-05 13:01:03.969852</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>VnOf8ZhIH7I</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2017-12-02 01:11:36</td>
+      <td>Trump Has A Lot To Be Worried About Now That F...</td>
+      <td>Donald Trump’s former national security advise...</td>
+      <td>25</td>
+      <td>184367</td>
+      <td>862</td>
+      <td>2680</td>
+      <td>611</td>
+      <td>https://i.ytimg.com/vi/VnOf8ZhIH7I/hqdefault.jpg</td>
+      <td>Donald Trump|Michael Flynn|Trump administratio...</td>
+      <td>2018-09-05 13:01:03.969902</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>b6bCBzosKyg</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2017-07-18 18:48:48</td>
+      <td>Meet Mueller's All-Star Legal Team That Could ...</td>
+      <td>President Trump says the federal investigation...</td>
+      <td>25</td>
+      <td>51516</td>
+      <td>527</td>
+      <td>1451</td>
+      <td>811</td>
+      <td>https://i.ytimg.com/vi/b6bCBzosKyg/hqdefault.jpg</td>
+      <td>VICE News|news|VICE|documentary|interviews|wor...</td>
+      <td>2018-09-05 13:01:03.969953</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>aRXMDKrJAu0</td>
+      <td>VICE News</td>
+      <td>UCZaT_X_mc0BI-djXOlfhqWQ</td>
+      <td>2017-07-07 18:22:08</td>
+      <td>Flynn Regretted "Lock Her Up" Speech Almost Im...</td>
+      <td>The minute Michael Flynn walked off the stage ...</td>
+      <td>25</td>
+      <td>206539</td>
+      <td>520</td>
+      <td>1867</td>
+      <td>265</td>
+      <td>https://i.ytimg.com/vi/aRXMDKrJAu0/hqdefault.jpg</td>
+      <td>VICE News|news|VICE|VICE Magazine|documentary|...</td>
+      <td>2018-09-05 13:01:03.970002</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="section" id="network-analysis">
+<h2>Network Analysis<a class="headerlink" href="#network-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">df_channel_meta</span><span class="p">[</span><span class="s1">&#39;channel_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;UCqlYzSgsh5jdtWYfVIBoTDw&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;UCK7IIV6Q2junGSdYK3BmZMg&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;UCZaT_X_mc0BI-djXOlfhqWQ&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;UCupvZG-5ko_eiXAupbDfxWw&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;UCIRYBXDze5krPDzAEOxFGVA&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">df_channel_meta</span><span class="p">[</span><span class="s1">&#39;channel_id&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s1">&#39;UCqlYzSgsh5jdtWYfVIBoTDw&#39;</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">featured_channels</span> <span class="o">=</span> <span class="n">yt</span><span class="o">.</span><span class="n">get_featured_channels</span><span class="p">(</span><span class="n">df_channel_meta</span><span class="p">[</span><span class="s1">&#39;channel_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">featured_channels</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">&#39;UCqlYzSgsh5jdtWYfVIBoTDw&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;UCXIJgqnII2ZOINSWNOGFThA&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCCXoCcu9Rp7NPbTzIvogpZg&#39;</span><span class="p">]},</span>
+ <span class="p">{</span><span class="s1">&#39;UCK7IIV6Q2junGSdYK3BmZMg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;UCE3yf1AcIlXdps2EYbq3lzw&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UC9_3h1t3FEvhC-1toDU3fww&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCrJWWrN-jsSau3Kmb1WUeCw&#39;</span><span class="p">]},</span>
+ <span class="p">{</span><span class="s1">&#39;UCZaT_X_mc0BI-djXOlfhqWQ&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;UCn8zNIfYAQNdrFRrr8oibKw&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCWF0PiUvUi3Jma2oFgaiX2w&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCfQDD-pbllOCXHYwiXxjJxA&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UC0iwHRFpv2_fpojZgQhElEQ&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCB6PV0cvJpzlcXRG7nz6PpQ&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UC8C8WuWSsFjWFaTHcUQeQxA&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCaLfMkkHhSA_LaCta0BzyhQ&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UC9ISPZsMaBi5mutsgX6LC1g&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCiZCX1R1F3xYGbeXq1JscKA&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCflb1gG-X1dy1Ru5JIk5sPw&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCNDUud96oGK5xQ9gyg913vw&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCroeDtD1dtd1leuxUHDMTXQ&#39;</span><span class="p">]},</span>
+ <span class="p">{</span><span class="s1">&#39;UCupvZG-5ko_eiXAupbDfxWw&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;UCRrW0ddrbFnJCbyZqHHv4KQ&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCF93huicBH0WApJjUmrCxzg&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCovKb3Mf_h3bsY9gEWoR-bg&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCgPClNr5VSYC3syrDUIlzLw&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCgCudMsK-kxYxB2RgiS3bzQ&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UC1DZpQ2DDExws9Zvl7UcSkg&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCi7GJNg51C3jgmYTUwqoUXA&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCMsgXPD3wzzt8RxHJmXH7hQ&#39;</span><span class="p">]},</span>
+ <span class="p">{</span><span class="s1">&#39;UCIRYBXDze5krPDzAEOxFGVA&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;UCHpw8xwDNhU9gdohEcJu4aA&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCSYCo8uRGF39qDCxF870K5Q&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCNHqb1IRxQ5WBsWtO53JL2g&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UC4OxS-w63-g00lI7nGkzpcw&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCwD9E_QNwFwrQC7OnPnrg2Q&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;UCQvWVVSmrbF6ID3_hB7yYqg&#39;</span><span class="p">]}]</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">channels</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">featured_channels</span><span class="p">:</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">channels</span><span class="p">,</span> <span class="o">**</span><span class="n">c</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">featured_channels</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">channel</span><span class="p">,</span> <span class="n">subs</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">all_channels</span> <span class="o">+=</span> <span class="p">[</span><span class="n">channel</span><span class="p">]</span> <span class="o">+</span> <span class="n">subs</span>
+        <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">subs</span><span class="p">:</span>
+            <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">channel</span><span class="p">,</span> <span class="n">sub</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">G</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">networkx</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">Graph</span> <span class="n">at</span> <span class="mh">0x2ae1c1270128</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="code ipython3 highlight-default"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font_weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="c1"># nx.draw_shell(G, nlist=[range(5, 10), range(5)], with_labels=True, font_weight=&#39;bold&#39;)</span>
+</pre></div>
+</div>
+<img alt="usage/output_37_0.png" src="usage/output_37_0.png" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../youtube_api.html" class="btn btn-neutral float-right" title="API Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="YouTube Data API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Leon Yin, Megan Brown.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

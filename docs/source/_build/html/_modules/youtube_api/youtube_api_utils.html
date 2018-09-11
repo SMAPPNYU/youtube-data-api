@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>youtube_api.youtube_api_utils &mdash; youtube-data-api 0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> youtube-data-api
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide / Tutorial:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage/quickstart.html#content-analysis-of-a-channel">Content Analysis of a Channel</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../youtube_api.html">API Guide</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">youtube-data-api</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>youtube_api.youtube_api_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for youtube_api.youtube_api_utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">html</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">BeautifulSoup</span><span class="p">,</span> <span class="n">Comment</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">This contains utilities used by other functions in the YoutubeDataApi class, as well as a few convenience functions for data analysis.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;_chunker&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;_load_response&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;_text_from_html&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;parse_yt_datetime&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;strip_video_id_from_url&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_upload_playlist_id&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_liked_playlist_id&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;is_user&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;strip_youtube_id&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_channel_id_from_custom_url&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;get_url_from_video_id&#39;</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_chunker</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">chunksize</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Yield successive n-sized chunks from l.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">),</span> <span class="n">chunksize</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">chunksize</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">_load_response</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Loads the response to json, and checks for errors.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="n">response_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response_json</span>
+
+<span class="k">def</span> <span class="nf">_text_from_html</span><span class="p">(</span><span class="n">html_body</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Gets clean text from html.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">_tag_visible</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Gets the text elements we&#39;re interested in&#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;style&#39;</span><span class="p">,</span> <span class="s1">&#39;script&#39;</span><span class="p">,</span> <span class="s1">&#39;head&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;meta&#39;</span><span class="p">,</span> <span class="s1">&#39;[document]&#39;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">Comment</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html_body</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">)</span>
+    <span class="n">raw_text</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">visible_text</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">_tag_visible</span><span class="p">,</span> <span class="n">raw_text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">visible_text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\n\t]&quot;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;.+?&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">unescape</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">text</span>
+
+
+<div class="viewcode-block" id="parse_yt_datetime"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api_utils.parse_yt_datetime">[docs]</a><span class="k">def</span> <span class="nf">parse_yt_datetime</span><span class="p">(</span><span class="n">date_str</span><span class="p">):</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">date_str</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_str</span><span class="p">,</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">Z&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">date</span></div>
+
+<div class="viewcode-block" id="strip_video_id_from_url"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api_utils.strip_video_id_from_url">[docs]</a><span class="k">def</span> <span class="nf">strip_video_id_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Strips a URL from youtube to a video_id&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="s1">&#39;/watch?v=&#39;</span> <span class="ow">in</span> <span class="n">url</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="n">url_</span> <span class="o">=</span> <span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;v=&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/watch?v=&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">elif</span> <span class="s1">&#39;youtu.be&#39;</span> <span class="ow">in</span> <span class="n">url</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="n">url_</span> <span class="o">=</span> <span class="n">url</span><span class="p">[</span><span class="n">url</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="s1">&#39;?&#39;</span> <span class="ow">in</span> <span class="n">url_</span><span class="p">:</span>
+            <span class="n">url_</span> <span class="o">=</span> <span class="n">url_</span><span class="p">[:</span><span class="n">url_</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">url_</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">url_</span></div>
+
+
+<div class="viewcode-block" id="get_upload_playlist_id"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api_utils.get_upload_playlist_id">[docs]</a><span class="k">def</span> <span class="nf">get_upload_playlist_id</span><span class="p">(</span><span class="n">channel_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Given a channel_id, returns the user uploaded playlist id.&#39;&#39;&#39;</span>
+    <span class="n">playlist_id</span> <span class="o">=</span> <span class="s1">&#39;UU&#39;</span> <span class="o">+</span> <span class="n">channel_id</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">playlist_id</span></div>
+
+
+<div class="viewcode-block" id="get_liked_playlist_id"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api_utils.get_liked_playlist_id">[docs]</a><span class="k">def</span> <span class="nf">get_liked_playlist_id</span><span class="p">(</span><span class="n">channel_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Given a channel_id, returns the user liked playlist id.&#39;&#39;&#39;</span>
+    <span class="n">playlist_id</span> <span class="o">=</span> <span class="s1">&#39;LL&#39;</span> <span class="o">+</span> <span class="n">channel_id</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">playlist_id</span></div>
+
+
+<div class="viewcode-block" id="is_user"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api_utils.is_user">[docs]</a><span class="k">def</span> <span class="nf">is_user</span><span class="p">(</span><span class="n">channel_url</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Checks if url is channel or user</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="s1">&#39;youtube.com/user/&#39;</span> <span class="ow">in</span> <span class="n">channel_url</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="s1">&#39;youtube.com/channel/&#39;</span> <span class="ow">in</span> <span class="n">channel_url</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Didn&#39;t recognize url </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">channel_url</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="strip_youtube_id"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api_utils.strip_youtube_id">[docs]</a><span class="k">def</span> <span class="nf">strip_youtube_id</span><span class="p">(</span><span class="n">channel_url</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    From a URL returns the YT ID.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">channel_url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/featured&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="get_channel_id_from_custom_url"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api_utils.get_channel_id_from_custom_url">[docs]</a><span class="k">def</span> <span class="nf">get_channel_id_from_custom_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Gets channel id from a url of a custom url IE: http://youtube.com/stefbot</span>
+<span class="sd">    returns a channel_id IE: UCuMo0RRtnNDuMB8DV5stEag</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+    <span class="n">class_</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;yt-uix-button yt-uix-button-size-default &#39;</span>
+              <span class="s1">&#39;yt-uix-button-subscribe-branded &#39;</span>
+              <span class="s1">&#39;yt-uix-button-has-icon no-icon-markup &#39;</span>
+              <span class="s1">&#39;yt-uix-subscription-button yt-can-buffer&#39;</span><span class="p">)</span>
+    <span class="n">channel_id</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">class_</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data-channel-external-id&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">channel_id</span></div>
+
+<div class="viewcode-block" id="get_url_from_video_id"><a class="viewcode-back" href="../../youtube_api.html#youtube_api.youtube_api_utils.get_url_from_video_id">[docs]</a><span class="k">def</span> <span class="nf">get_url_from_video_id</span><span class="p">(</span><span class="n">video_id</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Given a video id, this function returns the full URL.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://youtube.com/watch?v=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">video_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">url</span></div>
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Leon Yin, Megan Brown.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
