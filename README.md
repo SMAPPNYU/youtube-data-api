@@ -1,5 +1,6 @@
 # Youtube Data API
 <a href="https://badge.fury.io/py/youtube-data-api"><img src="https://badge.fury.io/py/youtube-data-api.svg" alt="PyPI version" height="18"></a>
+<a href="https://travis-ci.com/SMAPPNYU/youtube-data-api"><img src="https://travis-ci.com/SMAPPNYU/youtube-data-api.svg?branch=master" alt="Build status" height="18"></a>
 
 This is a Python client for the Python Data API. It was written to accomodate v3 of the API.
 
