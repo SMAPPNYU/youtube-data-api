@@ -1,4 +1,3 @@
-
 Installation
 ------------
 
@@ -9,27 +8,28 @@ pip <https://pypi.org/project/youtube-data-api/>`__:
 
     pip install youtube-data-api
 
+
+.. _quickstart:
+
 Quickstart
 ----------
 
-.. code:: ipython3
+.. code:: python
 
     import os
     import pandas as pd
     from youtube_api import YoutubeDataApi
 
-In order to access the API, you'll need to get a `service key <https://developers.google.com/youtube/registering_an_application#Create_API_Keys>`_ from the `Google Cloud Console <https://console.cloud.google.com/>`_.
+In order to access the API, you'll need to get a `service key <https://developers.google.com/youtube/registering_an_application#Create_API_Keys>`_ from the `Google Cloud Console <https://console.cloud.google.com/>`_. I like to store my API keys as environment variables in ``~/.bash_profile`` so that I don't have to hard code them.:
 
-I like to store my API keys as environment variables in ``~/.bash_profile`` so that I don't have to hard code them:
+.. code:: python
 
-.. code:: ipython3
-
-    YT_KEY = os.environ.get('YT_KEY')
+    YT_KEY = os.environ.get('YOUTUBE_API_KEY') # you can hardcode this, too.
     yt = YoutubeDataApi(YT_KEY)
 
 We now have created a ``YoutubeDataAPi`` class as ``yt``, which can be used to make API calls, such as searching for the most relevant videos of Alexandra Ocasio-Cortez.
 
-.. code:: ipython3
+.. code:: python
 
     searches = yt.search(q='alexandria ocasio-cortez',
                          max_results=5)
@@ -58,7 +58,7 @@ All API requests are parsed from raw JSON into
 Typically an API call returns a list of OrderedDict objects. This is
 perfect for converting into Pandas DataFrames, or saving as JSON.
 
-.. code:: ipython3
+.. code:: python
 
     df_search = pd.DataFrame(searches)
     df_search
@@ -164,18 +164,13 @@ perfect for converting into Pandas DataFrames, or saving as JSON.
 
 
 
-The parsing step is a functional argument that users can customize so
-long as the only argument is dictionary.
+Aside from the default parser, the ``parse`` argument allows users to create custom functions to parse and process API resonses. You can also get raw JSON from the API by using the :meth:`youtube_api.parsers.raw_json` parser, or setting parser to ``None``.
 
-You can also get raw JSON from the API by using the ``raw_json`` parser,
-or setting parser to ``None``.
-
-.. code:: ipython3
+.. code:: python
 
     yt.search(q='alexandria ocasio-cortez', 
               max_results=1,
               parser=None)
-
 
 
 
@@ -200,3 +195,4 @@ or setting parser to ``None``.
        'channelTitle': 'VICE News',
        'liveBroadcastContent': 'none'}}]
 
+:mod:`youtube_api.parsers` are intended to allow customized data parsing for those who want it, with robust defaults for less advanced users.
