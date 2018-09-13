@@ -518,7 +518,8 @@ class YoutubeDataApi:
                region_code=None, safe_search=None, 
                relevance_language=None, event_type=None,
                topic_id=None, video_duration=None,
-               parser=P.parse_rec_video_metadata, serch_type="video"):
+               parser=P.parse_rec_video_metadata, search_type="video",
+               verbose=False):
         """
         Search YouTube for either videos, channels for keywords.
         
@@ -532,31 +533,31 @@ class YoutubeDataApi:
         :returns: a list of videos and video metadata for recommended videos
 
         """
-        if published_after:
-            published_after = datetime.datetime.strftime(published_after, 
-                                                         "%Y-%m-%dT%H:%M:%SZ")
-        if published_before:
-            published_before = datetime.datetime.strftime(published_before, 
-                                                          "%Y-%m-%dT%H:%M:%SZ")
-        if serch_type not in ["video", "channel", "playlist"]:
+        if search_type not in ["video", "channel", "playlist"]:
             raise Exception("The value you have entered for `type` is not valid!")
         parser=parser if parser else P.raw_json
         videos = []
         while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/search?"
-                             "part=snippet&type={}&maxResults={}"
-                             "&order={}&publishedAfter={}&publishedBefore={}"
-                             "&key={}".format(self.api_version, serch_type, 
-                                              50 if max_results > 50 else max_results,
-                                              order_by, published_after, 
-                                              published_before, self.key))
+                             "part=snippet&type={}&maxResults=50"
+                             "&order={}&key={}".format(self.api_version, search_type, 
+                                                       order_by, self.key))
             if q:
                 if isinstance(q, list):
                     q = ' '.join(search_keywords)
-                q = urllib.parse.quote_plus(q)
                 http_endpoint += "&q={}".format(q)
+            
+            if published_after:
+                published_after = datetime.datetime.strftime(published_after, "%Y-%m-%dT%H:%M:%SZ")
+                http_endpoint += "&publishedAfter={}".format(published_after)
+            
+            if published_before:
+                published_before = datetime.datetime.strftime(published_before, "%Y-%m-%dT%H:%M:%SZ")
+                http_endpoint += "&publishedBefore={}".format(published_before)
+            
             if channel_id:
                 http_endpoint += "&channelId={}".format(channel_id)
+            
             if location:
                 if isinstance(location, tuple):
                     location = urllib.parse.quote_plus(str(location).strip('()').replace(' ', ''))
@@ -584,21 +585,23 @@ class YoutubeDataApi:
             if video_duration:
                 if not video_duration in ['short', 'long', 'medium', 'any']:
                     raise "Not proper video_duration"
-                http_endpoing += '&videoDuration={}'.format(video_duration)
+                http_endpoint += '&videoDuration={}'.format(video_duration)
            
             if next_page_token:
-                http_endpoint += "&nextPageToken={}".format(next_page_token)
+                http_endpoint += "&pageToken={}".format(next_page_token)
 
             response = requests.get(http_endpoint)
             response_json = _load_response(response)
             if response_json.get('items'):
                 for item in response_json.get('items'):
                     videos.append(parser(item))
-                if len(videos) >= max_results:
-                    videos = videos[:max_results]
-                    break
+                if max_results:
+                    if len(videos) >= max_results:
+                        videos = videos[:max_results]
+                        break
                 if response_json.get('nextPageToken'):
                     next_page_token = response_json.get('nextPageToken')
+                    time.sleep(.1)
                 else:
                     break
             else:
