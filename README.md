@@ -39,7 +39,7 @@ yt.search('alexandria ocasio-cortez')
 
 The `yt` object calls functions that automate the collection of data fields that are both visable and not-visable to everyday users.
 
-Please refer to the [documentation](https://youtube-data-api.readthedocs.io/en/latest/index.html) for details.
+Please refer to the [documentation](http://bit.ly/YouTubeDataAPI) for details.
 
 ## Testing
 Static json files used for test are stored in `./tests/data`.

@@ -152,9 +152,9 @@ class YoutubeDataApi:
             for chunk in _chunker(video_id, 50):
                 id_input = ','.join(chunk)
                 http_endpoint = ("https://www.googleapis.com/youtube/v{}/videos"
-                         "?part=statistics,snippet"
-                         "&id={}&key={}&maxResults=50".format(
-                            self.api_version, id_input, self.key))
+                                 "?part=statistics,snippet"
+                                 "&id={}&key={}&maxResults=50".format(
+                                    self.api_version, id_input, self.key))
                 response = requests.get(http_endpoint)
                 response_json = _load_response(response)
                 if response_json.get('items'):
@@ -512,23 +512,24 @@ class YoutubeDataApi:
     
     def search(self, q, channel_id=None,
                max_results=5, order_by="relevance", next_page_token=None,
-               published_after=datetime.datetime(1990,1,1),
+               published_after=datetime.datetime(2000,1,1),
                published_before=datetime.datetime(3000,1,1),
                location=None, location_radius='1km', 
                region_code=None, safe_search=None, 
                relevance_language=None, event_type=None,
                topic_id=None, video_duration=None,
                parser=P.parse_rec_video_metadata, search_type="video",
+               exhaustive=False,
                verbose=False):
         """
-        Search YouTube for either videos, channels for keywords.
+        Search YouTube for either videos, channels for keywords. Only returns up to 500 videos per search. For an exhaustive search, take advantage of the ``published_after`` and ``published_before`` params. Note the docstring needs to be updated to account for all the arguments this function takes.
         
         Read the docs: https://developers.google.com/youtube/v3/docs/search/list
 
         :param q: (list or str) regex pattern to search using | for or, && for and, and - for not.
         :param max_results: (int) max number of recommended vids
         :param parser: (func) the function to parse the json document
-
+        
 
         :returns: a list of videos and video metadata for recommended videos
 
@@ -544,16 +545,20 @@ class YoutubeDataApi:
                                                        order_by, self.key))
             if q:
                 if isinstance(q, list):
-                    q = ' '.join(search_keywords)
+                    q = '|'.join(search_keywords)
                 http_endpoint += "&q={}".format(q)
             
             if published_after:
-                published_after = datetime.datetime.strftime(published_after, "%Y-%m-%dT%H:%M:%SZ")
-                http_endpoint += "&publishedAfter={}".format(published_after)
+                if not isinstance(published_after, datetime.date):
+                    raise Exception("published_after must be a datetime, not a {}".format(type(published_after)))
+                _published_after = datetime.datetime.strftime(published_after, "%Y-%m-%dT%H:%M:%SZ")
+                http_endpoint += "&publishedAfter={}".format(_published_after)
             
             if published_before:
-                published_before = datetime.datetime.strftime(published_before, "%Y-%m-%dT%H:%M:%SZ")
-                http_endpoint += "&publishedBefore={}".format(published_before)
+                if not isinstance(published_before, datetime.date):
+                    raise Exception("published_before must be a datetime, not a {}".format(type(published_before)))
+                _published_before = datetime.datetime.strftime(published_before, "%Y-%m-%dT%H:%M:%SZ")
+                http_endpoint += "&publishedBefore={}".format(_published_before)
             
             if channel_id:
                 http_endpoint += "&channelId={}".format(channel_id)
