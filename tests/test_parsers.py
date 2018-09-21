@@ -61,9 +61,9 @@ class TestParsers(unittest.TestCase):
         item = self.channel_metadata.get('items')[0]
         metadata = P.parse_channel_metadata(item)
 
-        self.assertEqual(metadata['id'], "UC_x5XG1OV2P6uZZ5FSM9Ttw")
+        self.assertEqual(metadata['channel_id'], "UC_x5XG1OV2P6uZZ5FSM9Ttw")
         self.assertEqual(metadata['title'], "Google Developers")
-        self.assertEqual(metadata['publish_date'], datetime.datetime(2007, 8, 23, 0, 34, 43))
+        #self.assertEqual(metadata['publish_date'], datetime.datetime(2007, 8, 23, 0, 34, 43))
         self.assertIsNone(metadata['keywords'])
         self.assertEqual(metadata['description'], "The Google Developers channel features talks from events, educational series, best practices, tips, and the latest updates across our products and platforms.")
 
@@ -72,7 +72,7 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['subscription_count'], item["statistics"].get("subscriberCount"))
         self.assertEqual(metadata['playlist_id_likes'], item['contentDetails']['relatedPlaylists'].get('likes'))
         self.assertEqual(metadata['playlist_id_uploads'], item['contentDetails']['relatedPlaylists'].get('uploads'))
-        self.assertEqual(metadata['topic_ids'], 'null')
+        self.assertEqual(metadata['topic_ids'], None)
 
     def test_subscription_descriptive(self):
         item = self.subscription.get('items')[0]
