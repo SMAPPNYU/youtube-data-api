@@ -536,6 +536,7 @@ class YoutubeDataApi:
         """
         if search_type not in ["video", "channel", "playlist"]:
             raise Exception("The value you have entered for `type` is not valid!")
+            
         parser=parser if parser else P.raw_json
         videos = []
         while True:
@@ -545,7 +546,7 @@ class YoutubeDataApi:
                                                        order_by, self.key))
             if q:
                 if isinstance(q, list):
-                    q = '|'.join(search_keywords)
+                    q = '|'.join(q)
                 http_endpoint += "&q={}".format(q)
             
             if published_after:
