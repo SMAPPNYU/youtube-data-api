@@ -51,13 +51,13 @@ class YoutubeDataApi:
         except:
             return False
 
-        
+
     def get_channel_id_from_user(self, username):
         """
         Get a channel_id from a YouTube username.
         To get video_ids from the channel_id, you need to get the "upload playlist id".
         This can be done using `get_upload_playlist()` for `get_channel_metadata()`.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/channels/list
 
         :param username: the username for a YouTube channel
@@ -67,7 +67,7 @@ class YoutubeDataApi:
         """
         http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                          "?part=id"
-                         "&forUsername={}&key={}".format(self.api_version, 
+                         "&forUsername={}&key={}".format(self.api_version,
                                                          username, self.key))
         response = requests.get(http_endpoint)
         response_json = _load_response(response)
@@ -75,8 +75,8 @@ class YoutubeDataApi:
         if response_json.get('items'):
             channel_id = response_json['items'][0]['id']
         return channel_id
-    
-    
+
+
     def get_channel_metadata_gen(self, channel_id, parser=P.parse_channel_metadata):
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
@@ -102,8 +102,8 @@ class YoutubeDataApi:
                         yield parser(item)
                 else:
                     yield parser(None)
-                    
-                    
+
+
     def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata):
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
@@ -120,13 +120,13 @@ class YoutubeDataApi:
             http_endpoint = ("https://www.googleapis.com/youtube/v3/channels?"
                              "part=id,snippet,contentDetails,statistics,"
                              "topicDetails,brandingSettings&"
-                             "id={}&key={}&maxResults=50".format(channel_id, 
+                             "id={}&key={}&maxResults=50".format(channel_id,
                                                                  self.key))
             response = requests.get(http_endpoint)
             response_json = _load_response(response)
             if response_json.get('items'):
                 channel_meta = parser(response_json['items'][0])
-                    
+
         elif isinstance(channel_id, list) or isinstance(channel_id, pd.Series):
             for channel_meta_ in self.get_channel_metadata_gen(channel_id):
                 channel_meta.append(channel_meta_)
@@ -134,12 +134,12 @@ class YoutubeDataApi:
             raise TypeError("Could not process the type entered!")
 
         return channel_meta
-    
-        
+
+
     def get_video_metadata_gen(self, video_id, parser=P.parse_video_metadata):
         '''
         Given a `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/videos/list
 
         :param video_id: (str or list of str) the ID of a video IE:['kNbhUWLH_yY'], this can be found at the end of Youtube urls and by parsing links using `get_youtube_id()`
@@ -169,7 +169,7 @@ class YoutubeDataApi:
     def get_video_metadata(self, video_id, parser=P.parse_video_metadata):
         '''
         Given a single or list of `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/videos/list
 
         :param video_id: (str or list of str) the ID of a video IE: ['kNbhUWLH_yY'], this can be found at the end of Youtube urls and by parsing links using `get_youtube_id()`
@@ -181,7 +181,7 @@ class YoutubeDataApi:
         if isinstance(video_id, str):
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/videos"
                              "?part=statistics,snippet"
-                             "&id={}&key={}&maxResults=2".format(self.api_version, 
+                             "&id={}&key={}&maxResults=2".format(self.api_version,
                                                                  video_id, self.key))
             response = requests.get(http_endpoint)
             response_json  = _load_response(response)
@@ -197,7 +197,7 @@ class YoutubeDataApi:
         return video_metadata
 
 
-    def get_playlists(self, channel_id, next_page_token=False, 
+    def get_playlists(self, channel_id, next_page_token=False,
                       parser=P.parse_playlist_metadata):
         '''
         Returns a list of playlist IDs that `channel_id` created.
@@ -227,7 +227,7 @@ class YoutubeDataApi:
                     next_page_token = response_json.get('nextPageToken')
                 else:
                     break
-                    
+
         return playlists
 
 
@@ -273,11 +273,11 @@ class YoutubeDataApi:
                 else:
                     run=False
                     break
-                    
+
         return videos
 
 
-    def get_subscriptions(self, channel_id, next_page_token=False, 
+    def get_subscriptions(self, channel_id, next_page_token=False,
                           parser=P.parse_subscription_descriptive):
         '''
         Returns a list of channel IDs that `channel_id` is subscribed to.
@@ -294,7 +294,7 @@ class YoutubeDataApi:
         while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/subscriptions"
                              "?channelId={}&part=id,snippet"
-                             "&maxResults=50&key={}".format(self.api_version, 
+                             "&maxResults=50&key={}".format(self.api_version,
                                                             channel_id, self.key))
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
@@ -318,7 +318,7 @@ class YoutubeDataApi:
         of featured channels.
 
         Optionally, can take a list of channel IDS, and returns a list of dictionaries.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/channels/list
 
         :param channel_id: (str or list) of channel_ids IE:['UCn8zNIfYAQNdrFRrr8oibKw']
@@ -331,7 +331,7 @@ class YoutubeDataApi:
             for chunk in _chunker(channel_id, 50):
                 http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                                  "?part=id,brandingSettings"
-                                 "&id={}&key={}".format(self.api_version, 
+                                 "&id={}&key={}".format(self.api_version,
                                                         ','.join(chunk), self.key))
                 response = requests.get(http_endpoint)
                 response_json = _load_response(response)
@@ -344,7 +344,7 @@ class YoutubeDataApi:
         else:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                              "?part=id,brandingSettings"
-                             "&id={}&key={}".format(self.api_version, 
+                             "&id={}&key={}".format(self.api_version,
                                                     channel_id, self.key))
 
             response = requests.get(http_endpoint)
@@ -370,7 +370,7 @@ class YoutubeDataApi:
             featured_channels.append(channel)
         return featured_channels
 
-    
+
     def get_video_comments(self, video_id, get_replies=True,
                            max_results=None,
                            next_page_token=False, parser=P.parse_comment_metadata):
@@ -390,7 +390,7 @@ class YoutubeDataApi:
         while run:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/commentThreads?"
                              "part=snippet&textFormat=plainText&maxResults=100&"
-                             "videoId={}&key={}".format(self.api_version, 
+                             "videoId={}&key={}".format(self.api_version,
                                                         video_id, self.key))
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
@@ -406,7 +406,7 @@ class YoutubeDataApi:
 
             if response_json.get('nextPageToken'):
                 next_page_token = response_json['nextPageToken']
-            else: 
+            else:
                 run=False
                 break
 
@@ -441,7 +441,7 @@ class YoutubeDataApi:
 
         :returns: the captions from a given video_id
         """
-        def _get_captions(video_id, lang_code='en', parser=P.parse_caption_track):
+        def _get_captions(self, video_id, lang_code='en', parser=P.parse_caption_track):
             """
             Grabs captions given a video id using the PyTube and BeautifulSoup Packages
 
@@ -465,7 +465,7 @@ class YoutubeDataApi:
             resp['collection_date'] = datetime.datetime.now()
 
             return resp
-        
+
         if isinstance(video_id, str):
             captions = _get_captions(video_id, **kwargs)
         else:
@@ -474,15 +474,15 @@ class YoutubeDataApi:
                 captions.append(_get_captions(video_id, **kwargs))
         return captions
 
-    
+
     def get_recommended_videos(self, video_id, max_results=5,
                                safe_search=None,
                                parser=P.parse_rec_video_metadata):
         """
         Get recommended videos given a video ID
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/search/list
-        
+
         :param video_id: (str) a vide_id IE: eqwPlwHSL_M
         :param max_results: (int) max number of recommended vids
         :param parser: (func) the function to parse the json document
@@ -494,8 +494,8 @@ class YoutubeDataApi:
         http_endpoint = ("https://www.googleapis.com/youtube/v{}/search?"
                          "part=snippet&type=video&maxResults={}&"
                          "relatedToVideoId={}&key={}".format(self.api_version,
-                                                             max_results, 
-                                                             video_id, 
+                                                             max_results,
+                                                             video_id,
                                                              self.key))
         parser=parser if parser else P.raw_json
         if safe_search:
@@ -509,13 +509,13 @@ class YoutubeDataApi:
 
         return recommended_vids
 
-    
+
     def search(self, q, channel_id=None,
                max_results=5, order_by="relevance", next_page_token=None,
                published_after=datetime.datetime(2000,1,1),
                published_before=datetime.datetime(3000,1,1),
-               location=None, location_radius='1km', 
-               region_code=None, safe_search=None, 
+               location=None, location_radius='1km',
+               region_code=None, safe_search=None,
                relevance_language=None, event_type=None,
                topic_id=None, video_duration=None,
                parser=P.parse_rec_video_metadata, search_type="video",
@@ -523,76 +523,76 @@ class YoutubeDataApi:
                verbose=False):
         """
         Search YouTube for either videos, channels for keywords. Only returns up to 500 videos per search. For an exhaustive search, take advantage of the ``published_after`` and ``published_before`` params. Note the docstring needs to be updated to account for all the arguments this function takes.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/search/list
 
         :param q: (list or str) regex pattern to search using | for or, && for and, and - for not.
         :param max_results: (int) max number of recommended vids
         :param parser: (func) the function to parse the json document
-        
+
 
         :returns: a list of videos and video metadata for recommended videos
 
         """
         if search_type not in ["video", "channel", "playlist"]:
             raise Exception("The value you have entered for `type` is not valid!")
-            
+
         parser=parser if parser else P.raw_json
         videos = []
         while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/search?"
                              "part=snippet&type={}&maxResults=50"
-                             "&order={}&key={}".format(self.api_version, search_type, 
+                             "&order={}&key={}".format(self.api_version, search_type,
                                                        order_by, self.key))
             if q:
                 if isinstance(q, list):
                     q = '|'.join(q)
                 http_endpoint += "&q={}".format(q)
-            
+
             if published_after:
                 if not isinstance(published_after, datetime.date):
                     raise Exception("published_after must be a datetime, not a {}".format(type(published_after)))
                 _published_after = datetime.datetime.strftime(published_after, "%Y-%m-%dT%H:%M:%SZ")
                 http_endpoint += "&publishedAfter={}".format(_published_after)
-            
+
             if published_before:
                 if not isinstance(published_before, datetime.date):
                     raise Exception("published_before must be a datetime, not a {}".format(type(published_before)))
                 _published_before = datetime.datetime.strftime(published_before, "%Y-%m-%dT%H:%M:%SZ")
                 http_endpoint += "&publishedBefore={}".format(_published_before)
-            
+
             if channel_id:
                 http_endpoint += "&channelId={}".format(channel_id)
-            
+
             if location:
                 if isinstance(location, tuple):
                     location = urllib.parse.quote_plus(str(location).strip('()').replace(' ', ''))
-                http_endpoint += "&location={}&locationRadius={}".format(location, 
+                http_endpoint += "&location={}&locationRadius={}".format(location,
                                                                          location_radius)
             if region_code:
-                http_endpoint += "&regionCode={}".format(region_code) 
-            
+                http_endpoint += "&regionCode={}".format(region_code)
+
             if safe_search:
                 if not safe_search in ['moderate', 'strict', 'none']:
                     raise "Not proper safe_search."
                 http_endpoint += '&safeSearch={}'.format(safe_search)
-            
+
             if relevance_language:
                 http_endpoint += '&relevanceLanguage={}'.format(relevance_language)
-            
+
             if event_type:
                 if not event_type in ['completed', 'live', 'upcoming']:
                     raise "Not proper event_type!"
                 http_endpoint += '&eventType={}'.format(event_type)
-            
+
             if topic_id:
                 http_endpoint += '&topicId={}'.format(topic_id)
-                
+
             if video_duration:
                 if not video_duration in ['short', 'long', 'medium', 'any']:
                     raise "Not proper video_duration"
                 http_endpoint += '&videoDuration={}'.format(video_duration)
-           
+
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
