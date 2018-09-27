@@ -1,4 +1,5 @@
 pandas
-bs4
 pytube
 requests
+beautifulsoup4
+Cython

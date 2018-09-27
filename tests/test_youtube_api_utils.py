@@ -1,12 +1,12 @@
 import sys
 import os
-sys.path.append('../youtube-data-api/youtube_api')
+sys.path.append(os.path.abspath('../')) 
 import unittest
 import requests
 import datetime
 
 from youtube_api import YoutubeDataApi
-from youtube_api_utils import *
+from youtube_api.youtube_api_utils import *
 
 class TestVideo(unittest.TestCase):
 
@@ -38,3 +38,6 @@ class TestVideo(unittest.TestCase):
         
     def test_get_url_from_video_id(self):
         self.assertEqual(get_url_from_video_id(self.video_id), video_url)
+
+if __name__ == '__main__':
+    unittest.main()

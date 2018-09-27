@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append('../youtube-data-api/youtube_api')
+sys.path.append('../')
 import unittest
 from unittest.mock import patch
 import requests

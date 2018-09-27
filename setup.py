@@ -30,7 +30,11 @@ else:
 
 setup(
     name="youtube-data-api",
+<<<<<<< HEAD
     version='0.0.8',
+=======
+    version='0.0.9',
+>>>>>>> 39e62f376660c6ab41dd195ef5d056790ee96bf4
     author="Leon Yin, Megan Brown",
     description="youtube-data-api is a Python wrapper for the YouTube Data API.",
     long_description=get_long_description(),
