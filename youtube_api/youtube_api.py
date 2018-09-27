@@ -57,7 +57,7 @@ class YoutubeDataApi:
             return False
 
 
-    def get_channel_id_from_user(self, username):
+    def get_channel_id_from_user(self, username, **kwargs):
         """
         Get a channel_id from a YouTube username.
         To get video_ids from the channel_id, you need to get the "upload playlist id".
@@ -75,6 +75,8 @@ class YoutubeDataApi:
                          "?part=id"
                          "&forUsername={}&key={}".format(self.api_version,
                                                          username, self.key))
+        for k,v in kwargs.items():
+            http_endpoint += '&{}={}'.format(k, v)
         response = requests.get(http_endpoint)
         response_json = _load_response(response)
         channel_id = None
@@ -83,7 +85,7 @@ class YoutubeDataApi:
         return channel_id
 
 
-    def get_channel_metadata_gen(self, channel_id, parser=P.parse_channel_metadata):
+    def get_channel_metadata_gen(self, channel_id, parser=P.parse_channel_metadata, **kwargs):
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
 
@@ -103,6 +105,8 @@ class YoutubeDataApi:
                                  "topicDetails,brandingSettings&"
                                  "id={}&key={}&maxResults=50".format(','.join(chunk),
                                                                      self.key))
+                for k,v in kwargs.items():
+                    http_endpoint += '&{}={}'.format(k, v)
                 response = requests.get(http_endpoint)
                 response_json = _load_response(response)
                 if response_json.get('items'):
@@ -112,7 +116,7 @@ class YoutubeDataApi:
                     yield parser(None)
 
 
-    def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata):
+    def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata, **kwargs):
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
         
@@ -134,13 +138,15 @@ class YoutubeDataApi:
                              "topicDetails,brandingSettings&"
                              "id={}&key={}&maxResults=50".format(channel_id,
                                                                  self.key))
+            for k,v in kwargs.items():
+                http_endpoint += '&{}={}'.format(k, v)
             response = requests.get(http_endpoint)
             response_json = _load_response(response)
             if response_json.get('items'):
                 channel_meta = parser(response_json['items'][0])
 
         elif isinstance(channel_id, list) or isinstance(channel_id, pd.Series):
-            for channel_meta_ in self.get_channel_metadata_gen(channel_id):
+            for channel_meta_ in self.get_channel_metadata_gen(channel_id, parser=parser, **kwargs):
                 channel_meta.append(channel_meta_)
         else:
             raise TypeError("Could not process the type entered!")
@@ -148,7 +154,7 @@ class YoutubeDataApi:
         return channel_meta
 
 
-    def get_video_metadata_gen(self, video_id, parser=P.parse_video_metadata):
+    def get_video_metadata_gen(self, video_id, parser=P.parse_video_metadata, **kwargs):
         '''
         Given a `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.
 
@@ -170,6 +176,8 @@ class YoutubeDataApi:
                                  "?part=statistics,snippet"
                                  "&id={}&key={}&maxResults=50".format(
                                     self.api_version, id_input, self.key))
+                for k,v in kwargs.items():
+                    http_endpoint += '&{}={}'.format(k, v)
                 response = requests.get(http_endpoint)
                 response_json = _load_response(response)
                 if response_json.get('items'):
@@ -181,7 +189,7 @@ class YoutubeDataApi:
             raise Expection('This function only takes iterables!')
 
 
-    def get_video_metadata(self, video_id, parser=P.parse_video_metadata):
+    def get_video_metadata(self, video_id, parser=P.parse_video_metadata, **kwargs):
         '''
         Given a single or list of `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.
 
@@ -201,13 +209,15 @@ class YoutubeDataApi:
                              "?part=statistics,snippet"
                              "&id={}&key={}&maxResults=2".format(self.api_version,
                                                                  video_id, self.key))
+            for k,v in kwargs.items():
+                http_endpoint += '&{}={}'.format(k, v)
             response = requests.get(http_endpoint)
             response_json  = _load_response(response)
             if response_json.get('items'):
                 video_metadata = parser(response_json['items'][0])
 
         elif isinstance(video_id, list) or isinstance(video_id, pd.Series):
-            for video_meta in self.get_video_metadata_gen(video_id):
+            for video_meta in self.get_video_metadata_gen(video_id, parser=parser, **kwargs):
                 video_metadata.append(video_meta)
         else:
             raise TypeError("Could not process the type entered!")
@@ -216,7 +226,7 @@ class YoutubeDataApi:
 
 
     def get_playlists(self, channel_id, next_page_token=False,
-                      parser=P.parse_playlist_metadata):
+                      parser=P.parse_playlist_metadata, **kwargs):
         '''
         Returns a list of playlist IDs that `channel_id` created.
         Note that playlists can contains videos from any users.
@@ -242,6 +252,8 @@ class YoutubeDataApi:
                              "?part=id,snippet,contentDetails"
                              "&channelId={}&key={}&maxResults=50".format(self.api_version,
                                                                          channel_id, self.key))
+            for k,v in kwargs.items():
+                http_endpoint += '&{}={}'.format(k, v)
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
@@ -260,7 +272,7 @@ class YoutubeDataApi:
 
     def get_videos_from_playlist_id(self, playlist_id, next_page_token=None,
                                     published_after=datetime.datetime(1990,1,1),
-                                    parser=P.parse_video_url):
+                                    parser=P.parse_video_url, **kwargs):
         '''
         Given a `playlist_id`, returns a list of `video_ids` associated with that playlist.
         Note that to user uploads are a playlist from channels.
@@ -290,6 +302,8 @@ class YoutubeDataApi:
                              "?part=snippet&playlistId={}"
                              "&maxResults=50&key={}".format(self.api_version,
                                                             playlist_id, self.key))
+            for k,v in kwargs.items():
+                http_endpoint += '&{}={}'.format(k, v)
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
@@ -312,7 +326,7 @@ class YoutubeDataApi:
 
 
     def get_subscriptions(self, channel_id, next_page_token=False,
-                          parser=P.parse_subscription_descriptive):
+                          parser=P.parse_subscription_descriptive, **kwargs):
         '''
         Returns a list of channel IDs that `channel_id` is subscribed to.
         
@@ -337,6 +351,8 @@ class YoutubeDataApi:
                              "?channelId={}&part=id,snippet"
                              "&maxResults=50&key={}".format(self.api_version,
                                                             channel_id, self.key))
+            for k,v in kwargs.items():
+                http_endpoint += '&{}={}'.format(k, v)
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
@@ -353,7 +369,7 @@ class YoutubeDataApi:
         return subscriptions
 
 
-    def get_featured_channels_gen(self, channel_id, parser=P.parse_featured_channels):
+    def get_featured_channels_gen(self, channel_id, parser=P.parse_featured_channels, **kwargs):
         '''
         Given a `channel_id` returns a dictionary {channel_id : [list, of, channel_ids]}
         of featured channels.
@@ -377,6 +393,8 @@ class YoutubeDataApi:
                                  "?part=id,brandingSettings"
                                  "&id={}&key={}".format(self.api_version,
                                                         ','.join(chunk), self.key))
+                for k,v in kwargs.items():
+                    http_endpoint += '&{}={}'.format(k, v)
                 response = requests.get(http_endpoint)
                 response_json = _load_response(response)
                 if response_json.get('items'):
@@ -390,14 +408,15 @@ class YoutubeDataApi:
                              "?part=id,brandingSettings"
                              "&id={}&key={}".format(self.api_version,
                                                     channel_id, self.key))
-
+            for k,v in kwargs.items():
+                http_endpoint += '&{}={}'.format(k, v)
             response = requests.get(http_endpoint)
             response_json = _load_response(response)
-            for item in response['items']:
+            for item in response_json['items']:
                 yield parser(item)
 
 
-    def get_featured_channels(self, channel_id, **kwargs):
+    def get_featured_channels(self, channel_id, parser=P.parse_featured_channels, **kwargs):
         '''
         Given a `channel_id` returns a dictionary {channel_id : [list, of, channel_ids]}
         of featured channels.
@@ -416,14 +435,15 @@ class YoutubeDataApi:
         :rtype: list of orderedDict
         '''
         featured_channels = []
-        for channel in self.get_featured_channels_gen(channel_id, **kwargs):
+        for channel in self.get_featured_channels_gen(channel_id, parser=parser, **kwargs):
             featured_channels.append(channel)
         return featured_channels
 
 
     def get_video_comments(self, video_id, get_replies=True,
                            max_results=None,
-                           next_page_token=False, parser=P.parse_comment_metadata):
+                           next_page_token=False, parser=P.parse_comment_metadata,
+                           **kwargs):
         """
         Returns a list of comments on a given video
         
@@ -450,6 +470,9 @@ class YoutubeDataApi:
                              "part=snippet&textFormat=plainText&maxResults=100&"
                              "videoId={}&key={}".format(self.api_version,
                                                         video_id, self.key))
+            for k,v in kwargs.items():
+                http_endpoint += '&{}={}'.format(k, v)
+                
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
             response = requests.get(http_endpoint)
@@ -503,7 +526,7 @@ class YoutubeDataApi:
         :returns: the captions from a given video_id
         :rtype: orderedDict
         """
-        def _get_captions(video_id, lang_code='en', parser=P.parse_caption_track):
+        def _get_captions(video_id, lang_code='en', parser=P.parse_caption_track, **kwargs):
             """
             Grabs captions given a video id using the PyTube and BeautifulSoup Packages
 
@@ -514,7 +537,7 @@ class YoutubeDataApi:
             :returns: the captions from a given video_id
             """
             url = get_url_from_video_id(video_id)
-            vid = YouTube(url)
+            vid = YouTube(url, **kwargs)
             captions = vid.captions.get_by_language_code(lang_code)
 
             resp = {}
@@ -529,17 +552,18 @@ class YoutubeDataApi:
             return resp
 
         if isinstance(video_id, str):
-            captions = _get_captions(video_id, **kwargs)
+            captions = _get_captions(video_id, lang_code=lang_code, parser=parser, **kwargs)
         else:
             captions = []
             for v_id in video_id:
-                captions.append(_get_captions(video_id, **kwargs))
+                captions.append(_get_captions(video_id, lang_code=lang_code, parser=parser, **kwargs))
         return captions
 
 
     def get_recommended_videos(self, video_id, max_results=5,
                                safe_search=None,
-                               parser=P.parse_rec_video_metadata):
+                               parser=P.parse_rec_video_metadata,
+                               **kwargs):
         """
         Get recommended videos given a video ID
 
@@ -562,6 +586,9 @@ class YoutubeDataApi:
         parser=parser if parser else P.raw_json
         if safe_search:
             http_endpoint += '&safeSearch={}'.format(safe_search)
+        for k,v in kwargs.items():
+            http_endpoint += '&{}={}'.format(k, v)
+            
         response = requests.get(http_endpoint)
         response_json = _load_response(response)
         recommended_vids = []
@@ -581,8 +608,7 @@ class YoutubeDataApi:
                relevance_language=None, event_type=None,
                topic_id=None, video_duration=None,
                parser=P.parse_rec_video_metadata, search_type="video",
-               exhaustive=False,
-               verbose=False, **kwargs):
+               **kwargs):
         """
         Search YouTube for either videos, channels for keywords. Only returns up to 500 videos per search. For an exhaustive search, take advantage of the ``published_after`` and ``published_before`` params. Note the docstring needs to be updated to account for all the arguments this function takes.
 
@@ -594,8 +620,33 @@ class YoutubeDataApi:
         :type max_results: int
         :param parser: the function to parse the json document
         :type parser: :mod:`youtube_api.parsers module`
-        :param order_by: return search results ordered by either ``relevance`` or ``date``.
+        :param order_by: Return search results ordered by either ``relevance``, ``date``, ``rating``, ``title``, ``video_count``, ``.
         :type order_by: str
+        :param next_page_token: A token to continue from a preciously stopped query IE:CDIQAA
+        :type next_page_token: str
+        :param published_after: Only show videos uploaded after datetime
+        :type published_after: datetime
+        :param published_before: Only show videos uploaded before datetime
+        :type published_before: datetime
+        :param location: Coodinates of video uploaded in location.
+        :type location: tuple
+        :param location_radius: The radius from the ``location`` param to include in the search.
+        :type location_radius: str
+        :param region_code: search results for videos that can be viewed in the specified country. The parameter value is an ISO 3166-1 alpha-2 country code.
+        :type region_code: str
+        :param safe_search: whether or not to include restricted content, options are "moderate", "strict", None.
+        :type safe_search: str or None
+        :param relevance_language: Instructs the API to return search results that are most relevant to the specified language.
+        :type relevance_language: str
+        :param event_type: whether the video is "live", "completed", or "upcoming".
+        :type event_type: str
+        :param topic_id: only contain resources associated with the specified topic. The value identifies a Freebase topic ID.
+        :type topic_id: str
+        :param video_duration: filter on video durations "any", "long", "medium", "short".
+        :type video_duration: str
+        :param search_type: return results on a "video", "channel", or "playlist" search.
+        
+        
 
         :returns: incomplete video metadata of videos returned by search query.
         :rtype: list of orderedDict
@@ -658,6 +709,9 @@ class YoutubeDataApi:
                 if not video_duration in ['short', 'long', 'medium', 'any']:
                     raise "Not proper video_duration"
                 http_endpoint += '&videoDuration={}'.format(video_duration)
+                
+            for k,v in kwargs.items():
+                http_endpoint += '&{}={}'.format(k, v)
 
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
