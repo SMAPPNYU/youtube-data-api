@@ -467,11 +467,11 @@ class YoutubeDataApi:
             return resp
         
         if isinstance(video_id, str):
-            captions = self._get_captions(video_id, **kwargs)
+            captions = _get_captions(video_id, **kwargs)
         else:
             captions = []
             for v_id in video_id:
-                captions.append(self._get_captions(video_id, **kwargs))
+                captions.append(_get_captions(video_id, **kwargs))
         return captions
 
     
