@@ -441,7 +441,7 @@ class YoutubeDataApi:
 
         :returns: the captions from a given video_id
         """
-        def _get_captions(self, video_id, lang_code='en', parser=P.parse_caption_track):
+        def _get_captions(video_id, lang_code='en', parser=P.parse_caption_track):
             """
             Grabs captions given a video id using the PyTube and BeautifulSoup Packages
 
