@@ -26,7 +26,7 @@ __all__ = [
 
 
 def _chunker(l, chunksize):
-    """Yield successive n-sized chunks from l."""
+    """Yield successive ``chunksize``-sized chunks from l."""
     for i in range(0, len(l), chunksize):
         yield l[i:i + chunksize]
 
@@ -65,6 +65,9 @@ def _text_from_html(html_body):
 
 
 def parse_yt_datetime(date_str):
+    '''
+    Parses a date string returned from YouTube's API into a Python datetime.
+    '''
     date = None
     if date_str:
         try:
@@ -74,7 +77,7 @@ def parse_yt_datetime(date_str):
     return date
 
 def strip_video_id_from_url(url):
-    '''Strips a URL from youtube to a video_id'''
+    '''Strips the video_id from YouTube URL.'''
     if '/watch?v=' in url.lower():
         url_ = (url.split('&v=')[-1].split('/watch?v=')[-1].split('?')[0].split('&')[0])
 

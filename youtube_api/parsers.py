@@ -22,15 +22,19 @@ __all__ = ['raw_json',
 
 def raw_json(item):
     '''
-    Returns the input
+    Returns the raw json output from the API.
     '''
     return item
 
 def parse_video_metadata(item):
     '''
+    Parses and processes raw output and returns video_id, channel_title, channel_id, video_publish_date, video_title, video_description, video_category, video_view_count, video_comment_count, video_like_count, video_dislike_count, video_thumbnail, video_tags, collection_date.
+
     :params item: json document
+    :type item: dict
 
     :returns: parsed dictionary
+    :rtype: orderedDict
     '''
     if not isinstance(item, dict):
         return OrderedDict()
@@ -63,9 +67,13 @@ def parse_video_metadata(item):
 
 def parse_video_url(item):
     '''
+    Parses and processes raw output and returns publish_date, video_id, channel_id, collection_date
+    
     :params item: json document
+    :type item: dict
 
     :returns: parsed dictionary
+    :rtype: orderedDict
     '''
     if not isinstance(item, dict):
         return OrderedDict()
@@ -76,18 +84,22 @@ def parse_video_url(item):
     channel_id = item['snippet'].get('channelId')
 
     return OrderedDict(
-        publish_date = publish_date,
         video_id = video_id,
         channel_id = channel_id,
+        publish_date = publish_date,
         collection_date = datetime.datetime.now()
     )
 
 
 def parse_channel_metadata(item):
     '''
+    Parses and processes raw output and returns channel_id, title, account_creatation_date, keywords, description, view_count, video_count, subscription_count, playlist_id_likes, playlist_id_uploads, topic_ids, country, collection_date.
+    
     :params item: json document
+    :type item: dict
 
     :returns: parsed dictionary
+    :rtype: orderedDict
     '''
     if not isinstance(item, dict):
         return OrderedDict()
@@ -117,9 +129,14 @@ def parse_channel_metadata(item):
 
 def parse_subscription_descriptive(item):
     '''
+    Parses and processes raw output and returns subscription_title, subscription_channel_id, subscription_kind, subscription_publish_date, collection_date.
+
+    
     :params item: json document
+    :type item: dict
 
     :returns: parsed dictionary
+    :rtype: orderedDict
     '''
     if not isinstance(item, dict):
         return OrderedDict()
@@ -137,9 +154,13 @@ def parse_subscription_descriptive(item):
 
 def parse_featured_channels(item):
     '''
+    Parses and processes raw output and returns a dictionary where the key is the channel_id and the key is a list of channel URLs.
+    
     :params item: json document
+    :type item: dict
 
     :returns: parsed dictionary
+    :rtype: dict
     '''
     if not isinstance(item, dict):
         return OrderedDict()
@@ -151,9 +172,14 @@ def parse_featured_channels(item):
 
 def parse_playlist_metadata(item):
     '''
+    Parses and processes raw output and returns playlist_name, playlist_id, playlist_publish_date, playlist_n_videos, channel_id, channel_name, collection_date.
+    
     :params item: json document
+    :type item: dict
 
     :returns: parsed dictionary
+    :rtype: orderedDict
+
     '''
     if not isinstance(item, dict):
         return OrderedDict()
@@ -173,9 +199,13 @@ def parse_playlist_metadata(item):
 
 def parse_comment_metadata(item):
     '''
+    Parses and processes raw output and returns video_id, commenter_channel_url,  commenter_channel_display_name, comment_id, comment_like_count, comment_publish_date, text, commenter_rating, comment_parent_id, collection_date.
+    
     :params item: json document
+    :type item: dict
 
     :returns: parsed dictionary
+    :rtype: orderedDict
     '''
     if not isinstance(item, dict):
         return OrderedDict()
@@ -185,13 +215,13 @@ def parse_comment_metadata(item):
         item = item['snippet']['topLevelComment']
 
     comment_meta = OrderedDict(
+        video_id = item["snippet"].get("videoId"),
         commenter_channel_url = item["snippet"].get("authorChannelUrl"),
         commenter_channel_display_name = item['snippet'].get('authorDisplayName'),
         comment_id = item.get("id"),
         comment_like_count = item["snippet"].get("likeCount"),
         comment_publish_date = parse_yt_datetime(item["snippet"].get("publishedAt")),
         text = item["snippet"].get("textDisplay"),
-        video_id = item["snippet"].get("videoId"),
         commenter_rating = item["snippet"].get("viewerRating"),
         comment_parent_id = item["snippet"].get("parentId"),
         collection_date = datetime.datetime.now()
@@ -206,9 +236,13 @@ def parse_comment_metadata(item):
 
 def parse_rec_video_metadata(item):
     '''
+    Parses and processes raw output and returns video_id, channel_title, channel_id, video_publish_date, video_title, video_description, video_category, video_thumbnail, collection_date.
+    
     :params item: json document
+    :type item: dict
 
     :returns: parsed dictionary
+    :rtype: orderedDict
     '''
     if not isinstance(item, dict):
         return OrderedDict()
@@ -229,9 +263,13 @@ def parse_rec_video_metadata(item):
 
 def parse_caption_track(item):
     '''
+    Returns the video_id, captions and collection_date.
+    
     :params item: json document
+    :type item: dict
 
     :returns: parsed dictionary
+    :rtype: orderedDict
     '''
 
     #TODO: convert known errors into an error message.

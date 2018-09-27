@@ -22,6 +22,8 @@ __all__ = ['YoutubeDataApi']
 class YoutubeDataApi:
     """
     The Youtube Data API handles the keys and methods to access data from the YouTube Data API
+    
+     :param key: YouTube Data API key. Get a YouTube Data API key here: https://console.cloud.google.com/apis/dashboard
     """
     def __init__(self, key, api_version='3'):
         """
@@ -40,6 +42,9 @@ class YoutubeDataApi:
     def verify_key(self):
         '''
         Checks it the API key is valid.
+        
+        :returns: True if the API key is valid, False if the key is not valid.
+        :rtype: bool
         '''
         http_endpoint = ("https://www.googleapis.com/youtube/v{}/playlists"
                          "?part=id&id=UC_x5XG1OV2P6uZZ5FSM9Ttw&"
@@ -63,7 +68,8 @@ class YoutubeDataApi:
         :param username: the username for a YouTube channel
         :type username: str
 
-        :returns: the YouTube channel id for the given username
+        :returns: YouTube Channel ID for a given username
+        :rtype: str
         """
         http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels"
                          "?part=id"
@@ -81,11 +87,13 @@ class YoutubeDataApi:
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
 
-        :param channel_id: (str or list of str) the channel id(s)
+        :param channel_id:  channel id(s)
         :type channel_id: str or list
-        :param parser: (func) the function to parse the json document.
+        :param parser: the function to parse the json document.
+        :type parser: :mod:`youtube_api.parsers module`
 
         :returns: the YouTube channel metadata
+        :rtype: orderedDict
         '''
         parser=parser if parser else P.raw_json
         if isinstance(channel_id, list) or isinstance(channel_id, pd.Series):
@@ -107,12 +115,16 @@ class YoutubeDataApi:
     def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata):
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
+        
+        Read the docs: https://developers.google.com/youtube/v3/docs/channels/list
 
-        :param channel_id: (str or list of str) the channel id(s)
+        :param channel_id: the channel id(s)
         :type channel_id: str or list
-        :param parser: (func) the function to parse the json document.
+        :param parser: the function to parse the json document.
+        :type parser: :mod:`youtube_api.parsers module`
 
         :returns: the YouTube channel metadata
+        :rtype: orderedDict
         '''
         parser=parser if parser else P.raw_json
         channel_meta = []
@@ -142,10 +154,13 @@ class YoutubeDataApi:
 
         Read the docs: https://developers.google.com/youtube/v3/docs/videos/list
 
-        :param video_id: (str or list of str) the ID of a video IE:['kNbhUWLH_yY'], this can be found at the end of Youtube urls and by parsing links using `get_youtube_id()`
-        :param parser: (func) the function to parse the json document
+        :param video_id: The ID of a video IE: ``kNbhUWLH_yY``, this can be found at the end of YouTube urls and by parsing links using :meth:`youtube_api.youtube_api_utils.strip_youtube_id`.
+        :type video_id: str or list of str
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
 
-        :returns: a list of dictionaries containing metadata.
+        :returns: a list of orderedDicts containing metadata from the inputted `video_id`s.
+        :rtype: list of orderedDict
         '''
         parser=parser if parser else P.raw_json
         if isinstance(video_id, list) or isinstance(video_id, pd.Series):
@@ -172,10 +187,13 @@ class YoutubeDataApi:
 
         Read the docs: https://developers.google.com/youtube/v3/docs/videos/list
 
-        :param video_id: (str or list of str) the ID of a video IE: ['kNbhUWLH_yY'], this can be found at the end of Youtube urls and by parsing links using `get_youtube_id()`
-        :param parser: (func) the function to parse the json document.
-
-        :returns: a list of dictionaries containing metadata.
+        :param video_id:  the ID of a video IE: ['kNbhUWLH_yY'], this can be found at the end of YouTube urls and by parsing links using :meth:`youtube_api.youtube_api_utils.strip_youtube_id`.
+        :type video_id: str or list of str
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
+        
+        :returns: a list of orderedDicts containing metadata.
+        :rtype: list of orderedDict
         '''
         video_metadata = []
         if isinstance(video_id, str):
@@ -202,11 +220,20 @@ class YoutubeDataApi:
         '''
         Returns a list of playlist IDs that `channel_id` created.
         Note that playlists can contains videos from any users.
+        
+        Read the docs: https://developers.google.com/youtube/v3/docs/plalists
 
-        :param channel_id: (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
-        :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA
+        :param channel_id: a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
+        :type channel_id: str
+        :param next_page_token: a token to continue from a preciously stopped query IE:CDIQAA
+        :type next_page_token: str
+        
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
 
-        :returns: list of dictionaries of playlist info that `channel_id` is subscribed to.
+
+        :returns: list of orderedDicts of playlist info that `channel_id` is subscribed to.
+        :rtype: list of orderedDict
         '''
         parser=parser if parser else P.raw_json
         playlists = []
@@ -240,13 +267,20 @@ class YoutubeDataApi:
         Typically this pattern is just the channel ID with UU subbed as the first two letters.
         You can access this using the function `get_upload_playlist_id`, or from the `playlist_id_likes`
         key returned from `get_channel_metadata`.
+        
+        Read the docs: https://developers.google.com/youtube/v3/docs/playlistItems
 
-        :param playlist_id: (str) the playlist_id IE:UUaLfMkkHhSA_LaCta0BzyhQ
-        :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA
-        :param cutoff_date: (datetime) a date for the minimum publish date for videos from a playlist_id.
-        :param parser: (func) the function to parse the json document
+        :param playlist_id: the playlist_id IE:UUaLfMkkHhSA_LaCta0BzyhQ
+        :type platlist_id: str
+        :param next_page_token: a token to continue from a preciously stopped query IE:CDIQAA
+        :type next_page_token: str
+        :param cutoff_date: a date for the minimum publish date for videos from a playlist_id.
+        :type cutoff_date: datetime
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
 
         :returns: a list dictionaries with video ids associated with `playlist_id`.
+        :rtype: list of orderedDict
         '''
         parser=parser if parser else P.raw_json
         videos = []
@@ -281,13 +315,20 @@ class YoutubeDataApi:
                           parser=P.parse_subscription_descriptive):
         '''
         Returns a list of channel IDs that `channel_id` is subscribed to.
+        
+        Read the docs: https://developers.google.com/youtube/v3/docs/subscriptions
 
-        :param channel_id: (str) a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
-        :param next_page_token: (str) a token to continue from a preciously stopped query IE:CDIQAA
-        :param stop_after_n_iteration: (int) stops the API calls after N API calls
-        :param parser: (func) the function to parse the json document
+        :param channel_id: a channel_id IE:UCn8zNIfYAQNdrFRrr8oibKw
+        :type channel_id: str
+        :param next_page_token: a token to continue from a preciously stopped query IE:CDIQAA
+        :type next_page_token: str
+        :param stop_after_n_iteration: stops the API calls after N API calls
+        :type stop_after_n_iteration: int
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
 
-        :returns: subscription_ids (list) of channel IDs that `channel_id` is subscrbed to.
+        :returns: channel IDs that ``channel_id`` is subscrbed to.
+        :rtype: list
         '''
         parser=parser if parser else P.raw_json
         subscriptions = []
@@ -321,10 +362,13 @@ class YoutubeDataApi:
 
         Read the docs: https://developers.google.com/youtube/v3/docs/channels/list
 
-        :param channel_id: (str or list) of channel_ids IE:['UCn8zNIfYAQNdrFRrr8oibKw']
-        :param parser: (func) the function to parse the json document
+        :param channel_id: channel_ids IE:['UCn8zNIfYAQNdrFRrr8oibKw']
+        :type channel_id: str of list of str
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
 
-        :returns: A dictionary of featured channels
+        :returns: featured channels
+        :rtype: orderdDict
         '''
         parser=parser if parser else P.raw_json
         if isinstance(channel_id, list):
@@ -359,11 +403,17 @@ class YoutubeDataApi:
         of featured channels.
 
         Optionally, can take a list of channel IDs, and returns a list of dictionaries.
+        
+        Read the docs: https://developers.google.com/youtube/v3/docs/channels/list
 
-        :param channel_id: (str or list) of channel_ids IE:['UCn8zNIfYAQNdrFRrr8oibKw']
-        :param parser: (func) the function to parse the json document
 
-        :returns: A dictionary of featured channels
+        :param channel_id: channel_ids IE:['UCn8zNIfYAQNdrFRrr8oibKw']
+        :type channel_id: str or list of str
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
+
+        :returns: A list of orderedDict containing featured channels from ``channel_id``.
+        :rtype: list of orderedDict
         '''
         featured_channels = []
         for channel in self.get_featured_channels_gen(channel_id, **kwargs):
@@ -376,13 +426,21 @@ class YoutubeDataApi:
                            next_page_token=False, parser=P.parse_comment_metadata):
         """
         Returns a list of comments on a given video
+        
+        Read the docs: https://developers.google.com/youtube/v3/docs/commentThreads/list
 
-        :param video_id: (str) a vide_id IE: eqwPlwHSL_M
-        :param get_replies: (bool) whether or not to get replies to comments
-        :param cutoff_date: (datetime) a date for the minimum publish date for comments from a video_id.
-        :param parser: (func) the function to parse the json document
 
-        :returns: comments (list of dicts) of comments from the comments section on a given video_id
+        :param video_id: a video_id IE: "eqwPlwHSL_M"
+        :type video_id: str
+        :param get_replies: whether or not to get replies to comments
+        :type get_replies: bool
+        :param cutoff_date: a date for the minimum publish date for comments from a video_id.
+        :type cutoff_date: datetime
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
+
+        :returns: comments and responses to comments of the given ``video_id``.
+        :rtype: list of orderedDict
         """
         parser=parser if parser else P.raw_json
         comments = []
@@ -435,13 +493,17 @@ class YoutubeDataApi:
         """
         Grabs captions given a video id using the PyTube and BeautifulSoup Packages
 
-        :param video_id: (str) a vide_id IE: eqwPlwHSL_M
-        :param lang_code: (str) language to get captions in
-        :param parser: (func) the function to parse the json document
+        :param video_id: a video_id IE: eqwPlwHSL_M
+        :type video_id: str
+        :param lang_code: language to get captions in
+        :type lang_code: str
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
 
         :returns: the captions from a given video_id
+        :rtype: orderedDict
         """
-        def _get_captions(self, video_id, lang_code='en', parser=P.parse_caption_track):
+        def _get_captions(video_id, lang_code='en', parser=P.parse_caption_track):
             """
             Grabs captions given a video id using the PyTube and BeautifulSoup Packages
 
@@ -485,10 +547,10 @@ class YoutubeDataApi:
 
         :param video_id: (str) a vide_id IE: eqwPlwHSL_M
         :param max_results: (int) max number of recommended vids
-        :param parser: (func) the function to parse the json document
-
-
-        :returns: a list of videos and video metadata for recommended videos
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
+        :returns: video metadata from recommended videos of ``video_id``.
+        :rtype: list of orderedDict
 
         """
         http_endpoint = ("https://www.googleapis.com/youtube/v{}/search?"
@@ -520,19 +582,23 @@ class YoutubeDataApi:
                topic_id=None, video_duration=None,
                parser=P.parse_rec_video_metadata, search_type="video",
                exhaustive=False,
-               verbose=False):
+               verbose=False, **kwargs):
         """
         Search YouTube for either videos, channels for keywords. Only returns up to 500 videos per search. For an exhaustive search, take advantage of the ``published_after`` and ``published_before`` params. Note the docstring needs to be updated to account for all the arguments this function takes.
 
         Read the docs: https://developers.google.com/youtube/v3/docs/search/list
 
-        :param q: (list or str) regex pattern to search using | for or, && for and, and - for not.
-        :param max_results: (int) max number of recommended vids
-        :param parser: (func) the function to parse the json document
+        :param q: regex pattern to search using | for or, && for and, and - for not. IE boat|fishing is boat or fishing
+        :type q: list or str
+        :param max_results: max number of videos returned by a search query.
+        :type max_results: int
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
+        :param order_by: return search results ordered by either ``relevance`` or ``date``.
+        :type order_by: str
 
-
-        :returns: a list of videos and video metadata for recommended videos
-
+        :returns: incomplete video metadata of videos returned by search query.
+        :rtype: list of orderedDict
         """
         if search_type not in ["video", "channel", "playlist"]:
             raise Exception("The value you have entered for `type` is not valid!")
