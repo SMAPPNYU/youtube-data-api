@@ -26,6 +26,13 @@ def raw_json(item):
     '''
     return item
 
+def raw_json_with_datetime(item):
+    '''
+    Returns the raw json output from the API.
+    '''
+    item['collection_date'] = datetime.datetime.now().strftime('%Y-%m-%d')
+    return item
+
 def parse_video_metadata(item):
     '''
     Parses and processes raw output and returns video_id, channel_title, channel_id, video_publish_date, video_title, video_description, video_category, video_view_count, video_comment_count, video_like_count, video_dislike_count, video_thumbnail, video_tags, collection_date.
@@ -217,6 +224,7 @@ def parse_comment_metadata(item):
     comment_meta = OrderedDict(
         video_id = item["snippet"].get("videoId"),
         commenter_channel_url = item["snippet"].get("authorChannelUrl"),
+        commenter_channel_id = item['snippet'].get('authorChannelId').get('value', None),
         commenter_channel_display_name = item['snippet'].get('authorDisplayName'),
         comment_id = item.get("id"),
         comment_like_count = item["snippet"].get("likeCount"),

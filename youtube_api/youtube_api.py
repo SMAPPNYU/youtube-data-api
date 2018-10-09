@@ -439,6 +439,7 @@ class YoutubeDataApi:
     def get_video_comments(self, video_id, get_replies=True,
                            max_results=None,
                            next_page_token=False, parser=P.parse_comment_metadata,
+                           generator=False,
                            **kwargs):
         """
         Returns comments and replies to comments for a given video.
@@ -450,8 +451,6 @@ class YoutubeDataApi:
         :type video_id: str
         :param get_replies: whether or not to get replies to comments
         :type get_replies: bool
-        :param cutoff_date: a date for the minimum publish date for comments from a video_id.
-        :type cutoff_date: datetime
         :param parser: the function to parse the json document
         :type parser: :mod:`youtube_api.parsers module`
 
@@ -480,13 +479,11 @@ class YoutubeDataApi:
                         if len(comments) >= max_results:
                             return comments
                     comments.append(parser(item))
-
             if response_json.get('nextPageToken'):
                 next_page_token = response_json['nextPageToken']
             else:
                 run=False
                 break
-
         if get_replies:
             for comment in comments:
                 if comment.get('reply_count') and comment.get('reply_count') > 0:
@@ -496,6 +493,8 @@ class YoutubeDataApi:
                                  "parentId={}&key={}".format(self.api_version,
                                                              comment_id,
                                                              self.key))
+                    for k,v in kwargs.items():
+                        http_endpoint += '&{}={}'.format(k, v)
                     response = requests.get(http_endpoint)
                     response_json = _load_response(response)
                     if response_json.get('items'):
@@ -504,7 +503,6 @@ class YoutubeDataApi:
                                 if len(comments) >= max_results:
                                     return comments
                             comments.append(parser(item))
-
         return comments
 
 
@@ -690,6 +688,7 @@ class YoutubeDataApi:
 
         return videos
 
+    
     def get_recommended_videos(self, video_id, max_results=5,
                                parser=P.parse_rec_video_metadata,
                                **kwargs):
