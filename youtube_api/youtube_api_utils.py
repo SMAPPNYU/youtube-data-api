@@ -119,8 +119,8 @@ def strip_youtube_id(channel_url):
     '''
     From a URL returns the YT ID.
     '''
-    return channel_url.rstrip('/').replace('/featured', '').split('/')[-1]
-
+    return (channel_url.rstrip('/').replace('/featured', '')
+                       .split('/')[-1].split('#')[0])
 
 def get_channel_id_from_custom_url(url):
     '''
