@@ -44,7 +44,7 @@ Please refer to the [documentation](http://bit.ly/YouTubeDataAPI) for details.
 ## Testing
 Static json files used for test are stored in `./tests/data`.
 To test, command line input `make test`.
-
+For further information, please refer to `./tests/readme.md`.
 
 ## Authors
 Written by Leon Yin and Megan Brown
