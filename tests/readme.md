@@ -44,7 +44,7 @@ To run a single unittest case, run command `python -m unittest [test_file]`. How
 
 We specify how we would like our code to be tested in the `.travis.yml` file. For example, we specified that this API is written in Python 3.6, and what libraries are required to build. Notice that the `script` filed is where you specify how the code are gonna be tested, in our case, the command `make test`. Also remember that you need to add the `TY_KEY` environment variable in the [settings page](https://travis-ci.com/SMAPPNYU/youtube-data-api/settings) of Youtube Data API travis page. After you are all set, click "Restart Build" on the page, and, lo and behold, travis will tell you whether your code is bug-free.
 
-![API Key](https://prnt.sc/lh2sjl)
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/WtK5B9n"><a href="//imgur.com/WtK5B9n"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 ## Add More Tests
 Standing by the philosophy of [continuous integration (CI)](https://docs.travis-ci.com/user/for-beginners/#what-is-continuous-integration-ci), we warmly welcome more tests from the open source community, as well as the SMAPP lab members at New York University. Your contributions are invaluable to us. Several things to notice were you to add more tests:
