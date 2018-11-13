@@ -16,21 +16,20 @@ class TestVideo(unittest.TestCase):
         cls.video_id = 'wmxDZeh8W34'
         cls.video_id_list = ['wmxDZeh8W34', 'PIXQdfiRZNk','nvEFb_dWJdQ']
         cls.fake_vid = '99999999999'
-        
+
     def test_valid_caption(self):
         resp = self.yt.get_captions(self.video_id)
-        
+
         self.assertEqual(type(resp), OrderedDict)
         self.assertEqual(type(resp['video_id']), str)
-        
+
     def test_list_of_captions(self):
         resp = self.yt.get_captions(self.video_id_list)
-        
+
         self.assertEqual(type(resp), list)
         self.assertEqual(type(resp[0]['video_id']), str)
-        
 
-    
+
+
 if __name__ == '__main__':
     unittest.main()
-    

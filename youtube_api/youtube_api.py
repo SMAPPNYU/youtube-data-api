@@ -22,7 +22,7 @@ __all__ = ['YoutubeDataApi']
 class YoutubeDataApi:
     """
     The Youtube Data API handles the keys and methods to access data from the YouTube Data API
-    
+
      :param key: YouTube Data API key. Get a YouTube Data API key here: https://console.cloud.google.com/apis/dashboard
     """
     def __init__(self, key, api_version='3'):
@@ -42,7 +42,7 @@ class YoutubeDataApi:
     def verify_key(self):
         '''
         Checks it the API key is valid.
-        
+
         :returns: True if the API key is valid, False if the key is not valid.
         :rtype: bool
         '''
@@ -83,9 +83,9 @@ class YoutubeDataApi:
         return channel_id
 
 
-    def get_channel_metadata_gen(self, channel_id, parser=P.parse_channel_metadata, 
-                                 part=["id", "snippet", "contentDetails", "statistics", 
-                                       "topicDetails", "brandingSettings"], 
+    def get_channel_metadata_gen(self, channel_id, parser=P.parse_channel_metadata,
+                                 part=["id", "snippet", "contentDetails", "statistics",
+                                       "topicDetails", "brandingSettings"],
                                 **kwargs):
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
@@ -96,7 +96,7 @@ class YoutubeDataApi:
         :type parser: :mod:`youtube_api.parsers module`
         :param part: The part parameter specifies a comma-separated list of one or more resource properties that the API response will include. Different parameters cost different quota costs from the API.
         :type part: list
-        
+
         :returns: the YouTube channel metadata
         :rtype: orderedDict
         '''
@@ -120,11 +120,11 @@ class YoutubeDataApi:
 
 
     def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata,
-                             part=["id", "snippet", "contentDetails", "statistics", 
+                             part=["id", "snippet", "contentDetails", "statistics",
                                    "topicDetails", "brandingSettings"],  **kwargs):
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/channels/list
 
         :param channel_id: the channel id(s)
@@ -133,7 +133,7 @@ class YoutubeDataApi:
         :type parser: :mod:`youtube_api.parsers module`
         :param part: The part parameter specifies a comma-separated list of one or more resource properties that the API response will include. Different parameters cost different quota costs from the API.
         :type part: list
-        
+
         :returns: the YouTube channel metadata
         :rtype: orderedDict
         '''
@@ -152,7 +152,7 @@ class YoutubeDataApi:
                 channel_meta = parser(response_json['items'][0])
 
         elif isinstance(channel_id, list) or isinstance(channel_id, pd.Series):
-            for channel_meta_ in self.get_channel_metadata_gen(channel_id, 
+            for channel_meta_ in self.get_channel_metadata_gen(channel_id,
                                                                parser=parser,
                                                                part=part,
                                                                **kwargs):
@@ -163,7 +163,7 @@ class YoutubeDataApi:
         return channel_meta
 
 
-    def get_video_metadata_gen(self, video_id, parser=P.parse_video_metadata, 
+    def get_video_metadata_gen(self, video_id, parser=P.parse_video_metadata,
                                part=['statistics','snippet'],  **kwargs):
         '''
         Given a `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.
@@ -176,7 +176,7 @@ class YoutubeDataApi:
         :type parser: :mod:`youtube_api.parsers module`
         :param part: The part parameter specifies a comma-separated list of one or more resource properties that the API response will include. Different parameters cost different quota costs from the API.
         :type part: list
-        
+
         :returns: a list of orderedDicts containing metadata from the inputted `video_id`s.
         :rtype: list of orderedDict
         '''
@@ -214,7 +214,7 @@ class YoutubeDataApi:
         :type parser: :mod:`youtube_api.parsers module`
         :param part: The part parameter specifies a comma-separated list of one or more resource properties that the API response will include. Different parameters cost different quota costs from the API.
         :type part: list
-        
+
         :returns: a list of orderedDicts containing metadata.
         :rtype: list of orderedDict
         '''
@@ -225,7 +225,7 @@ class YoutubeDataApi:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/videos"
                              "?part=part"
                              "&id={}&key={}&maxResults=2".format(self.api_version,
-                                                                 part, video_id, 
+                                                                 part, video_id,
                                                                  self.key))
             for k,v in kwargs.items():
                 http_endpoint += '&{}={}'.format(k, v)
@@ -235,8 +235,8 @@ class YoutubeDataApi:
                 video_metadata = parser(response_json['items'][0])
 
         elif isinstance(video_id, list) or isinstance(video_id, pd.Series):
-            for video_meta in self.get_video_metadata_gen(video_id, 
-                                                          parser=parser, 
+            for video_meta in self.get_video_metadata_gen(video_id,
+                                                          parser=parser,
                                                           part=part,
                                                           **kwargs):
                 video_metadata.append(video_meta)
@@ -246,19 +246,19 @@ class YoutubeDataApi:
         return video_metadata
 
 
-    def get_playlists(self, channel_id, next_page_token=False, parser=P.parse_playlist_metadata, 
+    def get_playlists(self, channel_id, next_page_token=False, parser=P.parse_playlist_metadata,
                       part=['id','snippet','contentDetails'], **kwargs):
         '''
         Returns a list of playlist IDs that `channel_id` created.
         Note that playlists can contains videos from any users.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/playlists/list
 
         :param channel_id: a channel_id IE: "UCn8zNIfYAQNdrFRrr8oibKw"
         :type channel_id: str
         :param next_page_token: a token to continue from a preciously stopped query IE: "CDIQAA"
         :type next_page_token: str
-        
+
         :param parser: the function to parse the json document
         :type parser: :mod:`youtube_api.parsers module`
         :param part: The part parameter specifies a comma-separated list of one or more resource properties that the API response will include. Different parameters cost different quota costs from the API.
@@ -297,9 +297,9 @@ class YoutubeDataApi:
                                     parser=P.parse_video_url, part=['snippet'], **kwargs):
         '''
         Given a `playlist_id`, returns `video_ids` associated with that playlist.
-        
+
         Note that user uploads for any given channel are from a playlist named "upload playlist id". You can get this value using :meth:`youtube_api.youtube_api.get_channel_metadata` or :meth:`youtube_api.youtube_api_utils.get_upload_playlist_id`. The playlist ID for uploads is always the channel_id with "UU" subbed for "UC".
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/playlistItems
 
         :param playlist_id: the playlist_id IE: "UUaLfMkkHhSA_LaCta0BzyhQ"
@@ -348,11 +348,11 @@ class YoutubeDataApi:
 
 
     def get_subscriptions(self, channel_id, next_page_token=False,
-                          parser=P.parse_subscription_descriptive, 
+                          parser=P.parse_subscription_descriptive,
                           part=['id', 'snippet'], **kwargs):
         '''
         Returns a list of channel IDs that `channel_id` is subscribed to.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/subscriptions
 
         :param channel_id: a channel_id IE: "UCn8zNIfYAQNdrFRrr8oibKw"
@@ -365,7 +365,7 @@ class YoutubeDataApi:
         :type parser: :mod:`youtube_api.parsers module`
         :param part: The part parameter specifies a comma-separated list of one or more resource properties that the API response will include. Different parameters cost different quota costs from the API.
         :type part: list
-        
+
         :returns: channel IDs that ``channel_id`` is subscrbed to.
         :rtype: list
         '''
@@ -394,7 +394,7 @@ class YoutubeDataApi:
         return subscriptions
 
 
-    def get_featured_channels_gen(self, channel_id, parser=P.parse_featured_channels, 
+    def get_featured_channels_gen(self, channel_id, parser=P.parse_featured_channels,
                                   part=["id", "brandingSettings"], **kwargs):
         '''
         Given a `channel_id` returns a dictionary {channel_id : [list, of, channel_ids]}
@@ -450,7 +450,7 @@ class YoutubeDataApi:
         of featured channels.
 
         Optionally, can take a list of channel IDs, and returns a list of dictionaries.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/channels/list
 
 
@@ -471,12 +471,12 @@ class YoutubeDataApi:
 
 
     def get_video_comments(self, video_id, get_replies=True,
-                           max_results=None, next_page_token=False, 
+                           max_results=None, next_page_token=False,
                            parser=P.parse_comment_metadata, part = ['snippet'],
                            **kwargs):
         """
         Returns comments and replies to comments for a given video.
-        
+
         Read the docs: https://developers.google.com/youtube/v3/docs/commentThreads/list
 
 
@@ -502,7 +502,7 @@ class YoutubeDataApi:
                              "videoId={}&key={}".format(
                                  self.api_version, part, video_id, self.key))
             for k,v in kwargs.items():
-                http_endpoint += '&{}={}'.format(k, v) 
+                http_endpoint += '&{}={}'.format(k, v)
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
             response = requests.get(http_endpoint)
@@ -519,7 +519,7 @@ class YoutubeDataApi:
             else:
                 run=False
                 break
-                
+
         if get_replies:
             for comment in comments:
                 if comment.get('reply_count') and comment.get('reply_count') > 0:
@@ -593,10 +593,10 @@ class YoutubeDataApi:
                max_results=5, order_by="relevance", next_page_token=None,
                published_after=datetime.datetime(2000,1,1),
                published_before=datetime.datetime(3000,1,1),
-               location=None, location_radius='1km', region_code=None, 
+               location=None, location_radius='1km', region_code=None,
                safe_search=None, relevance_language=None, event_type=None,
                topic_id=None, video_duration=None, search_type="video",
-               parser=P.parse_rec_video_metadata, part=['snippet']
+               parser=P.parse_rec_video_metadata, part=['snippet'],
                **kwargs):
         """
         Search YouTube for either videos, channels for keywords. Only returns up to 500 videos per search. For an exhaustive search, take advantage of the ``published_after`` and ``published_before`` params. Note the docstring needs to be updated to account for all the arguments this function takes.
@@ -636,7 +636,7 @@ class YoutubeDataApi:
         :param video_duration: filter on video durations "any", "long", "medium", "short".
         :type video_duration: str
         :param search_type: return results on a "video", "channel", or "playlist" search.
-        
+
         :returns: incomplete video metadata of videos returned by search query.
         :rtype: list of orderedDict
         """
@@ -699,7 +699,7 @@ class YoutubeDataApi:
                 if not video_duration in ['short', 'long', 'medium', 'any']:
                     raise "Not proper video_duration"
                 http_endpoint += '&videoDuration={}'.format(video_duration)
-                
+
             for k,v in kwargs.items():
                 http_endpoint += '&{}={}'.format(k, v)
 
@@ -725,7 +725,7 @@ class YoutubeDataApi:
 
         return videos
 
-    
+
     def get_recommended_videos(self, video_id, max_results=5,
                                parser=P.parse_rec_video_metadata,
                                **kwargs):
@@ -742,5 +742,5 @@ class YoutubeDataApi:
         :rtype: list of orderedDict
         """
 
-        return self.search(relatedToVideoId=video_id, order_by='relevance', 
+        return self.search(relatedToVideoId=video_id, order_by='relevance',
                            max_results=max_results, parser=parser, **kwargs)
