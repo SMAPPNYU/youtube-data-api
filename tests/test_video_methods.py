@@ -48,7 +48,7 @@ class TestVideo(unittest.TestCase):
             self.assertTrue('video_title' in list(item.keys()))
             self.assertTrue('channel_title' in list(item.keys()))
     
-    #written by Megan Brown on 11/20/2018
+    #written by Megan Brown on 11/30/2018
     def test_video_metadata_with_invalid_list(self):
         invalid_list_of_videos = self.list_of_videos
         invalid_list_of_videos.append('xxxxxxxx')
@@ -56,10 +56,11 @@ class TestVideo(unittest.TestCase):
         resp = self.yt.get_video_metadata(invalid_list_of_videos)
         self.assertTrue(len(resp) == 2)
         
+    #written by Megan Brown on 11/30/2018
     def test_video_metadata_invalid_string(self):
         resp = self.yt.get_video_metadata('xx')
         
-        self.assertEqual(resp, [OrderedDict()])
+        self.assertTrue(resp == [])
         
 
 if __name__ == '__main__':
