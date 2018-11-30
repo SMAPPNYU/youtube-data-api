@@ -4,6 +4,7 @@ sys.path.append('../youtube-data-api/youtube_api')
 import unittest
 import requests
 import datetime
+from collections import OrderedDict
 
 from youtube_api import YoutubeDataApi
 
@@ -54,6 +55,11 @@ class TestVideo(unittest.TestCase):
         
         resp = self.yt.get_video_metadata(invalid_list_of_videos)
         self.assertTrue(len(resp) == 2)
+        
+    def test_video_metadata_invalid_string(self):
+        resp = self.yt.get_video_metadata('xx')
+        
+        self.assertEqual(resp, [OrderedDict()])
         
 
 if __name__ == '__main__':
