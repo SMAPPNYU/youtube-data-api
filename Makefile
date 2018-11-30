@@ -4,3 +4,4 @@ test:
 	python -m unittest tests/test_channel_methods.py
 	python -m unittest tests/test_playlist_methods.py
 	python -m unittest tests/test_video_methods.py
+	python -m unittest tests/test_search_args.py
