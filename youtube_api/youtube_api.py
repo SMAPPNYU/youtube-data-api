@@ -246,7 +246,7 @@ class YoutubeDataApi:
         if isinstance(video_id, str):
             part = ','.join(part)
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/videos"
-                             "?part=part"
+                             "?part={}"
                              "&id={}&key={}&maxResults=2".format(self.api_version,
                                                                  part, video_id,
                                                                  self.key))
