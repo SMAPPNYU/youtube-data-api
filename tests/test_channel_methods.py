@@ -13,6 +13,21 @@ TO DO
     * channel_id -- both list and indiv
     * parser
     * part
+* get subscriptions
+    * next page token
+    * channel_id -- both list and indiv
+    * parser
+    * part
+* get_featured_channels_gen
+    * next page token
+    * channel_id -- both list and indiv
+    * parser
+    * part
+* get_featured_channels
+    * next page token
+    * channel_id -- both list and indiv
+    * parser
+    * part
 
 Functions Tested
 ================
@@ -26,6 +41,15 @@ def get_channel_metadata_gen(self, channel_id, parser=P.parse_channel_metadata,
 def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata,
                              part=["id", "snippet", "contentDetails", "statistics",
                                    "topicDetails", "brandingSettings"],  **kwargs)
+
+def get_subscriptions(self, channel_id, next_page_token=False,
+                          parser=P.parse_subscription_descriptive,
+                          part=['id', 'snippet'], **kwargs)
+
+def get_featured_channels(self, channel_id, parser=P.parse_featured_channels, **kwargs)
+
+def get_featured_channels_gen(self, channel_id, parser=P.parse_featured_channels,
+                                  part=["id", "brandingSettings"], **kwargs)                                   
                                   
 
 DONE 

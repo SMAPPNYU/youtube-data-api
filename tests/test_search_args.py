@@ -31,8 +31,8 @@ def search(self, q=None, channel_id=None,
                parser=P.parse_rec_video_metadata, part=['snippet'],
                **kwargs)
                
-PARAMS TESTED
-=============
+DONE
+====
 * q
 * channel_id
 * max_results

@@ -1,3 +1,59 @@
+'''
+Last Updated: 11/30/2018
+
+Tests the parameters for the channel methods in the YoutubeDataApi
+
+TO DO
+=====
+* get_video_metadata_gen
+    * parser
+    * part
+    
+* get_video_metadata
+    * parser
+    * part
+    
+* get_video_comments
+    * video_id
+    * get_replies
+    * max_results
+    * next_page_token
+    * parser
+    * part
+    
+* get_recommended_videos
+    * video_id
+    * max_results
+    * parser
+
+
+Functions Tested
+================
+def get_video_metadata_gen(self, video_id, parser=P.parse_video_metadata,
+                               part=['statistics','snippet'],  **kwargs)
+                               
+def get_video_metadata(self, video_id, parser=P.parse_video_metadata, part=['statistics','snippet'],  **kwargs)
+
+def get_video_comments(self, video_id, get_replies=True,
+                           max_results=None, next_page_token=False,
+                           parser=P.parse_comment_metadata, part = ['snippet'],
+                           **kwargs)
+                           
+def get_recommended_videos(self, video_id, max_results=5,
+                               parser=P.parse_rec_video_metadata,
+                               **kwargs)
+                                               
+
+DONE 
+====
+* get_video_metadata
+    * video_id
+
+* get_video_metadata_gen
+    * video_id
+
+'''
+
 import sys
 import os
 sys.path.append('../youtube-data-api/')
