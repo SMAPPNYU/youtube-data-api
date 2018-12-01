@@ -44,7 +44,7 @@ PARAMS TESTED
 
 import sys
 import os
-sys.path.append('../youtube-data-api/youtube_api')
+sys.path.append('../youtube-data-api/')
 import unittest
 import requests
 import datetime
