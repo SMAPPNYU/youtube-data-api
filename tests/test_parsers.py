@@ -1,34 +1,85 @@
+'''
+Last Updated: 11/30/2018
+
+Tests the default parsers for the YoutubeDataApi
+
+TO DO
+=====
+* test `raw_json_with_datetime`
+* test `parse_caption_track`
+* test `parse_subscription_descriptive`
+
+Functions Tested
+================
+def raw_json(item)
+
+def raw_json_with_datetime(item):
+
+def parse_video_metadata(item):
+
+def parse_video_url(item):
+
+def parse_channel_metadata(item):
+
+def parse_subscription_descriptive(item):
+
+def parse_featured_channels(item):
+
+def parse_playlist_metadata(item):
+
+def parse_comment_metadata(item):
+
+def parse_rec_video_metadata(item):
+
+def parse_caption_track(item):
+
+
+DONE 
+====
+* raw_json
+* parse_video_metadata
+* parse_video_url
+* parse_channel_metadata
+* parse_featured_channels
+* parse_playlist_metadata
+* parse_comment_metadata
+* parse_rec_video_metadata
+
+'''
+
 import sys
-sys.path.append('../youtube-data-api/youtube_api')
+sys.path.append('../')
 import unittest
 import json
 import datetime
 
-from youtube_api import P
+from youtube_api import parsers as P
 
 class TestParsers(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        with open('./tests/data/video_metadata.json') as f:
+        with open('data/video_metadata.json') as f:
             cls.video_metadata = json.load(f)
-        with open('./tests/data/channel_metadata.json') as f:
+        with open('data/channel_metadata.json') as f:
             cls.channel_metadata = json.load(f)
-        with open('./tests/data/subscription.json') as f:
+        with open('data/subscription.json') as f:
             cls.subscription = json.load(f)
-        with open('./tests/data/playlist_meta.json') as f:
+        with open('data/playlist_meta.json') as f:
             cls.playlist = json.load(f)
-        with open('./tests/data/comment_meta.json') as f:
+        with open('data/comment_meta.json') as f:
             cls.comment = json.load(f)
-        with open('./tests/data/caption.json') as f:
+        with open('data/caption.json') as f:
             cls.caption = json.load(f)
-        with open('./tests/data/recommendation.json') as f:
+        with open('data/recommendation.json') as f:
             cls.rec = json.load(f)
 
+    #Verified by Megan Brown on 11/30/2018
     def test_raw_json(self):
         item = self.video_metadata.get('items')[0]
         self.assertEqual(item, P.raw_json(item))
 
+    #Verified by Megan Brown on 11/30/2018
     def test_video_metadata(self):
         item = self.video_metadata.get('items')[0]
         metadata = P.parse_video_metadata(self.video_metadata.get('items')[0])
@@ -48,6 +99,7 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['video_like_count'], item["statistics"].get("likeCount"))
         self.assertEqual(metadata['video_dislike_count'], item["statistics"].get("dislikeCount"))
 
+    #Verified by Megan Brown on 11/30/2018
     @unittest.expectedFailure
     def test_video_url(self):
         metadata = P.parse_video_url(self.video_metadata_item)
@@ -56,7 +108,7 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['video_id'], "kNbhUWLH_yY")
         self.assertEqual(metadata['channel_id'], "UCJvIPpWSsW-EGuQjNIZbBTQ")
 
-    # never called
+    #Verified by Megan Brown on 11/30/2018
     def test_channel_metadata(self):
         item = self.channel_metadata.get('items')[0]
         metadata = P.parse_channel_metadata(item)
@@ -73,7 +125,8 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['playlist_id_likes'], item['contentDetails']['relatedPlaylists'].get('likes'))
         self.assertEqual(metadata['playlist_id_uploads'], item['contentDetails']['relatedPlaylists'].get('uploads'))
         self.assertEqual(metadata['topic_ids'], None)
-
+        
+    #Verified by Megan Brown on 11/30/2018
     def test_subscription_descriptive(self):
         item = self.subscription.get('items')[0]
         metadata = P.parse_subscription_descriptive(item)
@@ -83,6 +136,7 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['subscription_kind'], "youtube#channel")
         self.assertEqual(metadata['subscription_publish_date'], datetime.datetime(2012, 10, 3, 19, 11, 46))
 
+    #Verified by Megan Brown on 11/30/2018
     def test_featured_channels(self):
         item = self.channel_metadata.get('items')[0]
         metadata = P.parse_featured_channels(item)
@@ -101,7 +155,8 @@ class TestParsers(unittest.TestCase):
         ]
 
         self.assertEqual(metadata["UC_x5XG1OV2P6uZZ5FSM9Ttw"],featured_urls)
-
+        
+    #Verified by Megan Brown on 11/30/2018
     def test_playlist_meta(self):
         item = self.playlist.get('items')[0]
         metadata = P.parse_playlist_metadata(item)
@@ -114,6 +169,7 @@ class TestParsers(unittest.TestCase):
 
         self.assertEqual(metadata['playlist_n_videos'], item['contentDetails'].get('itemCount'))
 
+    #Verified by Megan Brown on 11/30/2018
     def test_comment_metadata(self):
         item = self.comment.get('items')[0]
         metadata = P.parse_comment_metadata(item)
@@ -131,6 +187,7 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['commenter_rating'], "none")
         self.assertEqual(metadata['comment_parent_id'], "Ugi7hPbxcLYF3HgCoAEC")
 
+    #Verified by Megan Brown on 11/30/2018
     def test_rec_video(self):
         item = self.rec.get('items')[0]
         metadata = P.parse_rec_video_metadata(item)

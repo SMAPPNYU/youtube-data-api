@@ -608,7 +608,7 @@ class YoutubeDataApi:
         else:
             captions = []
             for v_id in video_id:
-                captions.append(_get_captions(video_id, lang_code=lang_code, parser=parser, **kwargs))
+                captions.append(_get_captions(v_id, lang_code=lang_code, parser=parser, **kwargs))
         return captions
 
 
