@@ -44,7 +44,7 @@ def parse_video_metadata(item):
     :rtype: orderedDict
     '''
     if not isinstance(item, dict):
-        return OrderedDict()
+        return {}
 
     tags = item["snippet"].get('tags')
     if isinstance(tags, Iterable):
@@ -52,22 +52,22 @@ def parse_video_metadata(item):
     else:
         video_tags = ''
 
-    video_meta = OrderedDict(
-        video_id = item['id'],
-        channel_title = item["snippet"].get("channelTitle"),
-        channel_id =item["snippet"].get("channelId"),
-        video_publish_date = parse_yt_datetime(item["snippet"].get("publishedAt")),
-        video_title = item["snippet"].get("title"),
-        video_description = item["snippet"].get("description"),
-        video_category = item["snippet"].get("categoryId"),
-        video_view_count = item["statistics"].get("viewCount"),
-        video_comment_count = item["statistics"].get("commentCount"),
-        video_like_count = item["statistics"].get("likeCount"),
-        video_dislike_count = item["statistics"].get("dislikeCount"),
-        video_thumbnail = item["snippet"]["thumbnails"]["high"]["url"],
-        video_tags =  video_tags,
-        collection_date = datetime.datetime.now()
-    )
+    video_meta = {
+        "video_id" : item['id'],
+        "channel_title" : item["snippet"].get("channelTitle"),
+        "channel_id" : item["snippet"].get("channelId"),
+        "video_publish_date" : parse_yt_datetime(item["snippet"].get("publishedAt")),
+        "video_title" : item["snippet"].get("title"),
+        "video_description" : item["snippet"].get("description"),
+        "video_category" : item["snippet"].get("categoryId"),
+        "video_view_count" : item["statistics"].get("viewCount"),
+        "video_comment_count" : item["statistics"].get("commentCount"),
+        "video_like_count" : item["statistics"].get("likeCount"),
+        "video_dislike_count" : item["statistics"].get("dislikeCount"),
+        "video_thumbnail" : item["snippet"]["thumbnails"]["high"]["url"],
+        "video_tags" :  video_tags,
+        "collection_date" : datetime.datetime.now()
+    }
 
     return video_meta
 
@@ -90,12 +90,12 @@ def parse_video_url(item):
     video_id = item['snippet']['resourceId'].get('videoId')
     channel_id = item['snippet'].get('channelId')
 
-    return OrderedDict(
-        video_id = video_id,
-        channel_id = channel_id,
-        publish_date = publish_date,
-        collection_date = datetime.datetime.now()
-    )
+    return {
+        "video_id" : video_id,
+        "channel_id" : channel_id,
+        "publish_date" : publish_date,
+        "collection_date" : datetime.datetime.now()
+    }
 
 
 def parse_channel_metadata(item):
@@ -109,27 +109,27 @@ def parse_channel_metadata(item):
     :rtype: orderedDict
     '''
     if not isinstance(item, dict):
-        return OrderedDict()
+        return {}
 
     topic = item.get('topicDetails')
     if topic:
         topic = '|'.join(topic.get('topicCategories'))
 
-    channel_meta = OrderedDict(
-        channel_id = item['id'],
-        title = item["snippet"].get("title"),
-        account_creation_date = parse_yt_datetime(item["snippet"].get("publishedAt")),
-        keywords = item['brandingSettings']['channel'].get('keywords'),
-        description = item["snippet"].get("description"),
-        view_count = item["statistics"].get("viewCount"),
-        video_count = item["statistics"].get("videoCount"),
-        subscription_count = item["statistics"].get("subscriberCount"),
-        playlist_id_likes = item['contentDetails']['relatedPlaylists'].get('likes'),
-        playlist_id_uploads = item['contentDetails']['relatedPlaylists'].get('uploads'),
-        topic_ids = topic,
-        country =item['snippet'].get('country'),
-        collection_date = datetime.datetime.now()
-    )
+    channel_meta = {
+        "channel_id" : item['id'],
+        "title" : item["snippet"].get("title"),
+        "account_creation_date" : parse_yt_datetime(item["snippet"].get("publishedAt")),
+        "keywords" : item['brandingSettings']['channel'].get('keywords'),
+        "description" : item["snippet"].get("description"),
+        "view_count" : item["statistics"].get("viewCount"),
+        "video_count" : item["statistics"].get("videoCount"),
+        "subscription_count" : item["statistics"].get("subscriberCount"),
+        "playlist_id_likes" : item['contentDetails']['relatedPlaylists'].get('likes'),
+        "playlist_id_uploads" : item['contentDetails']['relatedPlaylists'].get('uploads'),
+        "topic_ids" : topic,
+        "country" : item['snippet'].get('country'),
+        "collection_date" : datetime.datetime.now()
+    }
 
     return channel_meta
 
@@ -146,15 +146,15 @@ def parse_subscription_descriptive(item):
     :rtype: orderedDict
     '''
     if not isinstance(item, dict):
-        return OrderedDict()
+        return {}
 
-    sub_meta = OrderedDict(
-        subscription_title = item['snippet']['title'],
-        subscription_channel_id = item['snippet']['resourceId'].get('channelId'),
-        subscription_kind = item['snippet']['resourceId'].get('kind'),
-        subscription_publish_date = parse_yt_datetime(item['snippet'].get('publishedAt')),
-        collection_date = datetime.datetime.now()
-    )
+    sub_meta = {
+        "subscription_title" : item['snippet']['title'],
+        "subscription_channel_id" : item['snippet']['resourceId'].get('channelId'),
+        "subscription_kind" : item['snippet']['resourceId'].get('kind'),
+        "subscription_publish_date" : parse_yt_datetime(item['snippet'].get('publishedAt')),
+        "collection_date" : datetime.datetime.now()
+    }
 
     return sub_meta
 
@@ -191,15 +191,15 @@ def parse_playlist_metadata(item):
     if not isinstance(item, dict):
         return OrderedDict()
 
-    playlist_meta = OrderedDict(
-        playlist_name = item['snippet'].get('title'),
-        playlist_id = item['id'],
-        playlist_publish_date = parse_yt_datetime(item['snippet'].get('publishedAt')),
-        playlist_n_videos = item['contentDetails'].get('itemCount'),
-        channel_id = item['snippet'].get('channelId'),
-        channel_name = item['snippet'].get('channelTitle'),
-        collection_date = datetime.datetime.now()
-    )
+    playlist_meta = {
+        "playlist_name" : item['snippet'].get('title'),
+        "playlist_id" : item['id'],
+        "playlist_publish_date" : parse_yt_datetime(item['snippet'].get('publishedAt')),
+        "playlist_n_videos" : item['contentDetails'].get('itemCount'),
+        "channel_id" : item['snippet'].get('channelId'),
+        "channel_name" : item['snippet'].get('channelTitle'),
+        "collection_date" : datetime.datetime.now()
+    }
 
     return playlist_meta
 
@@ -221,19 +221,19 @@ def parse_comment_metadata(item):
         save = item['snippet']
         item = item['snippet']['topLevelComment']
 
-    comment_meta = OrderedDict(
-        video_id = item["snippet"].get("videoId"),
-        commenter_channel_url = item["snippet"].get("authorChannelUrl"),
-        commenter_channel_id = item['snippet'].get('authorChannelId').get('value', None),
-        commenter_channel_display_name = item['snippet'].get('authorDisplayName'),
-        comment_id = item.get("id"),
-        comment_like_count = item["snippet"].get("likeCount"),
-        comment_publish_date = parse_yt_datetime(item["snippet"].get("publishedAt")),
-        text = item["snippet"].get("textDisplay"),
-        commenter_rating = item["snippet"].get("viewerRating"),
-        comment_parent_id = item["snippet"].get("parentId"),
-        collection_date = datetime.datetime.now()
-    )
+    comment_meta = {
+        "video_id" : item["snippet"].get("videoId"),
+        "commenter_channel_url" : item["snippet"].get("authorChannelUrl"),
+        "commenter_channel_id" : item['snippet'].get('authorChannelId').get('value', None),
+        "commenter_channel_display_name" : item['snippet'].get('authorDisplayName'),
+        "comment_id" : item.get("id"),
+        "comment_like_count" : item["snippet"].get("likeCount"),
+        "comment_publish_date" : parse_yt_datetime(item["snippet"].get("publishedAt")),
+        "text" : item["snippet"].get("textDisplay"),
+        "commenter_rating" : item["snippet"].get("viewerRating"),
+        "comment_parent_id" : item["snippet"].get("parentId"),
+        "collection_date" : datetime.datetime.now()
+    }
     try:
         comment_meta['reply_count'] = save.get('totalReplyCount')
     except:
@@ -253,19 +253,19 @@ def parse_rec_video_metadata(item):
     :rtype: orderedDict
     '''
     if not isinstance(item, dict):
-        return OrderedDict()
+        return {}
 
-    video_meta = OrderedDict(
-        video_id = item['id'].get('videoId'),
-        channel_title = item["snippet"].get("channelTitle"),
-        channel_id =item["snippet"].get("channelId"),
-        video_publish_date = parse_yt_datetime(item["snippet"].get("publishedAt")),
-        video_title = item["snippet"].get("title"),
-        video_description = item["snippet"].get("description"),
-        video_category = item["snippet"].get("categoryId"),
-        video_thumbnail = item["snippet"]["thumbnails"]["high"]["url"],
-        collection_date = datetime.datetime.now()
-    )
+    video_meta = {
+        "video_id" : item['id'].get('videoId'),
+        "channel_title" : item["snippet"].get("channelTitle"),
+        "channel_id" : item["snippet"].get("channelId"),
+        "video_publish_date" : parse_yt_datetime(item["snippet"].get("publishedAt")),
+        "video_title" : item["snippet"].get("title"),
+        "video_description" : item["snippet"].get("description"),
+        "video_category" : item["snippet"].get("categoryId"),
+        "video_thumbnail" : item["snippet"]["thumbnails"]["high"]["url"],
+        "collection_date" : datetime.datetime.now()
+    }
 
     return video_meta
 
@@ -282,10 +282,10 @@ def parse_caption_track(item):
 
     #TODO: convert known errors into an error message.
 
-    caption_meta = OrderedDict(
-        video_id = item['video_id'],
-        caption = item['caption'],
-        collection_date = item['collection_date']
-    )
+    caption_meta = {
+        "video_id" : item['video_id'],
+        "caption" : item['caption'],
+        "collection_date" : item['collection_date']
+    }
 
     return caption_meta
