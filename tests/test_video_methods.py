@@ -27,15 +27,6 @@ class TestVideo(unittest.TestCase):
         self.assertEqual(resp['video_id'], self.video_id)
         self.assertEqual(resp['channel_id'], self.channel_id)
         self.assertEqual(resp['video_publish_date'], self.vid_publish)
-    
-    #written by Megan Brown on 11/30/2018
-    def test_search_for_video_method(self):
-        resp = self.yt.search(self.search_term)
-        
-        for item in resp:
-            self.assertTrue('video_id' in list(item.keys()))
-            self.assertTrue('video_title' in list(item.keys()))
-            self.assertTrue('channel_title' in list(item.keys()))
             
     #written by Megan Brown on 11/30/2018
     def test_video_metadata_with_list_input(self):
