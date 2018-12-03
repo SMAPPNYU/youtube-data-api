@@ -41,10 +41,10 @@ def parse_video_metadata(item):
     :type item: dict
 
     :returns: parsed dictionary
-    :rtype: orderedDict
+    :rtype: dict
     '''
     if not isinstance(item, dict):
-        return {}
+        return dict()
 
     tags = item["snippet"].get('tags')
     if isinstance(tags, Iterable):
@@ -80,10 +80,10 @@ def parse_video_url(item):
     :type item: dict
 
     :returns: parsed dictionary
-    :rtype: orderedDict
+    :rtype: dict
     '''
     if not isinstance(item, dict):
-        return OrderedDict()
+        return dict()
 
     publish_date = item['snippet'].get('publishedAt')
     publish_date = parse_yt_datetime(publish_date)
@@ -106,10 +106,10 @@ def parse_channel_metadata(item):
     :type item: dict
 
     :returns: parsed dictionary
-    :rtype: orderedDict
+    :rtype: dict
     '''
     if not isinstance(item, dict):
-        return {}
+        return dict()
 
     topic = item.get('topicDetails')
     if topic:
@@ -143,10 +143,10 @@ def parse_subscription_descriptive(item):
     :type item: dict
 
     :returns: parsed dictionary
-    :rtype: orderedDict
+    :rtype: dict
     '''
     if not isinstance(item, dict):
-        return {}
+        return dict()
 
     sub_meta = {
         "subscription_title" : item['snippet']['title'],
@@ -170,7 +170,7 @@ def parse_featured_channels(item):
     :rtype: dict
     '''
     if not isinstance(item, dict):
-        return OrderedDict()
+        return dict()
 
     d = {}
     d[item['id']] = item['brandingSettings']['channel'].get('featuredChannelsUrls', [])
@@ -185,11 +185,11 @@ def parse_playlist_metadata(item):
     :type item: dict
 
     :returns: parsed dictionary
-    :rtype: orderedDict
+    :rtype: dict
 
     '''
     if not isinstance(item, dict):
-        return OrderedDict()
+        return dict()
 
     playlist_meta = {
         "playlist_name" : item['snippet'].get('title'),
@@ -212,10 +212,10 @@ def parse_comment_metadata(item):
     :type item: dict
 
     :returns: parsed dictionary
-    :rtype: orderedDict
+    :rtype: dict
     '''
     if not isinstance(item, dict):
-        return OrderedDict()
+        return dict()
 
     if item['snippet'].get('topLevelComment'):
         save = item['snippet']
@@ -250,10 +250,10 @@ def parse_rec_video_metadata(item):
     :type item: dict
 
     :returns: parsed dictionary
-    :rtype: orderedDict
+    :rtype: dict
     '''
     if not isinstance(item, dict):
-        return {}
+        return dict()
 
     video_meta = {
         "video_id" : item['id'].get('videoId'),
@@ -277,7 +277,7 @@ def parse_caption_track(item):
     :type item: dict
 
     :returns: parsed dictionary
-    :rtype: orderedDict
+    :rtype: dict
     '''
 
     #TODO: convert known errors into an error message.
