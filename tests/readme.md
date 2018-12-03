@@ -50,5 +50,5 @@ We specify how we would like our code to be tested in the `.travis.yml` file. Fo
 Standing by the philosophy of [continuous integration (CI)](https://docs.travis-ci.com/user/for-beginners/#what-is-continuous-integration-ci), we warmly welcome more tests from the open source community, as well as the SMAPP lab members at New York University. Your contributions are invaluable to us. Several things to notice were you to add more tests:
 1. If you need more data in order to check the validity of certain API call, please manually collect them and store as json files in `./tests/data` directory.
 2. As I have mentioned before, tests are arranged so that each file only tests a specific function of the API. New test cases on existing functions should go to the corresponding test files. You are free to create new files to test new functions that were either missed before or newly created.
-3. When you add new test cases, don't forget to add `python -m unittest [new_test_file]` command to `./makefile`.
+3. When you add new test cases, don't forget to add `python -m unittest [new_test_file]` command to ../makefile`.
 4. Create a NEW branch before committing any changes.

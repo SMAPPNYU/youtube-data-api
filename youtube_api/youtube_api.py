@@ -64,6 +64,7 @@ class YoutubeDataApi:
     def create_session(self, max_retries=2, backoff_factor=.5, status_forcelist=[500, 502, 503, 504], **kwargs):
         '''
         Creates a requests session to retry API calls when any `status_forcelist` codes are returned.
+        
         :param max_retries: How many times to retry an HTTP request (API call) when a `status_forcelist` code is returned
         :type max_retries: int
         :param backoff_factor: How long to wait between retrying API calls. Scales exponentially.
