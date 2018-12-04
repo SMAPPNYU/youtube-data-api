@@ -65,7 +65,7 @@ import unittest
 import requests
 
 from youtube_api import YoutubeDataApi
-import youtube_api_utils as utils
+import youtube_api.youtube_api_utils as utils
 
 class TestVideo(unittest.TestCase):
 
@@ -76,9 +76,9 @@ class TestVideo(unittest.TestCase):
         cls.channel_id = 'UC3XTzVzaHQEd30rQbuvCtTQ'
         cls.channel_title = 'LastWeekTonight'
 
-    #written by Megan Brown on 11/30/2018
     def test_channel_id(self):
-        resp = self.yt.get_channel_id_from_user(channel_title)
+        '''written by Megan Brown on 11/30/2018'''
+        resp = self.yt.get_channel_id_from_user(self.channel_title)
         self.assertEqual(resp, self.channel_id)
         
 

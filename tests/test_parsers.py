@@ -46,7 +46,7 @@ DONE
 * parse_rec_video_metadata
 
 '''
-
+import os
 import sys
 sys.path.append('../')
 import unittest
@@ -59,19 +59,20 @@ class TestParsers(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        with open('data/video_metadata.json') as f:
+        dirname = os.path.dirname(__file__)
+        with open(os.path.join(dirname,'data','video_metadata.json')) as f:
             cls.video_metadata = json.load(f)
-        with open('data/channel_metadata.json') as f:
+        with open(os.path.join(dirname, 'data', 'channel_metadata.json')) as f:
             cls.channel_metadata = json.load(f)
-        with open('data/subscription.json') as f:
+        with open(os.path.join(dirname, 'data', 'subscription.json')) as f:
             cls.subscription = json.load(f)
-        with open('data/playlist_meta.json') as f:
+        with open(os.path.join(dirname, 'data', 'playlist_meta.json')) as f:
             cls.playlist = json.load(f)
-        with open('data/comment_meta.json') as f:
+        with open(os.path.join(dirname, 'data', 'comment_meta.json')) as f:
             cls.comment = json.load(f)
-        with open('data/caption.json') as f:
+        with open(os.path.join(dirname, 'data','caption.json')) as f:
             cls.caption = json.load(f)
-        with open('data/recommendation.json') as f:
+        with open(os.path.join(dirname, 'data', 'recommendation.json')) as f:
             cls.rec = json.load(f)
 
     #Verified by Megan Brown on 11/30/2018
