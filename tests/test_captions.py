@@ -45,7 +45,6 @@ class TestVideo(unittest.TestCase):
 
     #Written by Megan Brown on 11/30/2018
     def test_valid_list_of_captions(self):
-        print(self.video_id_list)
         resp = self.yt.get_captions(self.video_id_list)
 
         self.assertEqual(type(resp), list)
