@@ -52,7 +52,7 @@ def _text_from_html(html_body):
             return False
         return True
 
-    soup = BeautifulSoup(html_body, 'xml')
+    soup = BeautifulSoup(html_body, 'html.parser')
     raw_text = soup.findAll(text=True)
     visible_text = filter(_tag_visible, raw_text)
     text = u" ".join(t.strip() for t in visible_text)
