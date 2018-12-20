@@ -70,11 +70,11 @@ import youtube_api_utils as utils
 class TestVideo(unittest.TestCase):
 
     @classmethod
-    def setUpClass(cls):
-        cls.key = os.environ.get('YT_KEY')
-        cls.yt = YoutubeDataApi(cls.key)
-        cls.channel_id = 'UC3XTzVzaHQEd30rQbuvCtTQ'
-        cls.channel_title = 'LastWeekTonight'
+    def setUpClass():
+        self.key = os.environ.get('YT_KEY')
+        self.yt = YoutubeDataApi(self.key)
+        self.channel_id = 'UC3XTzVzaHQEd30rQbuvCtTQ'
+        self.channel_title = 'LastWeekTonight'
 
     #written by Megan Brown on 11/30/2018
     def test_channel_id(self):
