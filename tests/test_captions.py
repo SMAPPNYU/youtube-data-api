@@ -29,8 +29,8 @@ from youtube_api import YoutubeDataApi
 from youtube_api import parsers as P
 
 class TestVideo(unittest.TestCase):
-
-    def setUpClass():
+    
+    def __init__():
         self.key = os.environ.get('YT_KEY')
         self.yt = YoutubeDataApi(self.key)
         self.video_id = 'wmxDZeh8W34'
