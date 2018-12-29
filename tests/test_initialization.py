@@ -33,10 +33,10 @@ from youtube_api import YoutubeDataApi
 class TestAPI(unittest.TestCase):
 
     @classmethod
-    def setUpClass(cls):
-        cls.key = os.environ.get('YT_KEY')
-        cls.wrong_key = 'xxxxxxxxx'
-        cls.yt = YoutubeDataApi(cls.key)
+    def setUpClass():
+        self.key = os.environ.get('YT_KEY')
+        self.wrong_key = 'xxxxxxxxx'
+        self.yt = YoutubeDataApi(cls.key)
 
     #Verified by Megan Brown on 11/30/2018
     def test_init(self):
