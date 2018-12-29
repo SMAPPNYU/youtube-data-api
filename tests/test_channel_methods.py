@@ -1,5 +1,5 @@
 '''
-Last Updated: 11/30/2018
+Last Updated: 12/28/2018
 
 Tests the parameters for the channel methods in the YoutubeDataApi
 
@@ -69,8 +69,7 @@ import youtube_api_utils as utils
 
 class TestVideo(unittest.TestCase):
 
-    @classmethod
-    def setUpClass():
+    def __init__():
         self.key = os.environ.get('YT_KEY')
         self.yt = YoutubeDataApi(self.key)
         self.channel_id = 'UC3XTzVzaHQEd30rQbuvCtTQ'
@@ -81,6 +80,10 @@ class TestVideo(unittest.TestCase):
         resp = self.yt.get_channel_id_from_user(channel_title)
         self.assertEqual(resp, self.channel_id)
         
+    def test_get_channel_metadata_channel_id(self):
+        resp = self.yt.get_channel_metadata(self.channel_id)
+        self.assertEqual(resp['channel_id'], self.channel_id)
+        self.assertEqual(resp['channel_title'])
 
 if __name__ == '__main__':
     unittest.main()
