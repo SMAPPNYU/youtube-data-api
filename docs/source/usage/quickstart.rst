@@ -33,7 +33,7 @@ We now have created a ``YouTubeDataAPI`` class as ``yt``, which can be used to m
 
     searches = yt.search(q='alexandria ocasio-cortez',
                          max_results=5)
-    searches[0]
+    print(searches[0])
 
 .. parsed-literal::
 
@@ -50,7 +50,7 @@ We now have created a ``YouTubeDataAPI`` class as ``yt``, which can be used to m
 
 
 All API requests are parsed from raw JSON into
-`dictionaries <<https://docs.python.org/3/library/stdtypes.html#typesmapping>`_.
+`dictionaries <https://docs.python.org/3/library/stdtypes.html#typesmapping>`_.
 
 Typically an API call returns a list of dictionary objects. This is
 perfect for converting into Pandas `DataFrames <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html>`_, or saving as JSON.
@@ -58,12 +58,13 @@ perfect for converting into Pandas `DataFrames <https://pandas.pydata.org/pandas
 .. code:: python
 
     df_search = pd.DataFrame(searches)
-    df_search[['channel_title', 'video_title', 'video_publish_date']]
+    df_search.head(5)
 
 
 
 
 .. raw:: html
+
     <div class="wy-table-responsive">
         <table border="1" class="dataframe">
           <thead>
