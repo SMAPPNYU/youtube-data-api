@@ -22,10 +22,10 @@ In order to access the API, you'll need to get a `service key <https://developer
 
 .. code:: python
 
-    from youtube_api import YoutubeDataApi
+    from youtube_api import YouTubeDataAPI
 
     api_key = 'AKAIXXXXXXXX'
-    yt = YoutubeDataApi(api_key)
+    yt = YouTubeDataAPI(api_key)
 
     yt.search('alexandria ocasio-cortez')
 
