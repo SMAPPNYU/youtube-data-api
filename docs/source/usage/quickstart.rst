@@ -66,7 +66,7 @@ perfect for converting into Pandas `DataFrames <https://pandas.pydata.org/pandas
 .. raw:: html
 
     <div class="wy-table-responsive">
-        <table border="1" class="dataframe">
+        <table border="1" class="docutils">
           <thead>
             <tr style="text-align: right;">
               <th></th>
