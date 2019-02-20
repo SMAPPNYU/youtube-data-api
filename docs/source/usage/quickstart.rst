@@ -49,9 +49,11 @@ We now have created a ``YouTubeDataAPI`` class as ``yt``, which can be used to m
 
 
 
-All API requests are parsed from raw JSON into `dictionaries <https://docs.python.org/3/library/stdtypes.html#typesmapping>` .
+All API requests are parsed from raw JSON into
+`dictionaries <<https://docs.python.org/3/library/stdtypes.html#typesmapping>`_.
+
 Typically an API call returns a list of dictionary objects. This is
-perfect for converting into Pandas `DataFrames <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html>` , or saving as JSON.
+perfect for converting into Pandas `DataFrames <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.htm>`, or saving as JSON.
 
 .. code:: python
 
