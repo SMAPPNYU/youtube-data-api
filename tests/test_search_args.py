@@ -122,7 +122,7 @@ class TestVideo(unittest.TestCase):
     #written by Megan Brown on 11/30/2018
     def test_search_param_topic_id(self):
         '''
-        Searches by a topic_d
+        Searches by a topic_id
         '''
         resp = self.yt.search(self.topic_search, topic_id=self.topic_id, max_results=2)
         
@@ -133,7 +133,6 @@ class TestVideo(unittest.TestCase):
             
             video_id = item['video_id']
             video_meta = self.yt.get_video_metadata(video_id)
-            print(video_meta['video_category'])
             self.assertTrue(isinstance(int(video_meta['video_category']), int))
 
 if __name__ == '__main__':
