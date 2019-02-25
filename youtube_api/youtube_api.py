@@ -5,42 +5,44 @@ from requests.adapters import HTTPAdapter
 import datetime
 from collections import OrderedDict
 import warnings
-
-import urllib.parse
-from pytube import YouTube
 warnings.filterwarnings("ignore", message="numpy.dtype size changed")
 warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
+
+from pytube import YouTube
 import pandas as pd
 
-# fix importing errors
-from youtube_api.youtube_api_utils import *
+from youtube_api.youtube_api_utils import timeout, _load_response, parse_yt_datetime, strip_video_id_from_url, _chunker
 import youtube_api.parsers as P
 
 """
 This script has the YouTubeDataApi class and functions for the API's endpoints.
 """
 
-__all__ = ['YoutubeDataApi']
+__all__ = ['YoutubeDataApi', 'YouTubeDataAPI']
 
-class YoutubeDataApi:
+class YouTubeDataAPI:
     """
     The Youtube Data API handles the keys and methods to access data from the YouTube Data API
 
      :param key: YouTube Data API key. Get a YouTube Data API key here: https://console.cloud.google.com/apis/dashboard
     """
-    def __init__(self, key, api_version='3', verify_api_key=True):
+    def __init__(self, key, api_version='3', verify_api_key=True, verbose=False):
         """
         :param key: YouTube Data API key
         Get a YouTube Data API key here: https://console.cloud.google.com/apis/dashboard
         """
         self.key = key
         self.api_version = int(api_version)
-
+        self.verbose = verbose
+        
+        # check API Key
         if not self.key:
             raise ValueError('No API key used to initate the class.')
         if verify_api_key and not self.verify_key():
             raise ValueError('The API Key is invalid')
-        self.create_session()
+            
+        # creates a requests sessions for API calls.
+        self._create_session()
 
 
     def verify_key(self):
@@ -61,7 +63,7 @@ class YoutubeDataApi:
             return False
     
     
-    def create_session(self, max_retries=2, backoff_factor=.5, status_forcelist=[500, 502, 503, 504], **kwargs):
+    def _create_session(self, max_retries=2, backoff_factor=.5, status_forcelist=[500, 502, 503, 504], **kwargs):
         '''
         Creates a requests session to retry API calls when any `status_forcelist` codes are returned.
         
@@ -80,7 +82,21 @@ class YoutubeDataApi:
         session.mount('http://', HTTPAdapter(max_retries=retries))
         self.session = session
 
-
+    def _http_request(self, http_endpoint):
+        '''
+        A wrapper function for making an http request to the YouTube Data API.
+        Will print the `http_endpoint` if the YouTubeDataAPI class is instantiated with verbose = True.
+        Attempts to load the response of the http request, 
+        and returns json response.
+        '''
+        if self.verbose:
+            # Print the Http req and replace the API key with a placeholder
+            print(http_endpoint.replace(self.key, '{API_KEY_PLACEHOLDER}'))
+        response = self.session.get(http_endpoint)
+        response_json = _load_response(response)
+        
+        return response_json
+        
     def get_channel_id_from_user(self, username, **kwargs):
         """
         Get a channel_id from a YouTube username. These are the unique identifiers for all YouTube "uers". IE. "Munchies" -> "UCaLfMkkHhSA_LaCta0BzyhQ".
@@ -99,8 +115,7 @@ class YoutubeDataApi:
                                                          username, self.key))
         for k,v in kwargs.items():
             http_endpoint += '&{}={}'.format(k, v)
-        response = self.session.get(http_endpoint)
-        response_json = _load_response(response)
+        response_json = self._http_request(http_endpoint)
         channel_id = None
         if response_json.get('items'):
             channel_id = response_json['items'][0]['id']
@@ -134,8 +149,7 @@ class YoutubeDataApi:
                                     self.api_version, part, id_input, self.key))
                 for k,v in kwargs.items():
                     http_endpoint += '&{}={}'.format(k, v)
-                response = self.session.get(http_endpoint)
-                response_json = _load_response(response)
+                response_json = self._http_request(http_endpoint)
                 if response_json.get('items'):
                     for item in response_json['items']:
                         yield parser(item)
@@ -170,8 +184,8 @@ class YoutubeDataApi:
                                  self.api_version, part, channel_id, self.key))
             for k,v in kwargs.items():
                 http_endpoint += '&{}={}'.format(k, v)
-            response = self.session.get(http_endpoint)
-            response_json = _load_response(response)
+            with timeout(seconds=20):
+                response_json = self._http_request(http_endpoint)
             if response_json.get('items'):
                 channel_meta = parser(response_json['items'][0])
 
@@ -215,8 +229,7 @@ class YoutubeDataApi:
                                     self.api_version, part, id_input, self.key))
                 for k,v in kwargs.items():
                     http_endpoint += '&{}={}'.format(k, v)
-                response = self.session.get(http_endpoint)
-                response_json = _load_response(response)
+                response_json = self._http_request(http_endpoint)
                 if response_json.get('items'):
                     for item in response_json['items']:
                         yield parser(item)
@@ -253,8 +266,7 @@ class YoutubeDataApi:
                                                                  self.key))
             for k,v in kwargs.items():
                 http_endpoint += '&{}={}'.format(k, v)
-            response = self.session.get(http_endpoint)
-            response_json  = _load_response(response)
+            response_json = self._http_request(http_endpoint)
             if response_json.get('items'):
                 video_metadata = parser(response_json['items'][0])
 
@@ -302,9 +314,7 @@ class YoutubeDataApi:
                 http_endpoint += '&{}={}'.format(k, v)
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
-
-            response = self.session.get(http_endpoint)
-            response_json = _load_response(response)
+            response_json = self._http_request(http_endpoint)
             if response_json.get('items'):
                 for item in response_json.get('items'):
                     playlists.append(parser(item))
@@ -352,9 +362,8 @@ class YoutubeDataApi:
                 http_endpoint += '&{}={}'.format(k, v)
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
-
-            response = self.session.get(http_endpoint)
-            response_json = _load_response(response)
+            with timeout(seconds=20):
+                response_json = self._http_request(http_endpoint)
             if response_json.get('items'):
                 for item in response_json.get('items'):
                     publish_date = parse_yt_datetime(item['snippet'].get('publishedAt'))
@@ -399,14 +408,13 @@ class YoutubeDataApi:
         while True:
             http_endpoint = ("https://www.googleapis.com/youtube/v{}/subscriptions"
                              "?channelId={}&part={}&maxResults=50&key={}".format(
-                                 self.api_version,part, channel_id, self.key))
+                                 self.api_version, channel_id, part, self.key))
             for k,v in kwargs.items():
                 http_endpoint += '&{}={}'.format(k, v)
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
-            response = self.session.get(http_endpoint)
-            response_json = _load_response(response)
+            response_json = self._http_request(http_endpoint)
             if response_json.get('items'):
                 for item in response_json.get('items'):
                     subscriptions.append(parser(item))
@@ -448,8 +456,7 @@ class YoutubeDataApi:
                                      self.api_version, part, id_input, self.key))
                 for k,v in kwargs.items():
                     http_endpoint += '&{}={}'.format(k, v)
-                response = self.session.get(http_endpoint)
-                response_json = _load_response(response)
+                response_json = self._http_request(http_endpoint)
                 if response_json.get('items'):
                     for item in response_json['items']:
                         yield parser(item)
@@ -554,8 +561,7 @@ class YoutubeDataApi:
                                          self.api_version, part, comment_id, self.key))
                     for k,v in kwargs.items():
                         http_endpoint += '&{}={}'.format(k, v)
-                    response = self.session.get(http_endpoint)
-                    response_json = _load_response(response)
+                    response_json = self._http_request(http_endpoint)
                     if response_json.get('items'):
                         for item in response_json.get('items'):
                             if max_results:
@@ -730,8 +736,7 @@ class YoutubeDataApi:
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
 
-            response = self.session.get(http_endpoint)
-            response_json = _load_response(response)
+            response_json = self._http_request(http_endpoint)
             if response_json.get('items'):
                 for item in response_json.get('items'):
                     videos.append(parser(item))
@@ -759,7 +764,7 @@ class YoutubeDataApi:
 
         Read the docs: https://developers.google.com/youtube/v3/docs/search/list
 
-        :param video_id: (str) a vide_id IE: "eqwPlwHSL_M"
+        :param video_id: (str) a video_id IE: "eqwPlwHSL_M"
         :param max_results: (int) max number of recommended vids
         :param parser: the function to parse the json document
         :type parser: :mod:`youtube_api.parsers module`
@@ -769,3 +774,9 @@ class YoutubeDataApi:
 
         return self.search(relatedToVideoId=video_id, order_by='relevance',
                            max_results=max_results, parser=parser, **kwargs)
+    
+    
+class YoutubeDataApi(YouTubeDataAPI):
+    """Variant case of the main YouTubeDataAPI class. This class will de depricated by version 0.19."""
+    def __init__(self, key, **kwargs):
+        super().__init__(key, **kwargs)

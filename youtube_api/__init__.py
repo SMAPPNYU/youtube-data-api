@@ -1,4 +1,4 @@
-from youtube_api.youtube_api import YoutubeDataApi
+from youtube_api.youtube_api import YoutubeDataApi, YouTubeDataAPI
 import youtube_api.parsers as P
 import youtube_api.youtube_api_utils as youtube_api_utils
 
