@@ -3,7 +3,7 @@
 API Guide
 ===================
 
-The YouTube Data API has a single class :class:`YoutubeDataApi`, which authenticates your API key and provides functions to interact with the API.
+The YouTube Data API has a single class :class:`YouTubeDataAPI`, which authenticates your API key and provides functions to interact with the API.
 
 youtube_api.youtube_api module
 ------------------------------
