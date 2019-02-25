@@ -3,7 +3,6 @@ import requests
 from requests.packages.urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 import datetime
-from collections import OrderedDict
 import warnings
 warnings.filterwarnings("ignore", message="numpy.dtype size changed")
 warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
@@ -11,7 +10,7 @@ warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 from pytube import YouTube
 import pandas as pd
 
-from youtube_api.youtube_api_utils import timeout, _load_response, parse_yt_datetime, strip_video_id_from_url, _chunker, get_url_from_video_id
+from youtube_api.youtube_api_utils import timeout, _load_response, parse_yt_datetime, strip_video_id_from_url, _chunker, get_url_from_video_id, _text_from_html
 import youtube_api.parsers as P
 
 """
