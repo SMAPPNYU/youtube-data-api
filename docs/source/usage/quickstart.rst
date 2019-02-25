@@ -27,7 +27,7 @@ In order to access the API, you'll need to get a `service key <https://developer
     YT_KEY = os.environ.get('YOUTUBE_API_KEY') # you can hardcode this, too.
     yt = YouTubeDataAPI(YT_KEY)
 
-We now have created a ``YouTubeDataAPI`` class as ``yt``, which can be used to make API calls, such as searching for the most relevant videos of Alexandra Ocasio-Cortez.
+We now have created a ``YouTubeDataAPI`` class as ``yt``, which can be used to make API calls, such as searching for the most relevant videos of Alexandria Ocasio-Cortez.
 
 .. code:: python
 
@@ -161,22 +161,22 @@ Aside from the default parser, the ``parse`` argument allows users to create cus
 .. parsed-literal::
 
     [{'kind': 'youtube#searchResult',
-      'etag': '"XI7nbFXulYBIpL0ayR_gDh3eu1k/iwS8DlBT9x9lWSRCq4JFPMR-Z00"',
-      'id': {'kind': 'youtube#video', 'videoId': 'byc_lBOY_rI'},
-      'snippet': {'publishedAt': '2018-07-31T18:52:29.000Z',
-       'channelId': 'UCZaT_X_mc0BI-djXOlfhqWQ',
-       'title': "Who's Afraid Of Alexandria Ocasio-Cortez? Everyone (HBO)",
-       'description': "Alexandria Ocasio-Cortez shocked Democrats when she won a New York City primary over one of the party's entrenched leaders. Her next chapter is likely to be ...",
-       'thumbnails': {'default': {'url': 'https://i.ytimg.com/vi/byc_lBOY_rI/default.jpg',
+      'etag': '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/aGNxqVTPJsGI6aEI2tVnYhn0vS8"',
+      'id': {'kind': 'youtube#video', 'videoId': 'LlillsHgcaw'},
+      'snippet': {'publishedAt': '2019-02-19T04:57:51.000Z',
+       'channelId': 'UCXIJgqnII2ZOINSWNOGFThA',
+       'title': 'Rep. Alexandria Ocasio-Cortez taken to task by fellow progressives',
+       'description': 'New York City Mayor Bill de Blasio criticizes Alexandria Ocasio-Cortez over her opposition to the Amazon deal.',
+       'thumbnails': {'default': {'url': 'https://i.ytimg.com/vi/LlillsHgcaw/default.jpg',
          'width': 120,
          'height': 90},
-        'medium': {'url': 'https://i.ytimg.com/vi/byc_lBOY_rI/mqdefault.jpg',
+        'medium': {'url': 'https://i.ytimg.com/vi/LlillsHgcaw/mqdefault.jpg',
          'width': 320,
          'height': 180},
-        'high': {'url': 'https://i.ytimg.com/vi/byc_lBOY_rI/hqdefault.jpg',
+        'high': {'url': 'https://i.ytimg.com/vi/LlillsHgcaw/hqdefault.jpg',
          'width': 480,
          'height': 360}},
-       'channelTitle': 'VICE News',
+       'channelTitle': 'Fox News',
        'liveBroadcastContent': 'none'}}]
 
 :mod:`youtube_api.parsers` are intended to allow customized data parsing for those who want it, with robust defaults for less advanced users.
