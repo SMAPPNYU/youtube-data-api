@@ -29,10 +29,10 @@ In order to access the API, you'll need to get a [service key](https://developer
 
 Once you have it you can use it to initiate the `YoutubeDataApi` class.
 ```
-from youtube_api import YoutubeDataApi
+from youtube_api import YouTubeDataAPI
 
 api_key = 'AKAIXXXXXXXX'
-yt = YoutubeDataApi(api_key)
+yt = YouTubeDataAPI(api_key)
 
 yt.search('alexandria ocasio-cortez')
 ```
@@ -63,3 +63,8 @@ If you use this software in your research please cite it as:
   url          = {https://doi.org/10.5281/zenodo.1414418}
 }
 ```
+
+## Contributions
+We are actively seeking core maintainers and contributors!
+We will be documenting best practices and procedures for contributing code
+If you see a typo or documentation that is not clear, please make a pull request!
