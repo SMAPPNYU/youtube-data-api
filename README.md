@@ -48,8 +48,7 @@ For further information, please refer to `./tests/readme.md`.
 
 
 ## Authors
-Written by Leon Yin and Megan Brown
-Michael Liu helped write and document tests.
+Written by Leon Yin and Megan Brown. Michael Liu helped write and document tests.
 
 If you use this software in your research please cite it as:
 ```
