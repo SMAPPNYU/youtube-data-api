@@ -8,7 +8,7 @@
 
 
 
-This is a Python client for the [YouTube Data API](https://developers.google.com/youtube/v3/). The `youtube-data-api` package is a wrapper to automate making [GET requests](https://www.w3schools.com/tags/ref_httpmethods.asp) from the API and parsing JSON responses. This package was written for version 3 of the API, with some minor future proofing. 
+This is a Python client for the [YouTube Data API](https://developers.google.com/youtube/v3/). The `youtube-data-api` package is a wrapper to simplify [GET requests](https://www.w3schools.com/tags/ref_httpmethods.asp) and JSON response parsing from the API. This package was written for version 3 of the API, with some minor future proofing. 
 
 ## Install
 
