@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 from pytube import YouTube
 import pandas as pd
 
-from youtube_api.youtube_api_utils import timeout, _load_response, parse_yt_datetime, strip_video_id_from_url, _chunker
+from youtube_api.youtube_api_utils import timeout, _load_response, parse_yt_datetime, strip_video_id_from_url, _chunker, get_url_from_video_id
 import youtube_api.parsers as P
 
 """
