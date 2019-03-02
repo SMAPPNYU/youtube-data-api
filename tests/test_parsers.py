@@ -1,51 +1,3 @@
-'''
-Last Updated: 11/30/2018
-
-Tests the default parsers for the YoutubeDataApi
-
-TO DO
-=====
-* test `raw_json_with_datetime`
-* test `parse_caption_track`
-* test `parse_subscription_descriptive`
-
-Functions Tested
-================
-def raw_json(item)
-
-def raw_json_with_datetime(item):
-
-def parse_video_metadata(item):
-
-def parse_video_url(item):
-
-def parse_channel_metadata(item):
-
-def parse_subscription_descriptive(item):
-
-def parse_featured_channels(item):
-
-def parse_playlist_metadata(item):
-
-def parse_comment_metadata(item):
-
-def parse_rec_video_metadata(item):
-
-def parse_caption_track(item):
-
-
-DONE 
-====
-* raw_json
-* parse_video_metadata
-* parse_video_url
-* parse_channel_metadata
-* parse_featured_channels
-* parse_playlist_metadata
-* parse_comment_metadata
-* parse_rec_video_metadata
-
-'''
 import os
 import sys
 sys.path.append('../')
@@ -75,13 +27,14 @@ class TestParsers(unittest.TestCase):
         with open(os.path.join(dirname, 'data', 'recommendation.json')) as f:
             cls.rec = json.load(f)
 
-    #Verified by Megan Brown on 11/30/2018
+    
     def test_raw_json(self):
+        '''Verified by Megan Brown on 11/30/2018'''
         item = self.video_metadata.get('items')[0]
         self.assertEqual(item, P.raw_json(item))
 
-    #Verified by Megan Brown on 11/30/2018
     def test_video_metadata(self):
+        '''Verified by Megan Brown on 11/30/2018'''
         item = self.video_metadata.get('items')[0]
         metadata = P.parse_video_metadata(self.video_metadata.get('items')[0])
 
@@ -100,17 +53,18 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['video_like_count'], item["statistics"].get("likeCount"))
         self.assertEqual(metadata['video_dislike_count'], item["statistics"].get("dislikeCount"))
 
-    #Verified by Megan Brown on 11/30/2018
     @unittest.expectedFailure
     def test_video_url(self):
+        '''Verified by Megan Brown on 11/30/2018'''
         metadata = P.parse_video_url(self.video_metadata_item)
 
         self.assertEqual(metadata['publish_date'], datetime.datetime(2018, 3, 14, 20, 53, 14))
         self.assertEqual(metadata['video_id'], "kNbhUWLH_yY")
         self.assertEqual(metadata['channel_id'], "UCJvIPpWSsW-EGuQjNIZbBTQ")
 
-    #Verified by Megan Brown on 11/30/2018
+    
     def test_channel_metadata(self):
+        '''Verified by Megan Brown on 11/30/2018'''
         item = self.channel_metadata.get('items')[0]
         metadata = P.parse_channel_metadata(item)
 
@@ -127,8 +81,9 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['playlist_id_uploads'], item['contentDetails']['relatedPlaylists'].get('uploads'))
         self.assertEqual(metadata['topic_ids'], None)
         
-    #Verified by Megan Brown on 11/30/2018
+    
     def test_subscription_descriptive(self):
+        '''#Verified by Megan Brown on 11/30/2018'''
         item = self.subscription.get('items')[0]
         metadata = P.parse_subscription_descriptive(item)
 
@@ -137,8 +92,9 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['subscription_kind'], "youtube#channel")
         self.assertEqual(metadata['subscription_publish_date'], datetime.datetime(2012, 10, 3, 19, 11, 46))
 
-    #Verified by Megan Brown on 11/30/2018
+    
     def test_featured_channels(self):
+        '''#Verified by Megan Brown on 11/30/2018'''
         item = self.channel_metadata.get('items')[0]
         metadata = P.parse_featured_channels(item)
         featured_urls = [
@@ -157,8 +113,9 @@ class TestParsers(unittest.TestCase):
 
         self.assertEqual(metadata["UC_x5XG1OV2P6uZZ5FSM9Ttw"],featured_urls)
         
-    #Verified by Megan Brown on 11/30/2018
+    
     def test_playlist_meta(self):
+        '''#Verified by Megan Brown on 11/30/2018'''
         item = self.playlist.get('items')[0]
         metadata = P.parse_playlist_metadata(item)
 
@@ -170,8 +127,9 @@ class TestParsers(unittest.TestCase):
 
         self.assertEqual(metadata['playlist_n_videos'], item['contentDetails'].get('itemCount'))
 
-    #Verified by Megan Brown on 11/30/2018
+    
     def test_comment_metadata(self):
+        '''#Verified by Megan Brown on 11/30/2018'''
         item = self.comment.get('items')[0]
         metadata = P.parse_comment_metadata(item)
 
@@ -188,8 +146,9 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['commenter_rating'], "none")
         self.assertEqual(metadata['comment_parent_id'], "Ugi7hPbxcLYF3HgCoAEC")
 
-    #Verified by Megan Brown on 11/30/2018
+    
     def test_rec_video(self):
+        '''#Verified by Megan Brown on 11/30/2018'''
         item = self.rec.get('items')[0]
         metadata = P.parse_rec_video_metadata(item)
 
