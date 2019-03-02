@@ -1,23 +1,3 @@
-'''
-Last Updated: 11/30/2018
-
-Tests the parameters for the `get_captions` method in the YoutubeDataApi
-
-TO DO
-=====
-* parser
-* LIST OF VALID VIDEO IDS DOES NOT WORK AND I HAVE NO IDEA WHY
-
-Functions Tested
-================
-def get_captions(self, video_id, lang_code='en', parser=P.parse_caption_track, **kwargs)
-
-DONE
-====
-* video_id
-* lang_code
-
-'''
 import sys
 import os
 sys.path.append('../')
@@ -36,27 +16,30 @@ class TestVideo(unittest.TestCase):
         self.video_id_list = ['wmxDZeh8W34', 'PIXQdfiRZNk', 'nvEFb_dWJdQ']
         self.fake_vid = '12345'
         
-    #Verified by Megan Brown on 11/30/2018
     def test_valid_caption(self):
+        ''' #Verified by Megan Brown on 11/30/2018'''
         resp = self.yt.get_captions(self.video_id)
 
         self.assertEqual(type(resp), dict)
         self.assertEqual(type(resp['video_id']), str)
 
-    #Written by Megan Brown on 11/30/2018
+    
     def test_valid_list_of_captions(self):
+        '''#Written by Megan Brown on 11/30/2018'''
         resp = self.yt.get_captions(self.video_id_list)
 
         self.assertEqual(type(resp), list)
         self.assertEqual(type(resp[0]['video_id']), str)
 
-    #Written by Megan Brown on 11/30/2018
+    
     def test_invalid_short_caption(self):
+        '''#Written by Megan Brown on 11/30/2018'''
         with self.assertRaises(Exception):
             resp = self.yt.get_captions(self.fake_vid)
 
-    #Written by Megan Brown on 11/30/2018
+    
     def test_list_of_captions_with_invalid_string(self):
+        '''#Written by Megan Brown on 11/30/2018'''
         error_list = self.video_id_list.copy()
         error_list.append(self.fake_vid)
         
