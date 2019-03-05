@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append('../youtube-data-api/')
+sys.path.append('../')
 import unittest
 import requests
 import datetime
