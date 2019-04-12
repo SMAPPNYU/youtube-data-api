@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 from pytube import YouTube
 import pandas as pd
 
-from youtube_api.youtube_api_utils import timeout, _load_response, parse_yt_datetime, strip_video_id_from_url, _chunker, get_url_from_video_id, _text_from_html
+from youtube_api.youtube_api_utils import timeout, _load_response, parse_yt_datetime, strip_video_id_from_url, _chunker, get_url_from_video_id, _text_from_html, TimeoutError
 import youtube_api.parsers as P
 
 """
@@ -81,7 +81,7 @@ class YouTubeDataAPI:
         session.mount('http://', HTTPAdapter(max_retries=retries))
         self.session = session
 
-    def _http_request(self, http_endpoint):
+    def _http_request(self, http_endpoint, timeout_in_n_seconds=False):
         '''
         A wrapper function for making an http request to the YouTube Data API.
         Will print the `http_endpoint` if the YouTubeDataAPI class is instantiated with verbose = True.
@@ -91,6 +91,16 @@ class YouTubeDataAPI:
         if self.verbose:
             # Print the Http req and replace the API key with a placeholder
             print(http_endpoint.replace(self.key, '{API_KEY_PLACEHOLDER}'))
+        if timeout_in_n_seconds and isinstance(timeout_in_n_seconds, int):
+            try:
+                with timeout(seconds=timeout_in_n_seconds):
+                    response = self.session.get(http_endpoint)
+            except TimeoutError:
+                return False
+
+        else:
+            response = self.session.get(http_endpoint)
+
         response = self.session.get(http_endpoint)
         response_json = _load_response(response)
         
@@ -183,8 +193,8 @@ class YouTubeDataAPI:
                                  self.api_version, part, channel_id, self.key))
             for k,v in kwargs.items():
                 http_endpoint += '&{}={}'.format(k, v)
-            with timeout(seconds=20):
-                response_json = self._http_request(http_endpoint)
+            response_json = self._http_request(http_endpoint, 
+                                               timeout_in_n_seconds=20)
             if response_json.get('items'):
                 channel_meta = parser(response_json['items'][0])
 
@@ -361,8 +371,9 @@ class YouTubeDataAPI:
                 http_endpoint += '&{}={}'.format(k, v)
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
-            with timeout(seconds=20):
-                response_json = self._http_request(http_endpoint)
+           
+            response_json = self._http_request(http_endpoint, 
+                                               timeout_in_n_seconds=20)
             if response_json.get('items'):
                 for item in response_json.get('items'):
                     publish_date = parse_yt_datetime(item['snippet'].get('publishedAt'))
@@ -375,6 +386,9 @@ class YouTubeDataAPI:
                 else:
                     run=False
                     break
+            else:
+                run=False
+                break
 
         return videos
 
