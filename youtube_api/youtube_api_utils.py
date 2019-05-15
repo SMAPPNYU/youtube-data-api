@@ -3,6 +3,7 @@ import json
 import datetime
 import requests
 import html
+import tldextract
 from bs4 import BeautifulSoup, Comment
 import re
 import signal
@@ -93,15 +94,38 @@ def parse_yt_datetime(date_str):
 
 def strip_video_id_from_url(url):
     '''Strips the video_id from YouTube URL.'''
-    if '/watch?v=' in url.lower():
-        url_ = (url.split('&v=')[-1].split('/watch?v=')[-1].split('?')[0].split('&')[0])
 
-    elif 'youtu.be' in url.lower():
+    domain = tldextract.extract(url).registered_domain
+    url_ = None
+        
+    if 'youtu.be' in domain:
         url_ = url[url.rindex('/') + 1:]
         if '?' in url_:
             url_ = url_[:url_.rindex('?')]
-    else:
-        url_ = None
+    elif "youtube.com" in domain and "embed" in url:
+        url_ = url.rpartition("/")[-1].partition("?")[0]
+    elif "youtube.com" in domain and "attribution_link" in url:
+        u = urlparse(url)
+        
+        # Get and parse the query string, which will look like:
+        #. a=--oPiH1x0pU&u=%2Fwatch%3Fv%3DHR1Ta25HkBM%26feature%3Dshare
+        q = parse_qs(u.query)
+        
+        # Now we have a decoded query string, e.g., 'u':['/watch?v=HR1Ta25HkBM&feature=share']
+        if ( 'u' in q ):
+            # Parse like it was a normal /watch url
+            q = parse_qs(urlparse(q['u'][0]).query)
+            if ( 'v' in q ):
+                url_ = q['v'][0]
+            elif ( 'video_id' in q ):
+                url_ = q['video_id'][0]
+    elif "youtube.com" in domain:
+        u = urlparse(url)
+        q = parse_qs(u.query)
+        if ( 'v' in q ):
+            url_ = q['v'][0]
+        elif ( 'video_id' in q ):
+            url_ = q['video_id'][0]
 
     return url_
 
