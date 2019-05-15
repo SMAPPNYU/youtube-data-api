@@ -8,6 +8,9 @@ from bs4 import BeautifulSoup, Comment
 import re
 import signal
 
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
+
 '''
 This contains utilities used by other functions in the YoutubeDataApi class, as well as a few convenience functions for data analysis.
 '''
