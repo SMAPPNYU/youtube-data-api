@@ -10,7 +10,13 @@ warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 from pytube import YouTube
 import pandas as pd
 
-from youtube_api.youtube_api_utils import timeout, _load_response, parse_yt_datetime, strip_video_id_from_url, _chunker, get_url_from_video_id, _text_from_html, TimeoutError
+from youtube_api.youtube_api_utils import (
+    timeout, 
+    _load_response, 
+    parse_yt_datetime, 
+    _chunker,
+    TimeoutError
+)
 import youtube_api.parsers as P
 
 """
@@ -582,55 +588,6 @@ class YouTubeDataAPI:
                                     return comments
                             comments.append(parser(item))
         return comments
-
-
-    def get_captions(self, video_id, lang_code='en', parser=P.parse_caption_track, **kwargs):
-        """
-        Grabs captions given a video id using the PyTube and BeautifulSoup Packages. Note that this is NOT from the API.
-
-        :param video_id: a video_id IE: "eqwPlwHSL_M"
-        :type video_id: str
-        :param lang_code: language to get captions in
-        :type lang_code: str
-        :param parser: the function to parse the json document
-        :type parser: :mod:`youtube_api.parsers module`
-
-        :returns: the captions from a given ``video_id``.
-        :rtype: dict
-        """
-        def _get_captions(video_id, lang_code='en', parser=P.parse_caption_track, **kwargs):
-            """
-            Grabs captions given a video id using the PyTube and BeautifulSoup Packages
-
-            :param video_id: (str) a vide_id IE: eqwPlwHSL_M
-            :param lang_code: (str) language to get captions in
-            :param parser: (func) the function to parse the json document
-
-            :returns: the captions from a given video_id
-            """
-            url = get_url_from_video_id(video_id)
-            vid = YouTube(url, **kwargs)
-            captions = vid.captions.get_by_language_code(lang_code)
-
-            resp = {}
-            if captions:
-                clean_cap = _text_from_html(captions.xml_captions)
-                resp['caption'] = clean_cap
-            else:
-                resp['caption'] = None
-            resp['video_id'] = video_id
-            resp['collection_date'] = datetime.datetime.now()
-
-            return resp
-
-        if isinstance(video_id, str):
-            captions = _get_captions(video_id, lang_code=lang_code, parser=parser, **kwargs)
-        else:
-            captions = []
-            for v_id in video_id:
-                captions.append(_get_captions(v_id, lang_code=lang_code, parser=parser, **kwargs))
-        return captions
-
 
     def search(self, q=None, channel_id=None,
                max_results=5, order_by="relevance", next_page_token=None,

@@ -1,5 +1,3 @@
 pandas
-pytube
 requests
-beautifulsoup4
 Cython
