@@ -6,8 +6,6 @@ import datetime
 import warnings
 warnings.filterwarnings("ignore", message="numpy.dtype size changed")
 warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
-
-from pytube import YouTube
 import pandas as pd
 
 from youtube_api.youtube_api_utils import (
