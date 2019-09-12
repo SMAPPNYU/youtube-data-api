@@ -42,26 +42,5 @@ class TestVideo(unittest.TestCase):
         resp = utils.parse_yt_datetime(self.date)
         self.assertEqual(resp, self.datetime_date)
         
-    
-    def test_strip_video_id_from_url(self):
-        '''#Verified by Megan Brown on 11/30/2018'''
-        resp = utils.strip_video_id_from_url(self.video_url)
-        self.assertEqual(resp, self.video_id)
-        
-    
-    def test_is_user(self):
-        '''#Verified by Megan Brown on 11/30/2018'''
-        resp = utils.is_user(self.user_url)
-        self.assertTrue(resp)
-        
-        resp = utils.is_user(self.channel_url)
-        self.assertFalse(resp)
-        
-    
-    def test_get_url_from_video_id(self):
-        '''#Verified by Megan Brown on 11/30/2018'''
-        resp = utils.get_url_from_video_id(self.video_id)
-        self.assertEqual(resp, self.video_url)
-        
 if __name__ == '__main__':
     unittest.main()

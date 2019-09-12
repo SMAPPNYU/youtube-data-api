@@ -1,6 +1,3 @@
 pandas
-pytube
 requests
-tldextract
-beautifulsoup4
 Cython

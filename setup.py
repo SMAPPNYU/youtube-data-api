@@ -17,14 +17,10 @@ on_rtd = os.environ.get('READTHEDOCS') == 'True'
 if not on_rtd:
     INSTALL_REQUIRES = [
         'pandas',
-        'pytube',
-        'beautifulsoup4',
         'requests',
     ]
 else:
     INSTALL_REQUIRES = [
-        'pytube',
-        'beautifulsoup4',
         'requests',
     ]
 
