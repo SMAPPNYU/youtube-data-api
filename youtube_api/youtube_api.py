@@ -9,11 +9,9 @@ warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 import pandas as pd
 
 from youtube_api.youtube_api_utils import (
-    timeout,
     _load_response,
     parse_yt_datetime,
     _chunker,
-    TimeoutError
 )
 import youtube_api.parsers as P
 
@@ -98,8 +96,7 @@ class YouTubeDataAPI:
         if self.verbose:
             # Print the Http req and replace the API key with a placeholder
             print(http_endpoint.replace(self.key, '{API_KEY_PLACEHOLDER}'))
-        with timeout(seconds=self._timeout):
-            response = self.session.get(http_endpoint)
+        response = self.session.get(http_endpoint, timeout=self._timeout)
         response_json = _load_response(response)
         return response_json
 
