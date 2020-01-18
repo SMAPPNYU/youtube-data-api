@@ -9,9 +9,9 @@ warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 import pandas as pd
 
 from youtube_api.youtube_api_utils import (
-    timeout, 
-    _load_response, 
-    parse_yt_datetime, 
+    timeout,
+    _load_response,
+    parse_yt_datetime,
     _chunker,
     TimeoutError
 )
@@ -37,13 +37,13 @@ class YouTubeDataAPI:
         self.key = key
         self.api_version = int(api_version)
         self.verbose = verbose
-        
+
         # check API Key
         if not self.key:
             raise ValueError('No API key used to initate the class.')
         if verify_api_key and not self.verify_key():
             raise ValueError('The API Key is invalid')
-            
+
         # creates a requests sessions for API calls.
         self._create_session()
 
@@ -64,12 +64,12 @@ class YouTubeDataAPI:
             return True
         except:
             return False
-    
-    
+
+
     def _create_session(self, max_retries=2, backoff_factor=.5, status_forcelist=[500, 502, 503, 504], **kwargs):
         '''
         Creates a requests session to retry API calls when any `status_forcelist` codes are returned.
-        
+
         :param max_retries: How many times to retry an HTTP request (API call) when a `status_forcelist` code is returned
         :type max_retries: int
         :param backoff_factor: How long to wait between retrying API calls. Scales exponentially.
@@ -89,7 +89,7 @@ class YouTubeDataAPI:
         '''
         A wrapper function for making an http request to the YouTube Data API.
         Will print the `http_endpoint` if the YouTubeDataAPI class is instantiated with verbose = True.
-        Attempts to load the response of the http request, 
+        Attempts to load the response of the http request,
         and returns json response.
         '''
         if self.verbose:
@@ -107,9 +107,9 @@ class YouTubeDataAPI:
 
         response = self.session.get(http_endpoint)
         response_json = _load_response(response)
-        
+
         return response_json
-        
+
     def get_channel_id_from_user(self, username, **kwargs):
         """
         Get a channel_id from a YouTube username. These are the unique identifiers for all YouTube "uers". IE. "Munchies" -> "UCaLfMkkHhSA_LaCta0BzyhQ".
@@ -170,9 +170,16 @@ class YouTubeDataAPI:
                     yield parser(None)
 
 
-    def get_channel_metadata(self, channel_id, parser=P.parse_channel_metadata,
-                             part=["id", "snippet", "contentDetails", "statistics",
-                                   "topicDetails", "brandingSettings"],  **kwargs):
+    def get_channel_metadata(self,
+                             channel_id,
+                             parser=P.parse_channel_metadata,
+                             part=["id",
+                                   "snippet",
+                            #       "contentDetails",
+                                   "statistics",
+                                   "topicDetails",
+                                   "brandingSettings"],
+                             **kwargs):
         '''
         Gets a dictionary of channel metadata given a channel_id, or a list of channel_ids.
 
@@ -197,7 +204,7 @@ class YouTubeDataAPI:
                                  self.api_version, part, channel_id, self.key))
             for k,v in kwargs.items():
                 http_endpoint += '&{}={}'.format(k, v)
-            response_json = self._http_request(http_endpoint, 
+            response_json = self._http_request(http_endpoint,
                                                timeout_in_n_seconds=20)
             if response_json.get('items'):
                 channel_meta = parser(response_json['items'][0])
@@ -375,8 +382,8 @@ class YouTubeDataAPI:
                 http_endpoint += '&{}={}'.format(k, v)
             if next_page_token:
                 http_endpoint += "&pageToken={}".format(next_page_token)
-           
-            response_json = self._http_request(http_endpoint, 
+
+            response_json = self._http_request(http_endpoint,
                                                timeout_in_n_seconds=20)
             if response_json.get('items'):
                 for item in response_json.get('items'):
@@ -742,8 +749,8 @@ class YouTubeDataAPI:
 
         return self.search(relatedToVideoId=video_id, order_by='relevance',
                            max_results=max_results, parser=parser, **kwargs)
-    
-    
+
+
 class YoutubeDataApi(YouTubeDataAPI):
     """Variant case of the main YouTubeDataAPI class. This class will de depricated by version 0.19."""
     def __init__(self, key, **kwargs):

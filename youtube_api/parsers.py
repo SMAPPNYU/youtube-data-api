@@ -117,21 +117,34 @@ def parse_channel_metadata(item):
 
     channel_meta = {
         "channel_id" : item['id'],
-        "title" : item["snippet"].get("title"),
-        "account_creation_date" : parse_yt_datetime(item["snippet"].get("publishedAt")),
-        "keywords" : item['brandingSettings']['channel'].get('keywords'),
-        "description" : item["snippet"].get("description"),
-        "view_count" : item["statistics"].get("viewCount"),
-        "video_count" : item["statistics"].get("videoCount"),
-        "subscription_count" : item["statistics"].get("subscriberCount"),
-        "playlist_id_likes" : item['contentDetails']['relatedPlaylists'].get('likes'),
-        "playlist_id_uploads" : item['contentDetails']['relatedPlaylists'].get('uploads'),
         "topic_ids" : topic,
-        "country" : item['snippet'].get('country'),
-        "collection_date" : datetime.datetime.now()
+        "collection_date" : datetime.datetime.now(),
+        "full_api_response" : item
     }
-
+    try:
+        channel_meta["country"] = item['snippet'].get('country')
+        channel_meta["title"] = item["snippet"].get("title")
+        channel_meta["account_creation_date"] = parse_yt_datetime(item["snippet"].get("publishedAt"))
+        channel_meta["description"] = item["snippet"].get("description")
+    except:
+        pass
+    try:
+        channel_meta["playlist_id_likes"] = item['contentDetails']['relatedPlaylists'].get('likes')
+        channel_meta["playlist_id_uploads"] = item['contentDetails']['relatedPlaylists'].get('uploads')
+    except:
+        pass
+    try:
+        channel_meta["view_count"] = item["statistics"].get("viewCount")
+        channel_meta["video_count"] = item["statistics"].get("videoCount")
+        channel_meta["subscription_count"] = item["statistics"].get("subscriberCount")
+    except:
+        pass
+    try:
+        channel_meta["keywords"] = item['brandingSettings']['channel'].get('keywords')
+    except:
+        pass
     return channel_meta
+
 
 
 def parse_subscription_descriptive(item):
