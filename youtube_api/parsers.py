@@ -1,6 +1,12 @@
 import json
+import sys
 import datetime
-from collections import OrderedDict, Iterable
+from collections import OrderedDict
+
+if sys.version_info[0] == 2:
+    from collections import Iterable
+else:
+    from collections.abc import Iterable
 
 from youtube_api.youtube_api_utils import parse_yt_datetime
 
