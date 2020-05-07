@@ -329,8 +329,8 @@ class YouTubeDataAPI:
 
 
     def get_videos_from_playlist_id(self, playlist_id, next_page_token=None,
-                                    published_after=datetime.datetime(1990,1,1),
-                                    parser=P.parse_video_url, part=['snippet'], **kwargs):
+                                    parser=P.parse_video_url, part=['snippet'], max_results=200000,
+                                    **kwargs):
         '''
         Given a `playlist_id`, returns `video_ids` associated with that playlist.
 
@@ -342,8 +342,6 @@ class YouTubeDataAPI:
         :type platlist_id: str
         :param next_page_token: a token to continue from a preciously stopped query IE: "CDIQAA"
         :type next_page_token: str
-        :param cutoff_date: a date for the minimum publish date for videos from a playlist_id.
-        :type cutoff_date: datetime
         :param parser: the function to parse the json document
         :type parser: :mod:`youtube_api.parsers module`
         :param part: The part parameter specifies a comma-separated list of one or more resource properties that the API response will include. Different parameters cost different quota costs from the API.
@@ -369,11 +367,11 @@ class YouTubeDataAPI:
                                                timeout_in_n_seconds=20  )
             if response_json.get('items'):
                 for item in response_json.get('items'):
-                    publish_date = parse_yt_datetime(item['snippet'].get('publishedAt'))
-                    if publish_date <= published_after:
-                        run=False
-                        break
                     videos.append(parser(item))
+                    if len(videos) > max_results:
+                        run = False
+                        break
+                        
                 if response_json.get('nextPageToken'):
                     next_page_token = response_json.get('nextPageToken')
                 else:
