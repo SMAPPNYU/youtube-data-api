@@ -14,8 +14,8 @@ class TestVideo(unittest.TestCase):
     def setUpClass(cls):
         cls.key = os.environ.get('YT_KEY')
         cls.yt = YoutubeDataApi(cls.key)
-        cls.video_id = 'gl1aHhXnN1k'
-        cls.channel_id = 'UC9CoOnJkIBMdeijd9qYoT_g'
+        cls.video_id = 'QE5KOfjKLy0'
+        cls.channel_id = 'UC_x5XG1OV2P6uZZ5FSM9Ttw'
         #cls.vid_publish = datetime.datetime(2018, 11, 28, 10, 0, 3)
         cls.search_term = 'John Oliver'
         cls.list_of_videos = ['ximgPmJ9A5s','gl1aHhXnN1k']
