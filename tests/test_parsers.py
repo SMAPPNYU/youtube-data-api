@@ -90,7 +90,8 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['subscription_title'], "Google Search Stories")
         self.assertEqual(metadata['subscription_channel_id'], "UCvceBgMIpKb4zK1ss-Sh90w")
         self.assertEqual(metadata['subscription_kind'], "youtube#channel")
-        self.assertEqual(metadata['subscription_publish_date'], datetime.datetime.timstamp(datetime.datetime(2012, 10, 3, 19, 11, 46)))
+        self.assertEqual(metadata['subscription_publish_date'], datetime.datetime.time
+                         stamp(datetime.datetime(2012, 10, 3, 19, 11, 46)))
 
     
     def test_featured_channels(self):
