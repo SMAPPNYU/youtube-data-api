@@ -65,6 +65,7 @@ class TestVideo(unittest.TestCase):
             self.assertTrue('video_title' in list(item.keys()))
             self.assertTrue('channel_title' in list(item.keys()))
             
+            
             self.assertTrue(item['video_publish_date'] > self.published_after)
             
             
