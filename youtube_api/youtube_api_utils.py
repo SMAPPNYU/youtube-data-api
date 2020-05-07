@@ -59,8 +59,13 @@ def parse_yt_datetime(date_str):
     if date_str:
         try:
             date = datetime.datetime.strptime(date_str,"%Y-%m-%dT%H:%M:%S.%fZ")
+            date = datetime.datetime.timestamp(date)
         except:
-            pass
+            try:
+                date = datetime.datetime.strptime(date_str,"%Y-%m-%dT%H:%M:%SZ")
+                date = datetime.datetime.timestamp(date)
+            except:
+                pass
     return date
 
 def get_upload_playlist_id(channel_id):
