@@ -576,8 +576,8 @@ class YouTubeDataAPI:
 
     def search(self, q=None, channel_id=None,
                max_results=5, order_by="relevance", next_page_token=None,
-               published_after=datetime.datetime(2000,1,1),
-               published_before=datetime.datetime(3000,1,1),
+               published_after=datetime.datetime.timestamp(datetime.datetime(2000,1,1)),
+               published_before=datetime.datetime.timestamp(datetime.datetime(3000,1,1)),
                location=None, location_radius='1km', region_code=None,
                safe_search=None, relevance_language=None, event_type=None,
                topic_id=None, video_duration=None, search_type="video",
@@ -642,14 +642,20 @@ class YouTubeDataAPI:
                 http_endpoint += "&q={}".format(q)
 
             if published_after:
-                if not isinstance(published_after, datetime.date):
-                    raise Exception("published_after must be a datetime, not a {}".format(type(published_after)))
+                if not isinstance(published_after, float) or not isinstance(published_after, datetime.date):
+                    raise Exception("published_after must be a timestamp, not a {}".format(type(published_after)))
+                
+                if isinstance(published_after, float):
+                    published_after = datetime.datetime.utcfromtimestamp(published_after)
                 _published_after = datetime.datetime.strftime(published_after, "%Y-%m-%dT%H:%M:%SZ")
                 http_endpoint += "&publishedAfter={}".format(_published_after)
 
             if published_before:
-                if not isinstance(published_before, datetime.date):
-                    raise Exception("published_before must be a datetime, not a {}".format(type(published_before)))
+                if not isinstance(published_before, float) or not isinstance(published_before, datetime.date):
+                    raise Exception("published_before must be a timestamp, not a {}".format(type(published_before)))
+                    
+                if isinstance(published_before, float):
+                    published_before = datetime.datetime.utcfromtimestamp(published_before)
                 _published_before = datetime.datetime.strftime(published_before, "%Y-%m-%dT%H:%M:%SZ")
                 http_endpoint += "&publishedBefore={}".format(_published_before)
 
