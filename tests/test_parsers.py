@@ -42,7 +42,7 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['video_id'], "kNbhUWLH_yY")
         self.assertEqual(metadata['channel_title'], "CUNAAdvocacy")
         self.assertEqual(metadata['channel_id'], "UCJvIPpWSsW-EGuQjNIZbBTQ")
-        self.assertEqual(metadata['video_publish_date'], datetime.datetime(2018, 3, 14, 20, 53, 14))
+        self.assertEqual(metadata['video_publish_date'], datetime.datetime.timestamp(datetime.datetime(2018, 3, 14, 20, 53, 14)))
         self.assertEqual(metadata['video_title'], "Thank you Senator Crapo for your support on Regulatory Relief")
         self.assertEqual(metadata['video_description'], '')
         self.assertEqual(metadata['video_category'], "29")
@@ -58,7 +58,7 @@ class TestParsers(unittest.TestCase):
         '''Verified by Megan Brown on 11/30/2018'''
         metadata = P.parse_video_url(self.video_metadata_item)
 
-        self.assertEqual(metadata['publish_date'], datetime.datetime(2018, 3, 14, 20, 53, 14))
+        self.assertEqual(metadata['publish_date'], datetime.datetime.timestamp(datetime.datetime(2018, 3, 14, 20, 53, 14)))
         self.assertEqual(metadata['video_id'], "kNbhUWLH_yY")
         self.assertEqual(metadata['channel_id'], "UCJvIPpWSsW-EGuQjNIZbBTQ")
 
@@ -90,7 +90,7 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['subscription_title'], "Google Search Stories")
         self.assertEqual(metadata['subscription_channel_id'], "UCvceBgMIpKb4zK1ss-Sh90w")
         self.assertEqual(metadata['subscription_kind'], "youtube#channel")
-        self.assertEqual(metadata['subscription_publish_date'], datetime.datetime(2012, 10, 3, 19, 11, 46))
+        self.assertEqual(metadata['subscription_publish_date'], datetime.datetime.timstamp(datetime.datetime(2012, 10, 3, 19, 11, 46)))
 
     
     def test_featured_channels(self):
@@ -121,7 +121,7 @@ class TestParsers(unittest.TestCase):
 
         self.assertEqual(metadata['playlist_name'], "PAIR UX Symposium 2018")
         self.assertEqual(metadata['playlist_id'], "PLOU2XLYxmsILhFpQQzS8zo8mc86IRNqMa")
-        self.assertEqual(metadata['playlist_publish_date'], datetime.datetime(2018, 6, 29, 21, 24, 9))
+        self.assertEqual(metadata['playlist_publish_date'], datetime.datetime.timestamp(datetime.datetime(2018, 6, 29, 21, 24, 9)))
         self.assertEqual(metadata['channel_id'], "UC_x5XG1OV2P6uZZ5FSM9Ttw")
         self.assertEqual(metadata['channel_name'], "Google Developers")
 
@@ -139,7 +139,7 @@ class TestParsers(unittest.TestCase):
 
         self.assertEqual(metadata['comment_like_count'], item["snippet"].get("likeCount"))
 
-        self.assertEqual(metadata['comment_publish_date'], datetime.datetime(2018, 7, 7, 10, 31, 0))
+        self.assertEqual(metadata['comment_publish_date'], datetime.datetime.timestamp(datetime.datetime(2018, 7, 7, 10, 31, 0)))
         self.assertEqual(metadata['text'], "asddddf")
         self.assertEqual(metadata['video_id'], item["snippet"].get("videoId"))
 
@@ -155,7 +155,7 @@ class TestParsers(unittest.TestCase):
         self.assertEqual(metadata['video_id'], "w-HYZv6HzAs")
         self.assertEqual(metadata['channel_title'], "TEDx Talks")
         self.assertEqual(metadata['channel_id'], "UCsT0YIqwnpJCM-mx7-gSA4Q")
-        self.assertEqual(metadata['video_publish_date'], datetime.datetime(2012, 1, 13, 19, 42, 36))
+        self.assertEqual(metadata['video_publish_date'], datetime.datetime.timestamp(datetime.datetime(2012, 1, 13, 19, 42, 36)))
         self.assertEqual(metadata['video_title'], "The skill of self confidence | Dr. Ivan Joseph | TEDxRyersonU")
         self.assertEqual(metadata['video_description'], "Never miss a talk! SUBSCRIBE to the TEDx channel: http://bit.ly/1FAg8hB\n\nAs the Athletic Director and head coach of the Varsity Soccer team at Ryerson University, Dr. Joseph is often asked what skills he is searching for as a recruiter: is it speed? Strength? Agility? In Dr. Joseph's TEDx Talk, he explores self confidence and how it is not just the most important skill in athletics, but in our lives.\n \nIn the spirit of ideas worth spreading, TEDx is a program of local, self-organized events that bring people together to share a TED-like experience. At a TEDx event, TEDTalks video and live speakers combine to spark deep discussion and connection in a small group. These local, self-organized events are branded TEDx, where x = independently organized TED event. The TED Conference provides general guidance for the TEDx program, but individual TEDx events are self-organized.* (*Subject to certain rules and regulations)")
         self.assertIsNone(metadata['video_category'])
