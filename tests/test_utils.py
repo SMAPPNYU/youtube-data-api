@@ -18,7 +18,7 @@ class TestVideo(unittest.TestCase):
         cls.upload_id = 'UU3XTzVzaHQEd30rQbuvCtTQ'
         cls.liked_id = 'LL3XTzVzaHQEd30rQbuvCtTQ'
         cls.date = '2018-03-14T20:53:14.000Z'
-        cls.datetime_date = datetime.datetime(2018, 3, 14, 20, 53, 14)
+        cls.datetime_date = datetime.datetime.timestamp(datetime.datetime(2018, 3, 14, 20, 53, 14))
         cls.user_url = 'https://www.youtube.com/user/LastWeekTonight'
         cls.channel_url = 'https://www.youtube.com/channel/UC3XTzVzaHQEd30rQbuvCtTQ'
         cls.video_id = '481YX6T9Xzs'
