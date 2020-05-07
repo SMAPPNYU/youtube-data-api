@@ -16,8 +16,8 @@ class TestVideo(unittest.TestCase):
         cls.search_term = 'John Oliver'
         cls.channel_id = 'UC3XTzVzaHQEd30rQbuvCtTQ'
         cls.max_results = 10
-        cls.published_after = datetime.datetime(2018,11,30)
-        cls.published_before = datetime.datetime(2018,12,1)
+        cls.published_after = datetime.datetime.timestamp(datetime.datetime(2018,11,30))
+        cls.published_before = datetime.datetime.timestamp(datetime.datetime(2018,12,1))
         cls.topic_search = 'ted talks'
         cls.topic_id = 22
 
