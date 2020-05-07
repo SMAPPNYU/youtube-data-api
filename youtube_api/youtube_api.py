@@ -642,7 +642,7 @@ class YouTubeDataAPI:
                 http_endpoint += "&q={}".format(q)
 
             if published_after:
-                if not isinstance(published_after, float) or not isinstance(published_after, datetime.date):
+                if not isinstance(published_after, float) and not isinstance(published_after, datetime.date):
                     raise Exception("published_after must be a timestamp, not a {}".format(type(published_after)))
                 
                 if isinstance(published_after, float):
@@ -651,7 +651,7 @@ class YouTubeDataAPI:
                 http_endpoint += "&publishedAfter={}".format(_published_after)
 
             if published_before:
-                if not isinstance(published_before, float) or not isinstance(published_before, datetime.date):
+                if not isinstance(published_before, float) and not isinstance(published_before, datetime.date):
                     raise Exception("published_before must be a timestamp, not a {}".format(type(published_before)))
                     
                 if isinstance(published_before, float):
