@@ -147,7 +147,7 @@ class YouTubeDataAPI:
         if isinstance(channel_id, list) or isinstance(channel_id, pd.Series):
             for chunk in _chunker(channel_id, 50):
                 id_input = ','.join(chunk)
-                http_endpoint = ("https://www.googleapis.com/youtube/{}/channels?"
+                http_endpoint = ("https://www.googleapis.com/youtube/v{}/channels?"
                                 "part={}&id={}&key={}&maxResults=50".format(
                                     self.api_version, part, id_input, self.key))
                 for k,v in kwargs.items():
