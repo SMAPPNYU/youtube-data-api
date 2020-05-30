@@ -577,7 +577,7 @@ class YouTubeDataAPI:
     def search(self, q=None, channel_id=None,
                max_results=5, order_by="relevance", next_page_token=None,
                published_after=datetime.datetime.timestamp(datetime.datetime(2000,1,1)),
-               published_before=datetime.datetime.timestamp(datetime.datetime(3000,1,1)),
+               published_before=datetime.datetime.timestamp(datetime.datetime(2038,1,1)),
                location=None, location_radius='1km', region_code=None,
                safe_search=None, relevance_language=None, event_type=None,
                topic_id=None, video_duration=None, search_type="video",
