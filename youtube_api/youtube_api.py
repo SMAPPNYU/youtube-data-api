@@ -504,7 +504,77 @@ class YouTubeDataAPI:
             featured_channels.append(channel)
         return featured_channels
 
+    def get_all_threads(self, channel_id, get_replies=True,
+                           max_results=None, next_page_token=False,
+                           parser=P.parse_comment_metadata, part = ['snippet'],
+                           **kwargs):
+        """
+        Returns comments and replies to comments for *all* comment threads associated with a particular channel.
 
+        Response could include comments about the channel or about the channel's videos.
+
+        Read the docs: https://developers.google.com/youtube/v3/docs/commentThreads/list
+
+
+        :param channel_id: a channel_id IE: "UCMtFAi84ehTSYSE9XoHefig"
+        :type channel_id: str
+        :param get_replies: whether or not to get replies to comments
+        :type get_replies: bool
+        :param parser: the function to parse the json document
+        :type parser: :mod:`youtube_api.parsers module`
+        :param part: The part parameter specifies a comma-separated list of one or more resource properties that the API response will include. Different parameters cost different quota costs from the API.
+        :type part: list
+
+        :returns: comments and responses to comments of the given ``channel_id``.
+        :rtype: list of dict
+        """
+        parser=parser if parser else P.raw_json
+        part = ','.join(part)
+        comments = []
+        run = True
+        while run:
+            http_endpoint = ("https://www.googleapis.com/youtube/v{}/commentThreads?"
+                             "part={}&textFormat=plainText&maxResults=100&"
+                             "allThreadsRelatedToChannelId={}&key={}".format(
+                                 self.api_version, part, channel_id, self.key))
+            for k,v in kwargs.items():
+                http_endpoint += '&{}={}'.format(k, v)
+            if next_page_token:
+                http_endpoint += "&pageToken={}".format(next_page_token)
+            response = self.session.get(http_endpoint)
+            response_json = _load_response(response)
+            if response_json.get('items'):
+                items = response_json.get('items')
+                for item in items:
+                    if max_results:
+                        if len(comments) >= max_results:
+                            return comments
+                    comments.append(parser(item))
+            if response_json.get('nextPageToken'):
+                next_page_token = response_json['nextPageToken']
+            else:
+                run=False
+                break
+
+        if get_replies:
+            for comment in comments:
+                if comment.get('reply_count') and comment.get('reply_count') > 0:
+                    comment_id = comment.get('comment_id')
+                    http_endpoint = ("https://www.googleapis.com/youtube/v{}/comments?"
+                                     "part={}&textFormat=plainText&maxResults=100&"
+                                     "parentId={}&key={}".format(
+                                         self.api_version, part, comment_id, self.key))
+                    for k,v in kwargs.items():
+                        http_endpoint += '&{}={}'.format(k, v)
+                    response_json = self._http_request(http_endpoint)
+                    if response_json.get('items'):
+                        for item in response_json.get('items'):
+                            if max_results:
+                                if len(comments) >= max_results:
+                                    return comments
+                            comments.append(parser(item))
+        return comments
+        
     def get_video_comments(self, video_id, get_replies=True,
                            max_results=None, next_page_token=False,
                            parser=P.parse_comment_metadata, part = ['snippet'],
