@@ -238,7 +238,7 @@ class YouTubeDataAPI:
                 else:
                     yield parser(None)
         else:
-            raise Expection('This function only takes iterables!')
+            raise Exception('This function only takes iterables!')
 
 
     def get_video_metadata(self, video_id, parser=P.parse_video_metadata, part=['statistics','snippet'],  **kwargs):
