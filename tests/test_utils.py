@@ -5,7 +5,7 @@ import unittest
 import requests
 import datetime
 
-from youtube_api import YoutubeDataApi
+from youtube_api import YouTubeDataAPI
 from youtube_api import youtube_api_utils as utils
 
 class TestVideo(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestVideo(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.key = os.environ.get('YT_KEY')
-        cls.yt = YoutubeDataApi(cls.key)
+        cls.yt = YouTubeDataAPI(cls.key)
         cls.channel_id = 'UC3XTzVzaHQEd30rQbuvCtTQ'
         cls.upload_id = 'UU3XTzVzaHQEd30rQbuvCtTQ'
         cls.liked_id = 'LL3XTzVzaHQEd30rQbuvCtTQ'

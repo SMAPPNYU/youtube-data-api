@@ -230,7 +230,7 @@ def parse_comment_metadata(item):
     comment_meta = {
         "video_id" : item["snippet"].get("videoId"),
         "commenter_channel_url" : item["snippet"].get("authorChannelUrl"),
-        "commenter_channel_id" : item['snippet'].get('authorChannelId').get('value', None),
+        "commenter_channel_id" : item['snippet'].get('authorChannelId', dict()).get('value', None),
         "commenter_channel_display_name" : item['snippet'].get('authorDisplayName'),
         "comment_id" : item.get("id"),
         "comment_like_count" : item["snippet"].get("likeCount"),

@@ -6,14 +6,14 @@ import requests
 import datetime
 from collections import OrderedDict
 
-from youtube_api import YoutubeDataApi
+from youtube_api import YouTubeDataAPI
 
 class TestVideo(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
         cls.key = os.environ.get('YT_KEY')
-        cls.yt = YoutubeDataApi(cls.key)
+        cls.yt = YouTubeDataAPI(cls.key)
         cls.video_id = 'QE5KOfjKLy0'
         cls.channel_id = 'UC_x5XG1OV2P6uZZ5FSM9Ttw'
         #cls.vid_publish = datetime.datetime(2018, 11, 28, 10, 0, 3)
