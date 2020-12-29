@@ -70,6 +70,7 @@ def parse_video_metadata(item):
         "video_comment_count" : item["statistics"].get("commentCount"),
         "video_like_count" : item["statistics"].get("likeCount"),
         "video_dislike_count" : item["statistics"].get("dislikeCount"),
+        "duration" : item["contentDetails"]["duration"],
         "video_thumbnail" : item["snippet"]["thumbnails"]["high"]["url"],
         "video_tags" :  video_tags,
         "collection_date" : datetime.datetime.now()
