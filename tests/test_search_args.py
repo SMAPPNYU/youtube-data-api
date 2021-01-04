@@ -5,14 +5,14 @@ import unittest
 import requests
 import datetime
 from collections import OrderedDict
-from youtube_api import YoutubeDataApi
+from youtube_api import YouTubeDataAPI
 
 class TestVideo(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
         cls.key = os.environ.get('YT_KEY')
-        cls.yt = YoutubeDataApi(cls.key)
+        cls.yt = YouTubeDataAPI(cls.key)
         cls.search_term = 'John Oliver'
         cls.channel_id = 'UC3XTzVzaHQEd30rQbuvCtTQ'
         cls.max_results = 10

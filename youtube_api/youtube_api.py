@@ -1,3 +1,4 @@
+import sys
 import time
 import requests
 from requests.packages.urllib3.util.retry import Retry
@@ -16,7 +17,7 @@ from youtube_api.youtube_api_utils import (
 import youtube_api.parsers as P
 
 """
-This script has the YouTubeDataApi class and functions for the API's endpoints.
+This script has the YouTubeDataAPI class and functions for the API's endpoints.
 """
 
 __all__ = ['YoutubeDataApi', 'YouTubeDataAPI']
@@ -238,7 +239,7 @@ class YouTubeDataAPI:
                 else:
                     yield parser(None)
         else:
-            raise Expection('This function only takes iterables!')
+            raise Exception('This function only takes iterables!')
 
 
     def get_video_metadata(self, video_id, parser=P.parse_video_metadata, part=['statistics','snippet'],  **kwargs):
@@ -346,7 +347,9 @@ class YouTubeDataAPI:
         :type parser: :mod:`youtube_api.parsers module`
         :param part: The part parameter specifies a comma-separated list of one or more resource properties that the API response will include. Different parameters cost different quota costs from the API.
         :type part: list
-
+        :param max_results: How many video IDs should returned? Contrary to the name, this is actually the minimum number of results to be returned.
+        :type mac_results: int
+        
         :returns: video ids associated with ``playlist_id``.
         :rtype: list of dict
         '''
@@ -368,7 +371,7 @@ class YouTubeDataAPI:
             if response_json.get('items'):
                 for item in response_json.get('items'):
                     videos.append(parser(item))
-                    if len(videos) > max_results:
+                    if len(videos) >= max_results:
                         run = False
                         break
                         
@@ -577,7 +580,8 @@ class YouTubeDataAPI:
     def search(self, q=None, channel_id=None,
                max_results=5, order_by="relevance", next_page_token=None,
                published_after=datetime.datetime.timestamp(datetime.datetime(2000,1,1)),
-               published_before=datetime.datetime.timestamp(datetime.datetime(3000,1,1)),
+               published_before=datetime.datetime.timestamp(
+                   datetime.datetime((3000 if sys.maxsize > 2**31 else 2038),1,1)),
                location=None, location_radius='1km', region_code=None,
                safe_search=None, relevance_language=None, event_type=None,
                topic_id=None, video_duration=None, search_type="video",
@@ -733,11 +737,10 @@ class YouTubeDataAPI:
         :rtype: list of dict
         """
 
-        return self.search(relatedToVideoId=video_id, order_by='relevance',
-                           max_results=max_results, parser=parser, **kwargs)
+        return self.search(relatedToVideoId=video_id, order_by='relevance')
 
-
+    
 class YoutubeDataApi(YouTubeDataAPI):
-    """Variant case of the main YouTubeDataAPI class. This class will de depricated by version 0.19."""
+    """Variant case of the main YouTubeDataAPI class. This class will de depricated by version 0.0.21"""
     def __init__(self, key, **kwargs):
         super().__init__(key, **kwargs)

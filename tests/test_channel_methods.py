@@ -4,7 +4,7 @@ sys.path.append('../')
 import unittest
 import requests
 
-from youtube_api import YoutubeDataApi
+from youtube_api import YouTubeDataAPI
 import youtube_api.youtube_api_utils as utils
 
 class TestVideo(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestVideo(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.key = os.environ.get('YT_KEY')
-        cls.yt = YoutubeDataApi(cls.key)
+        cls.yt = YouTubeDataAPI(cls.key)
         cls.channel_id = 'UC3XTzVzaHQEd30rQbuvCtTQ'
         cls.channel_title = 'LastWeekTonight'
 

@@ -20,7 +20,7 @@ import datetime
 import collections
 
 sys.path.append(os.path.abspath('../')) 
-from youtube_api import YoutubeDataApi
+from youtube_api import YouTubeDataAPI
 import youtube_api.parsers as P
 import config
 from test_utils import get_all_keys
@@ -29,7 +29,7 @@ class TestSearch(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.key = config.key
-        cls.yt = YoutubeDataApi(config.key)
+        cls.yt = YouTubeDataAPI(config.key)
         cls.defunct_playlist_id = 'UUvsye7V9psc-APX6wV1twLg' #alex jones
         cls.playlist_id = 'UU3XTzVzaHQEd30rQbuvCtTQ'         #lastweektonight
         cls.future_date = datetime.datetime(2200, 1, 1)

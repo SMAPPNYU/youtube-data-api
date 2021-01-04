@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import patch
 import requests
 
-from youtube_api import YoutubeDataApi
+from youtube_api import YouTubeDataAPI
 
 class TestAPI(unittest.TestCase):
 
@@ -13,16 +13,16 @@ class TestAPI(unittest.TestCase):
     def setUpClass(cls):
         cls.key = os.environ.get('YT_KEY')
         cls.wrong_key = 'xxxxxxxxx'
-        cls.yt = YoutubeDataApi(cls.key, timeout=10)
+        cls.yt = YouTubeDataAPI(cls.key, timeout=10)
 
 
     def test_init(self):
         '''#Verified by Megan Brown on 11/30/2018'''
         with self.assertRaisesRegex(ValueError, 'No API key used to initate the class.'):
-            yt = YoutubeDataApi('')
+            yt = YouTubeDataAPI('')
 
         with self.assertRaisesRegex(ValueError, 'The API Key is invalid'):
-            yt = YoutubeDataApi(self.wrong_key)
+            yt = YouTubeDataAPI(self.wrong_key)
 
 
     @patch('requests.get')
