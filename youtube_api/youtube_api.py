@@ -205,9 +205,9 @@ class YouTubeDataAPI:
 
 
     def get_video_metadata_gen(self, video_id, parser=P.parse_video_metadata,
-                               part=['statistics','snippet'],  **kwargs):
+                               part=['statistics','snippet','contentDetails'],  **kwargs):
         '''
-        Given a `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.
+        Given a `video_id` returns metrics (views, likes, comments, duration) and metadata (description, category) as a dictionary.
 
         Read the docs: https://developers.google.com/youtube/v3/docs/videos/list
 
@@ -242,9 +242,9 @@ class YouTubeDataAPI:
             raise Exception('This function only takes iterables!')
 
 
-    def get_video_metadata(self, video_id, parser=P.parse_video_metadata, part=['statistics','snippet'],  **kwargs):
+    def get_video_metadata(self, video_id, parser=P.parse_video_metadata, part=['statistics','snippet','contentDetails'],  **kwargs):
         '''
-        Given a single or list of `video_id` returns metrics (views, likes, comments) and metadata (description, category) as a dictionary.
+        Given a single or list of `video_id` returns metrics (views, likes, comments, duration) and metadata (description, category) as a dictionary.
 
         Read the docs: https://developers.google.com/youtube/v3/docs/videos/list
 
