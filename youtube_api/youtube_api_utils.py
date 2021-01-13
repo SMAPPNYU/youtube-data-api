@@ -59,10 +59,12 @@ def parse_yt_datetime(date_str):
     if date_str:
         try:
             date = datetime.datetime.strptime(date_str,"%Y-%m-%dT%H:%M:%S.%fZ")
+            date = date.replace(tzinfo = datetime.timezone.utc)
             date = datetime.datetime.timestamp(date)
         except:
             try:
                 date = datetime.datetime.strptime(date_str,"%Y-%m-%dT%H:%M:%SZ")
+                date = date.replace(tzinfo = datetime.timezone.utc)
                 date = datetime.datetime.timestamp(date)
             except:
                 pass

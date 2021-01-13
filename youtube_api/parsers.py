@@ -72,7 +72,9 @@ def parse_video_metadata(item):
         "video_dislike_count" : item["statistics"].get("dislikeCount"),
         "video_thumbnail" : item["snippet"]["thumbnails"]["high"]["url"],
         "video_tags" :  video_tags,
-        "collection_date" : datetime.datetime.now()
+        "collection_date" : datetime.datetime.now(),
+        "default_langage": item["snippet"].get("defaultLanguage"),
+        "audio_language": item["snippet"].get("defaultAudioLanguage")
     }
 
     return video_meta
