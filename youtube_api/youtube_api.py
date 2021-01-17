@@ -325,6 +325,8 @@ class YouTubeDataAPI:
                     next_page_token = response_json.get('nextPageToken')
                 else:
                     break
+            else:
+                return None
 
         return playlists
 
