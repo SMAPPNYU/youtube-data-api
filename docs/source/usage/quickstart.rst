@@ -148,7 +148,7 @@ perfect for converting into Pandas `DataFrames <https://pandas.pydata.org/pandas
 
 
 
-Aside from the default parser, the ``parse`` argument allows users to create custom functions to parse and process API resonses. You can also get raw JSON from the API by using the :meth:`youtube_api.parsers.raw_json` parser, or setting parser to ``None``.
+Aside from the default parser, the ``parse`` argument allows users to create custom functions to parse and process API responses. You can also get raw JSON from the API by using the :meth:`youtube_api.parsers.raw_json` parser, or setting parser to ``None``.
 
 .. code:: python
 
