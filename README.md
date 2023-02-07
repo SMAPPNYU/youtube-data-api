@@ -37,7 +37,7 @@ yt = YouTubeDataAPI(api_key)
 yt.search('alexandria ocasio-cortez')
 ```
 
-The `yt` object calls functions that automate the collection of data fields that are both visable and not-visable to everyday users.
+The `yt` object calls functions that automate the collection of data fields that are both visible and not-visible to everyday users.
 
 Please refer to the [documentation](http://bit.ly/YouTubeDataAPI) for details.
 

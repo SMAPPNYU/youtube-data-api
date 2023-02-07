@@ -103,7 +103,7 @@ class YouTubeDataAPI:
 
     def get_channel_id_from_user(self, username, **kwargs):
         """
-        Get a channel_id from a YouTube username. These are the unique identifiers for all YouTube "uers". IE. "Munchies" -> "UCaLfMkkHhSA_LaCta0BzyhQ".
+        Get a channel_id from a YouTube username. These are the unique identifiers for all YouTube "users". IE. "Munchies" -> "UCaLfMkkHhSA_LaCta0BzyhQ".
 
         Read the docs: https://developers.google.com/youtube/v3/docs/channels/list
 
@@ -340,7 +340,7 @@ class YouTubeDataAPI:
         Read the docs: https://developers.google.com/youtube/v3/docs/playlistItems
 
         :param playlist_id: the playlist_id IE: "UUaLfMkkHhSA_LaCta0BzyhQ"
-        :type platlist_id: str
+        :type playlist_id: str
         :param next_page_token: a token to continue from a preciously stopped query IE: "CDIQAA"
         :type next_page_token: str
         :param parser: the function to parse the json document
@@ -608,7 +608,7 @@ class YouTubeDataAPI:
         :type published_after: datetime
         :param published_before: Only show videos uploaded before datetime
         :type published_before: datetime
-        :param location: Coodinates of video uploaded in location.
+        :param location: Coordinates of video uploaded in location.
         :type location: tuple
         :param location_radius: The radius from the ``location`` param to include in the search.
         :type location_radius: str
@@ -741,6 +741,6 @@ class YouTubeDataAPI:
 
     
 class YoutubeDataApi(YouTubeDataAPI):
-    """Variant case of the main YouTubeDataAPI class. This class will de depricated by version 0.0.21"""
+    """Variant case of the main YouTubeDataAPI class. This class will be deprecated by version 0.0.21"""
     def __init__(self, key, **kwargs):
         super().__init__(key, **kwargs)

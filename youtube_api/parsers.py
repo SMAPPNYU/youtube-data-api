@@ -106,7 +106,7 @@ def parse_video_url(item):
 
 def parse_channel_metadata(item):
     '''
-    Parses and processes raw output and returns channel_id, title, account_creatation_date, keywords, description, view_count, video_count, subscription_count, playlist_id_likes, playlist_id_uploads, topic_ids, country, collection_date.
+    Parses and processes raw output and returns channel_id, title, account_creation_date, keywords, description, view_count, video_count, subscription_count, playlist_id_likes, playlist_id_uploads, topic_ids, country, collection_date.
     
     :params item: json document
     :type item: dict
