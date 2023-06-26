@@ -28,7 +28,7 @@ pip install -r requirements.txt
 In order to access the API, you'll need to get a [service key](https://developers.google.com/youtube/registering_an_application#Create_API_Keys) from the [Google Cloud Console](https://console.cloud.google.com/).
 
 Once you have it you can use the API key to initiate the `YouTubeDataAPI` class.
-```
+```py
 from youtube_api import YouTubeDataAPI
 
 api_key = 'AKAIXXXXXXXX'
@@ -51,7 +51,7 @@ For further information, please refer to `./tests/readme.md`.
 Written by Leon Yin and Megan Brown. Michael Liu helped write and document tests.
 
 If you use this software in your research please cite it as:
-```
+```bib
 @misc{leon_yin_2018_1414418,
   author       = {Leon Yin and
                   Megan Brown},
@@ -65,5 +65,5 @@ If you use this software in your research please cite it as:
 
 ## Contributions
 We are actively seeking core maintainers and contributors!
-We will be documenting best practices and procedures for contributing code
+We will be documenting best practices and procedures for contributing code.
 If you see a typo or documentation that is not clear, please make a pull request!
